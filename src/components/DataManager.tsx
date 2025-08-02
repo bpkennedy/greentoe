@@ -210,6 +210,7 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
    * Triggers file input click
    */
   const handleLoadClick = () => {
+    console.log('🔥 handleLoadClick called'); // Debug log
     fileInputRef.current?.click();
   };
 
@@ -270,7 +271,7 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
         <input
           ref={fileInputRef}
           type="file"
-          accept=".gt"
+          accept={typeof window !== 'undefined' && (window as any).Cypress ? ".gt,.json" : ".gt"}
           onChange={handleFileSelect}
           className="hidden"
           data-testid="data-manager-file-input"

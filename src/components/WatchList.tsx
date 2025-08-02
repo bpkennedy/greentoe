@@ -58,6 +58,7 @@ interface WatchListProps {
 }
 
 export function WatchList({ className }: WatchListProps) {
+  console.log('🔥 WatchList component rendered'); // Debug log
   const { watchList, addTicker, removeTicker } = useWatchList();
 
   const handleAddTicker = (symbol: string) => {
@@ -66,9 +67,12 @@ export function WatchList({ className }: WatchListProps) {
 
   // Expose addTicker to global scope for testing/automation
   React.useEffect(() => {
+    console.log('🔥 useEffect for testAddStock running'); // Debug log
     if (typeof window !== 'undefined') {
       console.log('🔥 Setting testAddStock on window'); // Debug log
       (window as any).testAddStock = handleAddTicker;
+      (window as any).testAddStockStatus = 'ready'; // Debug indicator
+      console.log('🔥 testAddStock set, window.testAddStock:', typeof (window as any).testAddStock); // Debug log
     }
   }, [handleAddTicker]);
 
@@ -77,7 +81,7 @@ export function WatchList({ className }: WatchListProps) {
   };
 
   return (
-    <Card className={cn('w-full', className)} role="region" aria-labelledby="watchlist-title">
+    <Card className={cn('w-full', className)} role="region" aria-labelledby="watchlist-title" data-testid="watchlist">
       <CardHeader>
         <CardTitle id="watchlist-title" className="text-2xl">Watch List</CardTitle>
         <CardDescription>

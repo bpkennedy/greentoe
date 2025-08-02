@@ -54,6 +54,13 @@ declare global {
 
 // Custom command to add stock to watch list
 Cypress.Commands.add('addStockToWatchList', (symbol: string) => {
+  // First check if WatchList component rendered
+  cy.window().then((win) => {
+    cy.log('Window properties:', Object.keys(win).filter(k => k.includes('test')));
+    cy.log('testAddStockStatus:', (win as any).testAddStockStatus);
+    cy.log('testAddStock type:', typeof (win as any).testAddStock);
+  });
+  
   // Wait for WatchList component to mount and expose the test method
   cy.window().should('have.property', 'testAddStock').then((win) => {
     (win as any).testAddStock(symbol);
