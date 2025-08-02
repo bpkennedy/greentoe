@@ -216,7 +216,7 @@
         "dependencies": [
           1
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -224,7 +224,7 @@
             "description": "Install all necessary MDX-related packages including @next/mdx, @mdx-js/loader, @mdx-js/react, and their TypeScript types.",
             "dependencies": [],
             "details": "Run npm install commands to add @next/mdx, @mdx-js/loader, @mdx-js/react, and @types/mdx to the project dependencies to enable MDX support in Next.js.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -233,7 +233,7 @@
             "description": "Modify next.config.js (or next.config.mjs) to integrate MDX processing and support .mdx file extensions as pages.",
             "dependencies": [],
             "details": "Use createMDX from @next/mdx to wrap the Next.js config, add 'mdx' and 'md' to pageExtensions, and create an mdx-components.tsx file for global MDX components configuration.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -242,7 +242,7 @@
             "description": "Create six lesson MDX files in the /content/lessons/ directory, each exporting a meta object with title, summary, learning objectives, and other metadata.",
             "dependencies": [],
             "details": "Develop the following MDX files: 01-understanding-stocks-index-funds.mdx, 02-reading-performance-charts.mdx, 03-comparing-investments.mdx, 04-research-before-you-buy.mdx, 05-keeping-emotions-in-check.mdx, and 06-understanding-risk.mdx. Each file should include frontmatter or exported meta objects with structured metadata.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -251,7 +251,7 @@
             "description": "Ensure each MDX lesson file exports a meta object and create a utility function to parse and aggregate metadata from all lesson files.",
             "dependencies": [],
             "details": "Implement a utility module that imports all lesson MDX files, extracts their meta objects, and provides a consolidated metadata list for use in lesson navigation and display.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -260,7 +260,7 @@
             "description": "Review and adjust lesson content to maintain a teen-friendly tone and style appropriate for the target audience.",
             "dependencies": [],
             "details": "Apply content guidelines to ensure language is accessible, engaging, and appropriate for teenagers, avoiding jargon and complex terminology while maintaining educational value.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -269,7 +269,7 @@
             "description": "Verify that MDX files parse correctly, metadata extraction works as expected, and lesson content renders properly in the Next.js application.",
             "dependencies": [],
             "details": "Perform functional testing by loading lesson pages, checking metadata availability, and confirming that the teen-friendly content style is preserved in the rendered output.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -1267,7 +1267,7 @@
     ],
     "metadata": {
       "created": "2025-08-02T03:40:48.786Z",
-      "updated": "2025-08-02T05:28:19.625Z",
+      "updated": "2025-08-02T05:41:34.362Z",
       "description": "Tasks for master context"
     }
   }
