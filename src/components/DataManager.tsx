@@ -36,7 +36,7 @@ type OperationType = 'save' | 'load' | null;
 /**
  * Merge strategy options
  */
-type MergeStrategy = 'replace' | 'merge' | 'append';
+type MergeStrategy = 'merge' | 'replace';
 
 /**
  * DataManager Component
@@ -228,6 +228,7 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
             disabled={isLoading}
             className="flex-1"
             variant="default"
+            data-testid="data-manager-save"
           >
             {isLoading && currentOperation === 'save' ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -242,6 +243,7 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
             disabled={isLoading}
             className="flex-1"
             variant="outline"
+            data-testid="data-manager-load"
           >
             {isLoading && currentOperation === 'load' ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -259,6 +261,7 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
           accept=".gt"
           onChange={handleFileSelect}
           className="hidden"
+          data-testid="data-manager-file-input"
         />
 
         {/* Current State Summary */}
@@ -318,29 +321,14 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
                   </div>
                 </label>
 
-                <label className="flex items-center space-x-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="mergeStrategy"
-                    value="append"
-                    checked={mergeStrategy === 'append'}
-                    onChange={(e) => setMergeStrategy(e.target.value as MergeStrategy)}
-                    className="w-4 h-4"
-                  />
-                  <div>
-                    <div className="font-medium">Append data</div>
-                    <div className="text-sm text-muted-foreground">
-                      Add loaded data to your current data (keeps everything)
-                    </div>
-                  </div>
-                </label>
+
               </div>
 
               <div className="flex gap-2">
-                <Button onClick={handleMergeConfirm} className="flex-1">
+                <Button onClick={handleMergeConfirm} className="flex-1" data-testid="merge-confirm">
                   Continue
                 </Button>
-                <Button onClick={handleMergeCancel} variant="outline" className="flex-1">
+                <Button onClick={handleMergeCancel} variant="outline" className="flex-1" data-testid="merge-cancel">
                   Cancel
                 </Button>
               </div>
@@ -352,11 +340,14 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
         {result && (
           <>
             <Separator />
-            <div className={`flex items-start gap-3 p-3 rounded-lg ${
-              result.success 
-                ? 'bg-green-50 border border-green-200 text-green-800' 
-                : 'bg-red-50 border border-red-200 text-red-800'
-            }`}>
+            <div 
+              className={`flex items-start gap-3 p-3 rounded-lg ${
+                result.success 
+                  ? 'bg-green-50 border border-green-200 text-green-800' 
+                  : 'bg-red-50 border border-red-200 text-red-800'
+              }`}
+              data-testid={result.success ? 'save-success' : 'save-error'}
+            >
               {result.success ? (
                 <CheckCircle className="w-5 h-5 mt-0.5 text-green-600" />
               ) : (

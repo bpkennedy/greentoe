@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2025-01-01T12:00:00.000Z",
+  "watchList": ["AAPL", "GOOGL", "MSFT"],
+  "completedLessons": [
+    "01-understanding-stocks-index-funds",
+    "02-reading-performance-charts"
+  ],
+  "userPreferences": {
+    "theme": "light",
+    "notifications": true
+  }
+}

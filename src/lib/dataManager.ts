@@ -233,13 +233,13 @@ export async function loadData(
  * 
  * @param currentState - Current application state
  * @param loadedData - Data loaded from file
- * @param strategy - Merge strategy ('replace', 'merge', 'append')
+ * @param strategy - Merge strategy ('merge', 'replace')
  * @returns Merged state data
  */
 export function mergeStateData(
   currentState: AppStateData,
   loadedData: AppStateData,
-  strategy: 'replace' | 'merge' | 'append' = 'merge'
+  strategy: 'merge' | 'replace' = 'merge'
 ): AppStateData {
   switch (strategy) {
     case 'replace':
@@ -249,24 +249,9 @@ export function mergeStateData(
         timestamp: new Date().toISOString(), // Update timestamp
       };
 
-    case 'append':
-      // Append loaded data to current data (for arrays)
-      return {
-        ...currentState,
-        watchList: [
-          ...(currentState.watchList || []),
-          ...(loadedData.watchList || [])
-        ].filter((item, index, arr) => arr.indexOf(item) === index), // Remove duplicates
-        completedLessons: [
-          ...(currentState.completedLessons || []),
-          ...(loadedData.completedLessons || [])
-        ].filter((item, index, arr) => arr.indexOf(item) === index), // Remove duplicates
-        timestamp: new Date().toISOString(),
-      };
-
     case 'merge':
     default:
-      // Intelligent merge - combine data where possible
+      // Merge - combine current and loaded data, removing duplicates
       return {
         ...currentState,
         ...loadedData,

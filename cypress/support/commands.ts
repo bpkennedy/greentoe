@@ -54,9 +54,14 @@ declare global {
 
 // Custom command to add stock to watch list
 Cypress.Commands.add('addStockToWatchList', (symbol: string) => {
-  cy.get('[data-testid="ticker-search"]').type(symbol);
-  cy.get('[data-testid="ticker-option"]').contains(symbol).click();
-  cy.get('[data-testid="watch-list"]').should('contain', symbol);
+  // Use placeholder text to find search input (more resilient)
+  cy.get('input[placeholder*="stock"]').type(symbol);
+  
+  // Wait for and click on stock suggestion using visible text
+  cy.contains(symbol).click();
+  
+  // Verify stock appears in watch list using visible text
+  cy.contains('Watch List').parent().should('contain', symbol);
 });
 
 // Custom command to complete a lesson
@@ -86,20 +91,49 @@ Cypress.Commands.add('accessParentDashboard', (password: string = 'admin') => {
 
 // Custom command to save user data
 Cypress.Commands.add('saveUserData', () => {
-  cy.get('[data-testid="data-manager-save"]').click();
-  cy.get('[data-testid="save-success"]').should('be.visible');
+  // Use visible button text first, fallback to data-testid
+  cy.contains('button', 'Download Data').click();
+  cy.contains('Success!').should('be.visible');
 });
 
 // Custom command to load user data
 Cypress.Commands.add('loadUserData', (filename: string) => {
-  cy.get('[data-testid="data-manager-load"]').selectFile(`cypress/fixtures/${filename}`);
-  cy.get('[data-testid="load-success"]').should('be.visible');
+  // Use visible button text, then select file using the hidden input
+  cy.contains('button', 'Upload Data').click();
+  cy.get('[data-testid="data-manager-file-input"]').selectFile(`cypress/fixtures/${filename}`, { force: true });
+  cy.contains('Success!').should('be.visible');
 });
 
 // Custom command to wait for stock data
 Cypress.Commands.add('waitForStockData', (symbol: string) => {
-  cy.get(`[data-testid="stock-${symbol}"]`).should('be.visible');
-  cy.get(`[data-testid="stock-${symbol}-price"]`).should('not.be.empty');
+  // Wait for stock to be visible and loaded (use visible text)
+  cy.contains(symbol).should('be.visible');
+  
+  // Wait for price to load (not loading state)
+  cy.contains(symbol).parent().within(() => {
+    cy.contains('Loading...').should('not.exist');
+    cy.contains('$').should('be.visible'); // Price should be displayed
+  });
 });
+
+// Custom command for Tab key navigation
+Cypress.Commands.add('tab', { prevSubject: 'element' }, (subject) => {
+  return cy.wrap(subject).trigger('keydown', { key: 'Tab' });
+});
+
+// TypeScript declarations for custom commands
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      addStockToWatchList(symbol: string): Chainable<void>
+      completeLesson(lessonId: string): Chainable<void>
+      accessParentDashboard(password?: string): Chainable<void>
+      saveUserData(): Chainable<void>
+      loadUserData(fixtureFile: string): Chainable<void>
+      waitForStockData(symbol: string): Chainable<void>
+      tab(): Chainable<Element>
+    }
+  }
+}
 
 export {};
