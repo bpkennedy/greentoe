@@ -167,12 +167,12 @@ export function TickerSearch({
   };
 
   // Handle suggestion selection
-  const handleSelectSuggestion = async (suggestion: StockSuggestion) => {
+  const handleSelectSuggestion = (suggestion: StockSuggestion) => {
     console.log('TickerSearch: handleSelectSuggestion called with:', suggestion.symbol);
     setIsLoading(true);
     try {
       console.log('TickerSearch: calling onSelect with:', suggestion.symbol);
-      await onSelect(suggestion.symbol);
+      onSelect(suggestion.symbol);
       console.log('TickerSearch: onSelect completed successfully');
       setQuery('');
       setIsOpen(false);
@@ -185,7 +185,7 @@ export function TickerSearch({
   };
 
   // Handle manual symbol submission
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const symbol = query.trim().toUpperCase();
     if (!symbol) return;
 
@@ -196,7 +196,7 @@ export function TickerSearch({
 
     setIsLoading(true);
     try {
-      await onSelect(symbol);
+      onSelect(symbol);
       setQuery('');
       setIsOpen(false);
       setSelectedIndex(-1);
