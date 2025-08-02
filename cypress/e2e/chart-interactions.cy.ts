@@ -6,6 +6,7 @@ describe('Chart Interactions', () => {
     cy.intercept('GET', '/api/stock/AAPL', { fixture: 'alpha-vantage-mock.json' }).as('getAAPL');
     cy.intercept('GET', '/api/stock/GOOGL', { fixture: 'alpha-vantage-googl.json' }).as('getGOOGL');
     cy.intercept('GET', '/api/stock/TSLA', { fixture: 'alpha-vantage-tsla.json' }).as('getTSLA');
+    cy.intercept('GET', '/api/stock/INVALID', { statusCode: 500, fixture: 'alpha-vantage-error.json' }).as('getINVALID');
     
     // Visit home page and wait for app to be ready
     cy.visit('/');
@@ -231,51 +232,61 @@ describe('Chart Interactions', () => {
       
       // Expand first chart
       cy.get('[data-testid="stock-card-trigger-AAPL"]').click();
-      cy.get('[data-testid="stock-chart-AAPL"]').should('be.visible');
+      cy.get('[data-testid="stock-card-AAPL"]').within(() => {
+        cy.get('[data-testid="stock-chart-AAPL"]').should('be.visible');
+      });
       
-      // Second chart should remain collapsed
-      cy.get('[data-testid="stock-chart-TSLA"]').should('not.exist');
+      // Second chart should remain collapsed (scoped to its card)
+      cy.get('[data-testid="stock-card-TSLA"]').within(() => {
+        cy.get('[data-testid="stock-chart-TSLA"]').should('not.exist');
+      });
       
       // Expand second chart
       cy.get('[data-testid="stock-card-trigger-TSLA"]').click();
-      cy.get('[data-testid="stock-chart-TSLA"]').should('be.visible');
+      cy.get('[data-testid="stock-card-TSLA"]').within(() => {
+        cy.get('[data-testid="stock-chart-TSLA"]').should('be.visible');
+      });
       
       // Collapse first chart
       cy.get('[data-testid="stock-card-trigger-AAPL"]').click();
-      cy.get('[data-testid="stock-chart-AAPL"]').should('not.exist');
+      cy.get('[data-testid="stock-card-AAPL"]').within(() => {
+        cy.get('[data-testid="stock-chart-AAPL"]').should('not.exist');
+      });
       
       // Second chart should remain expanded
-      cy.get('[data-testid="stock-chart-TSLA"]').should('be.visible');
+      cy.get('[data-testid="stock-card-TSLA"]').within(() => {
+        cy.get('[data-testid="stock-chart-TSLA"]').should('be.visible');
+      });
     });
   });
 
   describe('Chart Error Handling', () => {
     it('should handle chart with no data gracefully', () => {
-      // Mock error response for invalid stock
-      cy.intercept('GET', '/api/stock/INVALID', { 
-        statusCode: 400, 
+      // Mock error response for NFLX (which exists in suggestions)
+      cy.intercept('GET', '/api/stock/NFLX', { 
+        statusCode: 500, 
         fixture: 'alpha-vantage-error.json' 
-      }).as('getINVALID');
+      }).as('getNFLXError');
       
-      // Add a stock that will return error
-      cy.addStockToWatchList('INVALID');
+      // Add NFLX which will return error
+      cy.addStockToWatchList('NFLX');
       
       // Wait for error response
-      cy.wait('@getINVALID');
+      cy.wait('@getNFLXError');
       
-      // Try to expand the card
-      cy.get('[data-testid="stock-card-INVALID"]').should('be.visible');
-      cy.get('[data-testid="stock-card-trigger-INVALID"]').click();
+      // Check that error state is displayed properly
+      cy.get('[data-testid="stock-card-NFLX"]').should('be.visible');
       
-      // Should either show error state or loading state, not crash
-      cy.get('[data-testid="stock-card-INVALID"]').within(() => {
-        // Should contain either error message or loading state
+      // Should show error content (StockCardError component)
+      cy.get('[data-testid="stock-card-NFLX"]').within(() => {
+        // Should show error message or retry button
         cy.get('*').should('satisfy', ($el) => {
           const text = $el.text();
-          return text.includes('No chart data available') || 
-                 text.includes('Loading') || 
-                 text.includes('Error') ||
-                 text.includes('Unable to load');
+          return text.includes('Error') || 
+                 text.includes('Failed') || 
+                 text.includes('Retry') ||
+                 text.includes('Unable') ||
+                 text.includes('Invalid');
         });
       });
     });
@@ -287,14 +298,18 @@ describe('Chart Interactions', () => {
       cy.addStockToWatchList('AAPL');
       cy.waitForStockData('AAPL');
       
-      // Chart component should not exist until expanded
-      cy.get('[data-testid="stock-chart-AAPL"]').should('not.exist');
+      // Within the watchlist stock card, chart component should not exist until expanded
+      cy.get('[data-testid="stock-card-AAPL"]').within(() => {
+        cy.get('[data-testid="stock-chart-AAPL"]').should('not.exist');
+      });
       
       // Expand to trigger lazy loading
       cy.get('[data-testid="stock-card-trigger-AAPL"]').click();
       
-      // Now chart should exist and load
-      cy.get('[data-testid="stock-chart-AAPL"]').should('be.visible');
+      // Now chart should exist and load within the stock card
+      cy.get('[data-testid="stock-card-AAPL"]').within(() => {
+        cy.get('[data-testid="stock-chart-AAPL"]').should('be.visible');
+      });
     });
 
     it('should show loading state during chart rendering', () => {
