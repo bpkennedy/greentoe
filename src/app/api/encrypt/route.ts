@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { encrypt } from '@/lib/crypto';
-import type { EncryptApiRequest, EncryptApiResponse, CryptoApiError } from '@/lib/types/crypto';
+import type { EncryptApiRequest, CryptoApiError } from '@/lib/types/crypto';
 import { CRYPTO_CONSTRAINTS } from '@/lib/types/crypto';
 
 /**
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json<CryptoApiError>(
         {
           success: false,
-          type: cryptoError.type as any,
+          type: cryptoError.type as CryptoApiError['type'],
           message: cryptoError.message,
           details: process.env.NODE_ENV === 'development' ? cryptoError.details : undefined,
           timestamp: new Date().toISOString(),

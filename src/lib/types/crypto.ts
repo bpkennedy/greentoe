@@ -105,9 +105,11 @@ export interface EncryptApiResponse {
 
 /**
  * Request for decryption API (binary data in request body)
+ * Note: The actual data is sent as binary in the request body, not as JSON properties
  */
 export interface DecryptApiRequest {
-  /** Binary encrypted data (sent as request body) */
+  /** This interface is intentionally minimal as the encrypted data is sent as raw binary in the request body */
+  _placeholder?: never;
 }
 
 /**

@@ -7,10 +7,10 @@ import { fetchStockData } from '@/lib/api/alphaVantage';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { symbol: string } }
+  { params }: { params: Promise<{ symbol: string }> }
 ) {
   try {
-    const { symbol } = params;
+    const { symbol } = await params;
     
     if (!symbol) {
       return NextResponse.json(

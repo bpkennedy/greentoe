@@ -11,7 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { StockChart } from './StockChart';
 import { useStockData } from '@/lib/hooks/useStockDataAxios';
 import { StockDataWrapper } from '@/components/ui';
-import type { StockData } from '@/lib/types/alphaVantage';
+import type { ProcessedStockData } from '@/lib/types/alphaVantage';
 
 /**
  * Props for the StockCard component
@@ -40,7 +40,7 @@ function calculatePercentageChange(current: number, previous: number): number {
  */
 interface StockSummaryProps {
   symbol: string;
-  data: StockData;
+  data: ProcessedStockData;
   isExpanded: boolean;
   onToggle: () => void;
   onRemove?: () => void;

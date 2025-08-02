@@ -1,28 +1,21 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { StockData, StockError } from '@/lib/types/alphaVantage';
-
-interface UseStockDataResult {
-  data: StockData | null;
-  error: StockError | null;
-  isLoading: boolean;
-  refetch: () => Promise<void>;
-}
+import type { ProcessedStockData, StockDataError, UseStockDataReturn } from '@/lib/types/alphaVantage';
 
 /**
  * Custom hook for fetching stock data using axios
  * Provides predictable, easy-to-reason-about HTTP requests
  */
-export function useStockData(symbol: string): UseStockDataResult {
-  const [data, setData] = useState<StockData | null>(null);
-  const [error, setError] = useState<StockError | null>(null);
+export function useStockData(symbol: string): UseStockDataReturn {
+  const [data, setData] = useState<ProcessedStockData | undefined>(undefined);
+  const [error, setError] = useState<StockDataError | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = useCallback(async () => {
     if (!symbol) return;
 
     setIsLoading(true);
-    setError(null);
+    setError(undefined);
 
     try {
       const response = await axios.get(`/api/stock/${symbol}`);
@@ -38,22 +31,22 @@ export function useStockData(symbol: string): UseStockDataResult {
           setError({
             type: 'NETWORK_ERROR',
             message: 'Network error occurred. Please check your connection.',
-            details: 'Unable to reach the server'
+            canRetry: true
           });
         } else {
           // Request setup error
           setError({
             type: 'API_ERROR',
             message: 'Request configuration error',
-            details: err.message
+            canRetry: false
           });
         }
       } else {
         // Non-axios error
         setError({
-          type: 'UNKNOWN_ERROR',
+          type: 'API_ERROR',
           message: 'An unexpected error occurred',
-          details: err instanceof Error ? err.message : 'Unknown error'
+          canRetry: true
         });
       }
     } finally {
@@ -70,6 +63,7 @@ export function useStockData(symbol: string): UseStockDataResult {
     data,
     error,
     isLoading,
-    refetch: fetchData
+    isValidating: isLoading, // Map isLoading to isValidating for SWR compatibility
+    mutate: fetchData // Map refetch to mutate for SWR compatibility
   };
 }

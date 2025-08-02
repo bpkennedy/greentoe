@@ -156,7 +156,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json<CryptoApiError>(
         {
           success: false,
-          type: cryptoError.type as any,
+          type: cryptoError.type as CryptoApiError['type'],
           message: cryptoError.message,
           details: process.env.NODE_ENV === 'development' ? cryptoError.details : undefined,
           timestamp: new Date().toISOString(),

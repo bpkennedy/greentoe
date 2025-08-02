@@ -6,9 +6,9 @@ import type {
   EncryptionInput,
   DecryptionInput,
   CryptoError,
-  CryptoErrorType,
-  CRYPTO_CONSTRAINTS
+  CryptoErrorType
 } from './types/crypto';
+import { CRYPTO_CONSTRAINTS } from './types/crypto';
 
 /**
  * AES-256-GCM encryption/decryption utilities
@@ -214,7 +214,7 @@ export function decrypt(input: DecryptionInput): DecryptionResult {
         decipher.update(ciphertext),
         decipher.final()
       ]);
-    } catch (error) {
+    } catch {
       throw createCryptoError(
         'AUTH_TAG_VERIFICATION_FAILED',
         'Decryption failed: authentication tag verification failed',
