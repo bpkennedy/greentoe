@@ -85,8 +85,8 @@ describe('Chart Interactions', () => {
 
   describe('Stock Card Chart Expansion', () => {
     beforeEach(() => {
-      // Add AAPL to watchlist for all tests in this describe block
-      cy.addStockToWatchList('AAPL');
+      // Load test data with AAPL already in watchlist
+      cy.loadUserData('test-backup.json'); // Contains AAPL, GOOGL, MSFT
       cy.waitForStockData('AAPL');
     });
 
@@ -205,10 +205,9 @@ describe('Chart Interactions', () => {
 
   describe('Multiple Stock Charts', () => {
     it('should handle multiple expanded charts', () => {
-      // Add multiple stocks
-      cy.addStockToWatchList('AAPL');
+      // Load test data with multiple stocks already in watchlist
+      cy.loadUserData('test-backup.json'); // Contains AAPL, GOOGL, MSFT
       cy.waitForStockData('AAPL');
-      cy.addStockToWatchList('GOOGL');
       cy.waitForStockData('GOOGL');
       
       // Expand both charts
@@ -224,10 +223,12 @@ describe('Chart Interactions', () => {
     });
 
     it('should maintain separate chart states', () => {
-      // Add multiple stocks
-      cy.addStockToWatchList('AAPL');
+      // Load test data and add TSLA manually (AAPL already loaded)
+      cy.loadUserData('test-backup.json'); // Contains AAPL, GOOGL, MSFT
       cy.waitForStockData('AAPL');
-      cy.addStockToWatchList('TSLA');
+      // Add TSLA using UI interaction instead of testAddStock
+      cy.get('input[placeholder="Search for stocks and ETFs to add..."]').type('TSLA');
+      cy.contains('button', 'TSLA').click();
       cy.waitForStockData('TSLA');
       
       // Expand first chart
@@ -268,8 +269,9 @@ describe('Chart Interactions', () => {
         fixture: 'alpha-vantage-error.json' 
       }).as('getNFLXError');
       
-      // Add NFLX which will return error
-      cy.addStockToWatchList('NFLX');
+      // Add NFLX using UI interaction which will return error
+      cy.get('input[placeholder="Search for stocks and ETFs to add..."]').type('NFLX');
+      cy.contains('button', 'NFLX').click();
       
       // Wait for error response
       cy.wait('@getNFLXError');
@@ -294,8 +296,8 @@ describe('Chart Interactions', () => {
 
   describe('Chart Performance', () => {
     it('should lazy load charts only when expanded', () => {
-      // Add a stock but don't expand
-      cy.addStockToWatchList('AAPL');
+      // Load test data with AAPL already in watchlist but don't expand
+      cy.loadUserData('test-backup.json'); // Contains AAPL, GOOGL, MSFT
       cy.waitForStockData('AAPL');
       
       // Within the watchlist stock card, chart component should not exist until expanded
@@ -313,8 +315,8 @@ describe('Chart Interactions', () => {
     });
 
     it('should show loading state during chart rendering', () => {
-      // Add stock and immediately try to expand
-      cy.addStockToWatchList('GOOGL');
+      // Load test data with GOOGL already in watchlist and immediately try to expand
+      cy.loadUserData('test-backup.json'); // Contains AAPL, GOOGL, MSFT
       
       // Try to expand quickly to catch loading state
       cy.get('[data-testid="stock-card-trigger-GOOGL"]').click();
