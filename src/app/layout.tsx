@@ -29,7 +29,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AppProvider>
-          {children}
+          <div data-testid="app-ready">
+            {children}
+          </div>
         </AppProvider>
       </body>
     </html>

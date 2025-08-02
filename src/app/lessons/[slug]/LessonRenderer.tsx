@@ -72,7 +72,7 @@ export default function LessonRenderer({ lesson, nextLesson, previousLesson }: L
       scrollProgress={scrollProgress}
       isCompleted={isCompleted}
     >
-      <div ref={contentRef} className="lesson-content">
+      <div ref={contentRef} className="lesson-content" data-testid="lesson-content">
         <LessonContent />
       </div>
     </LessonLayout>

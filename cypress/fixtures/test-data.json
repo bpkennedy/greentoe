@@ -1,0 +1,51 @@
+{
+  "stockSymbols": [
+    "AAPL",
+    "GOOGL", 
+    "MSFT",
+    "TSLA",
+    "NVDA"
+  ],
+  "lessons": [
+    {
+      "id": "01-understanding-stocks-index-funds",
+      "title": "Understanding Stocks and Index Funds",
+      "expectedDuration": "15 minutes"
+    },
+    {
+      "id": "02-reading-performance-charts", 
+      "title": "Reading Performance Charts",
+      "expectedDuration": "12 minutes"
+    },
+    {
+      "id": "03-comparing-investments",
+      "title": "Comparing Investments", 
+      "expectedDuration": "18 minutes"
+    },
+    {
+      "id": "04-research-before-you-buy",
+      "title": "Research Before You Buy",
+      "expectedDuration": "20 minutes"
+    },
+    {
+      "id": "05-keeping-emotions-in-check",
+      "title": "Keeping Emotions in Check",
+      "expectedDuration": "10 minutes"
+    },
+    {
+      "id": "06-understanding-risk",
+      "title": "Understanding Risk",
+      "expectedDuration": "15 minutes"
+    }
+  ],
+  "parentAuth": {
+    "password": "admin",
+    "hash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+  },
+  "sampleUserData": {
+    "watchList": ["AAPL", "GOOGL"],
+    "completedLessons": ["01-understanding-stocks-index-funds", "02-reading-performance-charts"],
+    "version": "0.1.0",
+    "timestamp": "2024-01-01T00:00:00.000Z"
+  }
+}

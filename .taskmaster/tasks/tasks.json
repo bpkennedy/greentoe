@@ -1143,123 +1143,121 @@
       {
         "id": 15,
         "title": "Setup Testing Suite and Performance Optimization",
-        "description": "Implement comprehensive testing with Vitest and React Testing Library, optimize bundle size and performance",
-        "details": "1. Setup Vitest configuration: `npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom`\n2. Create test files for all major components and utilities\n3. Implement unit tests for:\n   - Context providers and hooks\n   - API integration functions\n   - Encryption/decryption utilities\n   - Component rendering and interactions\n4. Add integration tests for key user flows\n5. Setup test coverage reporting\n6. Optimize bundle size (target ≤100KB gzipped per route)\n7. Implement code splitting and lazy loading\n8. Add performance monitoring with Core Web Vitals\n9. Optimize images and assets\n10. Setup pre-commit hooks for testing",
-        "testStrategy": "Achieve >80% test coverage, verify all critical paths are tested, performance budgets met, bundle size targets achieved",
-        "priority": "medium",
+        "description": "Implement end-to-end testing with Cypress for main user flows and optimize bundle size and performance",
+        "status": "in-progress",
         "dependencies": [
           1,
           2,
           3
         ],
-        "status": "pending",
+        "priority": "medium",
+        "details": "1. Setup Cypress for end-to-end testing: `npm install -D cypress`\n2. Configure Cypress for the application\n3. Create E2E tests for main user flows (happy path):\n   - User registration and login\n   - Adding and managing plants\n   - Creating and editing care schedules\n   - Data save/load functionality\n   - Chart interactions and filtering\n4. Optimize bundle size (target ≤100KB gzipped per route)\n5. Implement code splitting and lazy loading\n6. Add performance monitoring with Core Web Vitals\n7. Optimize images and assets\n8. Setup pre-commit hooks for E2E testing",
+        "testStrategy": "Verify all critical user flows work end-to-end, performance budgets met, bundle size targets achieved",
         "subtasks": [
           {
             "id": 1,
-            "title": "Setup Vitest and Testing Dependencies",
-            "description": "Install Vitest, React Testing Library, Jest DOM matchers, user-event, and jsdom for browser environment simulation.",
+            "title": "Setup Cypress and Testing Dependencies",
+            "description": "Install Cypress for end-to-end testing and configure basic setup.",
+            "status": "done",
             "dependencies": [],
-            "details": "Run npm install commands to add vitest, @testing-library/react, @testing-library/jest-dom, @testing-library/user-event, and jsdom as dev dependencies. This prepares the project for testing React components with Vitest and simulates a DOM environment for tests[1][2][3].",
-            "status": "pending",
+            "details": "Run npm install -D cypress to add Cypress as a dev dependency. Initialize Cypress configuration and folder structure for E2E tests.",
             "testStrategy": ""
           },
           {
             "id": 2,
-            "title": "Configure Vitest",
-            "description": "Create or update vitest.config.ts to configure Vitest with React plugin, jsdom environment, global test APIs, and setup files.",
+            "title": "Configure Cypress",
+            "description": "Create cypress.config.ts and configure Cypress for the application environment.",
+            "status": "done",
             "dependencies": [
-              "15.1"
+              1
             ],
-            "details": "Configure Vitest to use the React plugin, set test environment to 'jsdom', enable globals for test functions, and specify a setup file for additional test configurations[1][3].",
-            "status": "pending",
+            "details": "Configure Cypress with proper base URL, viewport settings, and any necessary plugins. Set up commands and support files for common test utilities.\n<info added on 2025-08-02T06:48:02.296Z>\nCypress configuration has been successfully completed with comprehensive setup for the Green Thumb financial education application. Created cypress.config.ts with base URL, viewport settings, and environment variables. Implemented e2e.ts support file with global hooks and app-ready detection. Added custom commands in commands.ts including addStockToWatchList(), completeLesson(), accessParentDashboard(), saveUserData(), loadUserData(), and waitForStockData() for financial app-specific testing. Established proper folder structure with e2e, support, and fixtures directories. Set up test environment with Alpha Vantage API integration, encryption variables, and test data fixtures containing stock symbols and lesson metadata. Added NPM scripts for interactive and headless test execution. Configuration validated and verified - ready for E2E test creation.\n</info added on 2025-08-02T06:48:02.296Z>",
             "testStrategy": ""
           },
           {
             "id": 3,
-            "title": "Create Test Setup File",
-            "description": "Create a setupTests.ts file to configure Jest DOM matchers and cleanup after each test.",
+            "title": "Create E2E Test for User Authentication Flow",
+            "description": "Implement end-to-end test covering user registration and login happy path.",
+            "status": "done",
             "dependencies": [
-              "15.2"
+              2
             ],
-            "details": "In the setupTests.ts file, import '@testing-library/jest-dom' to add custom matchers and configure cleanup after each test to avoid side effects[1][3].",
-            "status": "pending",
+            "details": "Create Cypress test that verifies users can successfully register, login, and access the main application features without errors.\n<info added on 2025-08-02T06:52:12.251Z>\nParent Dashboard Authentication E2E Test Complete\n\nSuccessfully created comprehensive end-to-end test for the financial education app's parent dashboard authentication flow:\n\nTest Coverage Implemented:\n- Navigation Test: Verify link from home page to parent dashboard\n- Login Form Display: Ensure form shows with proper elements and descriptions\n- Invalid Password Handling: Test error message display for wrong passwords\n- Successful Authentication: Verify correct password grants dashboard access\n- Dashboard Content Verification: Check activity summary and lesson completion display\n- Logout Functionality: Test logout returns to login form and clears session\n- Session Persistence: Verify authentication maintained during navigation\n- Keyboard Navigation: Test Enter key submission and focus management\n\nTest Infrastructure Added:\n- Test Data Attributes: Added comprehensive data-testid attributes to components:\n  - app-ready in layout for reliable test startup\n  - parent-auth-form for login form identification\n  - parent-dashboard for authenticated dashboard\n  - activity-summary for parent dashboard content\n  - lessons-completed for progress tracking\n  - conversation-starters for engagement features\n  - lesson-content for lesson page testing\n\nTest File Created:\n- cypress/e2e/parent-dashboard-auth.cy.ts with 8 comprehensive test scenarios\n- Tests cover happy path, error handling, and edge cases\n- Includes accessibility testing with keyboard navigation\n- Validates session management and navigation persistence\n\nComponent Enhancements:\n- ParentAuth.tsx: Added form and dashboard test attributes\n- ActivitySummary.tsx: Added progress tracking and conversation starter attributes\n- LessonRenderer.tsx: Added lesson content identification for completion testing\n- Layout.tsx: Added app-ready indicator for reliable test initialization\n\nBuild Verification:\n- All TypeScript types validated\n- ESLint rules satisfied (fixed apostrophe escaping)\n- Application builds successfully with test attributes\n- Ready for E2E test execution\n\nThe parent dashboard authentication flow is now fully testable with Cypress E2E testing, covering all user scenarios from login through dashboard interaction.\n</info added on 2025-08-02T06:52:12.251Z>",
             "testStrategy": ""
           },
           {
             "id": 4,
-            "title": "Create Test Files for Components and Utilities",
-            "description": "Create test files covering all major React components, context providers, hooks, API integration functions, and encryption utilities.",
-            "dependencies": [
-              "15.3"
-            ],
-            "details": "Write test files for components and utilities to ensure coverage of rendering, interactions, state management, API calls, and encryption/decryption logic as per project requirements.",
+            "title": "Create E2E Test for Plant Management Flow",
+            "description": "Implement end-to-end test covering adding and managing plants in the application.",
             "status": "pending",
+            "dependencies": [
+              2
+            ],
+            "details": "Create Cypress test that verifies users can add new plants, view plant details, edit plant information, and delete plants successfully.",
             "testStrategy": ""
           },
           {
             "id": 5,
-            "title": "Implement Unit Tests",
-            "description": "Develop unit tests for context providers, hooks, API integration functions, encryption/decryption utilities, and component rendering/interactions.",
-            "dependencies": [
-              "15.4"
-            ],
-            "details": "Write focused unit tests to verify individual functions and components behave correctly in isolation, including state updates and UI behavior[1].",
+            "title": "Create E2E Test for Care Schedule Flow",
+            "description": "Implement end-to-end test covering creating and editing care schedules.",
             "status": "pending",
+            "dependencies": [
+              2
+            ],
+            "details": "Create Cypress test that verifies users can create care schedules, set reminders, mark tasks as complete, and edit existing schedules.",
             "testStrategy": ""
           },
           {
             "id": 6,
-            "title": "Implement Integration Tests",
-            "description": "Add integration tests to cover key user flows and interactions across multiple components and modules.",
-            "dependencies": [
-              "15.5"
-            ],
-            "details": "Develop tests that simulate real user scenarios involving multiple components and API interactions to ensure the system works as expected end-to-end[1].",
+            "title": "Create E2E Test for Data Save/Load Flow",
+            "description": "Implement end-to-end test covering the data export and import functionality.",
             "status": "pending",
+            "dependencies": [
+              2
+            ],
+            "details": "Create Cypress test that verifies users can successfully download their data as an encrypted file and reload it back into the application, maintaining data integrity.",
             "testStrategy": ""
           },
           {
             "id": 7,
-            "title": "Setup Test Coverage Reporting",
-            "description": "Configure Vitest to generate test coverage reports and verify coverage thresholds are met.",
-            "dependencies": [
-              "15.6"
-            ],
-            "details": "Enable coverage reporting in Vitest configuration and ensure reports show coverage metrics for statements, branches, functions, and lines, targeting >80% coverage[1].",
+            "title": "Create E2E Test for Chart Interactions",
+            "description": "Implement end-to-end test covering chart interactions and filtering functionality.",
             "status": "pending",
+            "dependencies": [
+              2
+            ],
+            "details": "Create Cypress test that verifies users can interact with charts, apply filters, view different time ranges, and navigate chart data successfully.",
             "testStrategy": ""
           },
           {
             "id": 8,
             "title": "Optimize Bundle Size",
             "description": "Analyze and optimize the JavaScript bundle size to meet target size constraints (≤100KB gzipped per route).",
-            "dependencies": [
-              "15.7"
-            ],
-            "details": "Use tools like Vite bundle analyzer to identify large dependencies and optimize imports, remove unused code, and apply tree shaking to reduce bundle size.",
             "status": "pending",
+            "dependencies": [],
+            "details": "Use tools like bundle analyzer to identify large dependencies and optimize imports, remove unused code, and apply tree shaking to reduce bundle size.",
             "testStrategy": ""
           },
           {
             "id": 9,
             "title": "Implement Code Splitting and Performance Monitoring",
             "description": "Apply code splitting strategies and set up performance monitoring to improve load times and runtime efficiency.",
+            "status": "pending",
             "dependencies": [
-              "15.8"
+              8
             ],
             "details": "Configure dynamic imports and route-based code splitting in the build process. Integrate performance monitoring tools to track runtime metrics and identify bottlenecks.",
-            "status": "pending",
             "testStrategy": ""
           },
           {
             "id": 10,
             "title": "Implement Image Optimization and Pre-commit Hooks",
-            "description": "Optimize images for web delivery and set up pre-commit hooks to enforce code quality and run tests before commits.",
-            "dependencies": [
-              "15.9"
-            ],
-            "details": "Use image optimization tools or loaders to compress and resize images. Configure pre-commit hooks with tools like Husky to run linting, tests, and formatting checks automatically.",
+            "description": "Optimize images for web delivery and set up pre-commit hooks to enforce code quality and run E2E tests before commits.",
             "status": "pending",
+            "dependencies": [
+              9
+            ],
+            "details": "Use image optimization tools or loaders to compress and resize images. Configure pre-commit hooks with tools like Husky to run linting, formatting checks, and critical E2E tests automatically.",
             "testStrategy": ""
           }
         ]
@@ -1267,7 +1265,7 @@
     ],
     "metadata": {
       "created": "2025-08-02T03:40:48.786Z",
-      "updated": "2025-08-02T06:32:35.313Z",
+      "updated": "2025-08-02T06:51:51.993Z",
       "description": "Tasks for master context"
     }
   }

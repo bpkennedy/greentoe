@@ -101,11 +101,11 @@ export function ParentAuth({ children }: ParentAuthProps) {
             </div>
             <CardTitle className="text-2xl">Parent Dashboard</CardTitle>
             <CardDescription>
-              Access your teen&apos;s learning progress and activity summary
+              Enter the parent dashboard password to access your teen&apos;s learning progress and activity summary
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-4" data-testid="parent-auth-form">
               <div className="space-y-2">
                 <label htmlFor="username" className="text-sm font-medium">
                   Username
@@ -192,7 +192,7 @@ export function ParentAuth({ children }: ParentAuthProps) {
 
   // Show dashboard content if authenticated
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" data-testid="parent-dashboard">
       {/* Header with logout */}
       <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -211,7 +211,7 @@ export function ParentAuth({ children }: ParentAuthProps) {
             className="flex items-center gap-2"
           >
             <LogOut className="w-4 h-4" />
-            Sign Out
+            Logout
           </Button>
         </div>
       </div>

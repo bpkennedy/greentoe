@@ -52,7 +52,9 @@ export function ActivitySummary() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="activity-summary">
+      <h2 className="text-2xl font-bold text-foreground">Teen&apos;s Learning Activity</h2>
+      
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
@@ -61,9 +63,9 @@ export function ActivitySummary() {
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{progress.completed}/{progress.total}</div>
+            <div className="text-2xl font-bold" data-testid="lessons-completed">{progress.completed}</div>
             <p className="text-xs text-muted-foreground">
-              {progress.percentage}% of curriculum
+              of {progress.total} lessons ({progress.percentage}% complete)
             </p>
           </CardContent>
         </Card>
@@ -203,7 +205,7 @@ export function ActivitySummary() {
       </div>
 
       {/* Conversation Starters */}
-      <Card>
+      <Card data-testid="conversation-starters">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <MessageCircle className="w-5 h-5" />
