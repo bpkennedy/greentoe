@@ -1,102 +1,223 @@
-import Image from "next/image";
+'use client';
+
+import { WatchList } from "@/components/WatchList";
+import { StockChart } from "@/components/StockChart";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { useStockData } from "@/lib/hooks/useStockData";
+import { TrendingUp, BookOpen, DollarSign, PieChart } from "lucide-react";
+
+/**
+ * Demo component showing StockChart with sample data
+ */
+function DemoChartSection() {
+  const appleData = useStockData('AAPL');
+  
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <TrendingUp className="h-5 w-5 text-blue-600" />
+          Demo: Interactive Stock Chart
+        </CardTitle>
+        <p className="text-sm text-muted-foreground">
+          Live AAPL data showing our chart component in action
+        </p>
+      </CardHeader>
+      <CardContent>
+        {appleData.data ? (
+          <StockChart data={appleData.data} height={300} />
+        ) : appleData.isLoading ? (
+          <div className="flex items-center justify-center h-[300px]">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
+              <p className="text-sm text-muted-foreground">Loading chart data...</p>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-[300px]">
+            <p className="text-muted-foreground">Chart will appear when data loads</p>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+/**
+ * Feature showcase cards
+ */
+function FeatureCard({ icon: Icon, title, description, status }: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  status: 'complete' | 'in-progress' | 'planned';
+}) {
+  return (
+    <Card className="h-full">
+      <CardContent className="p-6">
+        <div className="flex items-start gap-4">
+          <div className="p-2 rounded-lg bg-blue-100">
+            <Icon className="h-5 w-5 text-blue-600" />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="font-semibold">{title}</h3>
+              <Badge 
+                variant={status === 'complete' ? 'default' : status === 'in-progress' ? 'secondary' : 'outline'}
+                className="text-xs"
+              >
+                {status === 'complete' ? 'Live' : status === 'in-progress' ? 'Building' : 'Planned'}
+              </Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">{description}</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">Green Thumb</h1>
+              <p className="text-muted-foreground mt-1">Financial Education for Teenagers</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="text-xs">
+                Alpha Version
+              </Badge>
+              <Badge variant="default" className="text-xs">
+                Live Demo
+              </Badge>
+            </div>
+          </div>
         </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8 space-y-8">
+        {/* Hero Section */}
+        <section className="text-center space-y-4">
+          <h2 className="text-2xl font-bold text-foreground">
+            Learn Investing Through Interactive Experience
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Build your watch-list, analyze stock charts, and learn about investing with real market data. 
+            All designed specifically for teenagers taking their first steps into financial literacy.
+          </p>
+        </section>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Watch List */}
+          <div className="space-y-4">
+            <WatchList />
+          </div>
+
+          {/* Demo Chart */}
+          <div className="space-y-4">
+            <DemoChartSection />
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* Features Section */}
+        <section className="space-y-6">
+          <div className="text-center">
+            <h3 className="text-xl font-semibold mb-2">Platform Features</h3>
+            <p className="text-muted-foreground">Built with modern web technologies and real market data</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <FeatureCard
+              icon={TrendingUp}
+              title="Real-Time Data"
+              description="Live stock prices and charts powered by Alpha Vantage API with smart caching"
+              status="complete"
+            />
+            <FeatureCard
+              icon={PieChart}
+              title="Interactive Charts"
+              description="Professional financial charts with trend analysis and key metrics display"
+              status="complete"
+            />
+            <FeatureCard
+              icon={BookOpen}
+              title="Educational Lessons"
+              description="Step-by-step lessons covering investing fundamentals and market concepts"
+              status="planned"
+            />
+            <FeatureCard
+              icon={DollarSign}
+              title="Portfolio Tracking"
+              description="Track your learning progress and manage your virtual investment portfolio"
+              status="in-progress"
+            />
+          </div>
+        </section>
+
+        {/* Technical Stack */}
+        <section className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Technical Implementation</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div>
+                  <div className="font-semibold text-blue-600">Next.js 15</div>
+                  <div className="text-xs text-muted-foreground">App Router</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-green-600">React 19</div>
+                  <div className="text-xs text-muted-foreground">Context API</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-purple-600">TypeScript</div>
+                  <div className="text-xs text-muted-foreground">Type Safety</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-orange-600">Tailwind CSS</div>
+                  <div className="text-xs text-muted-foreground">shadcn/ui</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-cyan-600">SWR</div>
+                  <div className="text-xs text-muted-foreground">Data Fetching</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-red-600">Recharts</div>
+                  <div className="text-xs text-muted-foreground">Visualization</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-indigo-600">Alpha Vantage</div>
+                  <div className="text-xs text-muted-foreground">Market Data</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-600">WCAG 2.2</div>
+                  <div className="text-xs text-muted-foreground">Accessibility</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="border-t bg-muted/50 mt-16">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center text-sm text-muted-foreground">
+            <p>Green Thumb - Educational platform for learning about investing and financial literacy.</p>
+            <p className="mt-2">Built with Next.js, React, and real market data. Not financial advice.</p>
+          </div>
+        </div>
       </footer>
     </div>
   );
