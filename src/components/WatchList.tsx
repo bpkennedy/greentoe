@@ -143,10 +143,7 @@ export function WatchList({ className }: WatchListProps) {
   const { watchList, addTicker, removeTicker } = useWatchList();
 
   const handleAddTicker = (symbol: string) => {
-    console.log('WatchList: handleAddTicker called with:', symbol);
-    console.log('WatchList: current watchList:', watchList);
     addTicker(symbol);
-    console.log('WatchList: addTicker call completed');
   };
 
   const handleRemoveTicker = (symbol: string) => {

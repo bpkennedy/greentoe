@@ -168,12 +168,9 @@ export function TickerSearch({
 
   // Handle suggestion selection
   const handleSelectSuggestion = (suggestion: StockSuggestion) => {
-    console.log('TickerSearch: handleSelectSuggestion called with:', suggestion.symbol);
     setIsLoading(true);
     try {
-      console.log('TickerSearch: calling onSelect with:', suggestion.symbol);
       onSelect(suggestion.symbol);
-      console.log('TickerSearch: onSelect completed successfully');
       setQuery('');
       setIsOpen(false);
       setSelectedIndex(-1);
