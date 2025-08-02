@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { WatchList } from "@/components/WatchList";
 import { StockChart } from "@/components/StockChart";
 import { DataManager } from "@/components/DataManager";
@@ -105,7 +106,7 @@ export default function Home() {
 
       <main className="container mx-auto px-4 py-8 space-y-8">
         {/* Hero Section */}
-        <section className="text-center space-y-4">
+        <section className="text-center space-y-6">
           <h2 className="text-2xl font-bold text-foreground">
             Learn Investing Through Interactive Experience
           </h2>
@@ -113,6 +114,18 @@ export default function Home() {
             Build your watch-list, analyze stock charts, and learn about investing with real market data. 
             All designed specifically for teenagers taking their first steps into financial literacy.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link 
+              href="/lessons" 
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              <BookOpen className="w-4 h-4" />
+              Start Learning Journey
+            </Link>
+            <span className="text-sm text-muted-foreground">
+              6 lessons • 85 minutes • Beginner friendly
+            </span>
+          </div>
         </section>
 
         {/* Main Content Grid */}
@@ -168,7 +181,7 @@ export default function Home() {
               icon={BookOpen}
               title="Educational Lessons"
               description="Step-by-step lessons covering investing fundamentals and market concepts"
-              status="planned"
+              status="complete"
             />
             <FeatureCard
               icon={DollarSign}
