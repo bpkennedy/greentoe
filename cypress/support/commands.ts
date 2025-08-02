@@ -106,11 +106,14 @@ Cypress.Commands.add('loadUserData', (filename: string) => {
 
 // Custom command to wait for stock data
 Cypress.Commands.add('waitForStockData', (symbol: string) => {
-  // Wait for stock to be visible and loaded (use visible text)
-  cy.contains(symbol).should('be.visible');
+  // With mocked data, we can wait for specific API calls and then the price display
+  cy.wait(`@get${symbol}`, { timeout: 10000 });
   
-  // Wait for price to load (not loading state)
-  cy.contains(symbol).parent().within(() => {
+  // Wait for stock card to be visible
+  cy.get(`[data-testid="stock-card-${symbol}"]`).should('be.visible');
+  
+  // Wait for price to load in the stock card
+  cy.get(`[data-testid="stock-card-${symbol}"]`).within(() => {
     cy.contains('Loading...').should('not.exist');
     cy.contains('$').should('be.visible'); // Price should be displayed
   });

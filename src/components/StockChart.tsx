@@ -194,6 +194,7 @@ export function StockChart({
       role="region"
       aria-labelledby={`chart-title-${data.metadata.symbol}`}
       aria-describedby={`chart-description-${data.metadata.symbol}`}
+      data-testid={`stock-chart-${data.metadata.symbol}`}
     >
       {showMetrics && (
         <CardHeader className="pb-4">
@@ -255,6 +256,7 @@ export function StockChart({
           aria-labelledby={`chart-title-${data.metadata.symbol}`}
           aria-describedby={`chart-description-${data.metadata.symbol}`}
           tabIndex={0}
+          data-testid={`chart-container-${data.metadata.symbol}`}
           onKeyDown={(e) => {
             // Allow keyboard navigation hint
             if (e.key === 'Enter' || e.key === ' ') {
@@ -316,6 +318,7 @@ export function StockChart({
               className="grid grid-cols-2 md:grid-cols-4 gap-4"
               role="list"
               aria-label="Key stock metrics"
+              data-testid={`chart-metrics-${data.metadata.symbol}`}
             >
               <div className="text-center" role="listitem">
                 <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">

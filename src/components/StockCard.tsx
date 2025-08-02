@@ -206,7 +206,7 @@ export function StockCard({
   };
 
   return (
-    <Card className={cn('transition-all duration-200', className)}>
+    <Card className={cn('transition-all duration-200', className)} data-testid={`stock-card-${symbol}`}>
       <StockDataWrapper
         symbol={symbol}
         hookResult={stockDataHook}
@@ -216,7 +216,10 @@ export function StockCard({
         {(data) => (
           <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
             <CollapsibleTrigger asChild>
-              <div className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-lg">
+              <div 
+                className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-lg"
+                data-testid={`stock-card-trigger-${symbol}`}
+              >
                 <StockSummary
                   symbol={symbol}
                   data={data}
@@ -248,6 +251,7 @@ export function StockCard({
                       size="sm"
                       onClick={() => window.open(`https://finance.yahoo.com/quote/${symbol}`, '_blank')}
                       className="text-xs"
+                      data-testid={`view-details-${symbol}`}
                     >
                       View Details
                     </Button>
