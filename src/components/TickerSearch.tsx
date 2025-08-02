@@ -264,7 +264,7 @@ export function TickerSearch({
           {/* Help text */}
           <div className="border-t border-gray-100 px-3 py-2 bg-gray-50">
             <p className="text-xs text-gray-600">
-              Can't find a symbol? Type it manually and press Enter
+              Can&apos;t find a symbol? Type it manually and press Enter
             </p>
           </div>
         </div>
@@ -275,7 +275,7 @@ export function TickerSearch({
         <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
           <div className="px-3 py-4 text-center">
             <p className="text-sm text-gray-600">
-              No suggestions found for "{query}"
+              No suggestions found for &quot;{query}&quot;
             </p>
             <p className="text-xs text-gray-500 mt-1">
               You can still add it manually by pressing Enter

@@ -150,7 +150,7 @@ export async function fetchStockData(symbol: string): Promise<ProcessedStockData
     let data: AlphaVantageApiResponse;
     try {
       data = await response.json();
-    } catch (parseError) {
+    } catch {
       throw createStockError('API_ERROR', 'Invalid JSON response from API');
     }
 
