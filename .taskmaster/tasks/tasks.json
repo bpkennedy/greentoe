@@ -1,0 +1,1274 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Project Repository and CI/CD Pipeline",
+        "description": "Initialize Next.js 14 project with TypeScript, configure Tailwind CSS, shadcn/ui, and setup GitHub Actions for lint, type-check, and build",
+        "details": "1. Create Next.js 14 project with App Router and TypeScript: `npx create-next-app@latest green-thumb --typescript --tailwind --eslint --app`\n2. Install dependencies: `npm install lucide-react swr @types/node`\n3. Setup shadcn/ui: `npx shadcn-ui@latest init`\n4. Configure Tailwind with custom colors: primary-500 #22c55e, secondary-500 #3b82f6, neutral-900 #0f172a\n5. Create GitHub Actions workflow in `.github/workflows/ci.yml` with lint, type-check, and build steps\n6. Setup Vercel deployment configuration\n7. Create folder structure: `/content/lessons`, `/data`, `/public`, `/lib`, `/app/api`",
+        "testStrategy": "Verify project builds successfully, all linting passes, TypeScript compilation succeeds, and Vercel deployment works",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Initialize Next.js 14 Project with TypeScript and App Router",
+            "description": "Create a new Next.js 14 project using the App Router and TypeScript with Tailwind CSS and ESLint configured.",
+            "dependencies": [],
+            "details": "Run the command `npx create-next-app@latest green-thumb --typescript --tailwind --eslint --app` to scaffold the project with the required options.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Install Additional Dependencies",
+            "description": "Install necessary runtime and type dependencies including lucide-react, swr, and @types/node.",
+            "dependencies": [
+              "1.1"
+            ],
+            "details": "Run `npm install lucide-react swr @types/node` inside the project directory to add these packages.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Setup shadcn/ui Component Library",
+            "description": "Initialize the shadcn/ui component library within the project to provide UI components.",
+            "dependencies": [
+              "1.2"
+            ],
+            "details": "Execute `npx shadcn-ui@latest init` to set up the UI library scaffolding and configuration.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Configure Tailwind CSS with Custom Colors",
+            "description": "Customize Tailwind CSS configuration to include specific color palette for primary, secondary, and neutral colors.",
+            "dependencies": [
+              "1.1"
+            ],
+            "details": "Modify the Tailwind config file to add custom colors: primary-500 (#22c55e), secondary-500 (#3b82f6), and neutral-900 (#0f172a).",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Create GitHub Actions Workflow for CI",
+            "description": "Set up a GitHub Actions workflow to run linting, TypeScript type-checking, and build steps on push or pull request.",
+            "dependencies": [
+              "1.1"
+            ],
+            "details": "Create `.github/workflows/ci.yml` with jobs for lint, type-check, and build to ensure code quality and build integrity.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Configure Vercel Deployment",
+            "description": "Set up deployment configuration for Vercel to automatically deploy the Next.js project.",
+            "dependencies": [
+              "1.1"
+            ],
+            "details": "Connect the project repository to Vercel and configure environment variables and build settings as needed for deployment.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Organize Project Folder Structure",
+            "description": "Establish a clear and maintainable folder structure for the project source code and assets.",
+            "dependencies": [
+              "1.1"
+            ],
+            "details": "Create folders such as `app/` for routes, `components/` for UI components, `lib/` for utilities and contexts, and `public/` for static assets.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Implement Core State Management with React Context",
+        "description": "Create React Context providers for watch-list management and lesson progress tracking",
+        "details": "1. Create `lib/contexts/WatchListContext.tsx` with:\n   - State: `watchList: string[]` (ticker symbols)\n   - Actions: `addTicker(symbol: string)`, `removeTicker(symbol: string)`\n   - Persist state in memory only\n2. Create `lib/contexts/ProgressContext.tsx` with:\n   - State: `completedLessons: string[]` (lesson slugs)\n   - Actions: `markLessonComplete(slug: string)`\n3. Create `lib/contexts/AppProvider.tsx` to wrap both contexts\n4. Add TypeScript interfaces for all context types\n5. Implement context hooks: `useWatchList()`, `useProgress()`",
+        "testStrategy": "Unit tests with React Testing Library to verify context state updates, add/remove operations, and proper TypeScript typing",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define TypeScript Interfaces for Contexts",
+            "description": "Create TypeScript interfaces to define the shape of the WatchListContext and ProgressContext state and actions to ensure type safety.",
+            "dependencies": [],
+            "details": "Define interfaces such as WatchListContextType with state (watchList: string[]) and actions (addTicker, removeTicker), and ProgressContextType with state (completedLessons: string[]) and action (markLessonComplete).",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Create WatchListContext Provider",
+            "description": "Implement the WatchListContext React context provider with state management and actions for adding and removing ticker symbols.",
+            "dependencies": [],
+            "details": "Create `lib/contexts/WatchListContext.tsx` using React.createContext and useState hook to manage watchList state in memory, exposing addTicker and removeTicker functions typed with the defined interfaces.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create ProgressContext Provider",
+            "description": "Implement the ProgressContext React context provider with state management and action to mark lessons as complete.",
+            "dependencies": [],
+            "details": "Create `lib/contexts/ProgressContext.tsx` using React.createContext and useState hook to manage completedLessons state in memory, exposing markLessonComplete function typed with the defined interfaces.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement Combined AppProvider",
+            "description": "Create a combined AppProvider component that wraps both WatchListContext and ProgressContext providers to provide global state access.",
+            "dependencies": [],
+            "details": "Create `lib/contexts/AppProvider.tsx` that composes WatchListContext.Provider and ProgressContext.Provider, wrapping children components to provide both contexts simultaneously.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Custom Hooks for Context Consumption",
+            "description": "Create custom React hooks to consume WatchListContext and ProgressContext easily with proper TypeScript typing and error handling.",
+            "dependencies": [],
+            "details": "Implement hooks like useWatchList and useProgress that internally use React's useContext to access respective contexts, throwing errors if used outside providers, ensuring type safety and cleaner component usage.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Setup Alpha Vantage Integration with SWR",
+        "description": "Implement stock price data fetching using Alpha Vantage API with SWR for caching and error handling",
+        "details": "1. Create `lib/api/alphaVantage.ts` with:\n   - Function `fetchStockData(symbol: string)` using Alpha Vantage free tier\n   - API endpoint: `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={key}`\n   - Error handling for rate limits and invalid symbols\n2. Create `lib/hooks/useStockData.ts` with SWR:\n   - 24-hour cache configuration\n   - Automatic revalidation on focus\n   - Error boundary integration\n3. Add environment variable `NEXT_PUBLIC_ALPHA_VANTAGE_KEY`\n4. Create TypeScript interfaces for API response data\n5. Implement graceful fallback UI for API failures",
+        "testStrategy": "Mock API responses in tests, verify 24h caching works, test error states and rate limiting scenarios",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Alpha Vantage API Utility with Error Handling",
+            "description": "Develop a TypeScript utility module `lib/api/alphaVantage.ts` that fetches stock data from Alpha Vantage API, including robust error handling for rate limits and invalid symbols.",
+            "dependencies": [],
+            "details": "Implement `fetchStockData(symbol: string)` function using Alpha Vantage's TIME_SERIES_DAILY endpoint. Handle API key usage from environment variables and parse JSON responses. Detect and manage errors such as API rate limiting and invalid stock symbols gracefully.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement SWR Hook for Stock Data Fetching with Caching and Revalidation",
+            "description": "Create a custom React hook `lib/hooks/useStockData.ts` using SWR to fetch and cache stock data with a 24-hour cache duration and automatic revalidation on window focus.",
+            "dependencies": [],
+            "details": "Configure SWR to cache data for 24 hours, enable revalidation on focus, and integrate error boundary handling to display errors from the API utility. Ensure the hook returns loading, error, and data states properly typed with TypeScript interfaces.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Setup Environment Variables for API Key Management",
+            "description": "Configure environment variables to securely store and access the Alpha Vantage API key within the application.",
+            "dependencies": [],
+            "details": "Add `NEXT_PUBLIC_ALPHA_VANTAGE_KEY` to environment configuration files. Ensure the API utility reads the key from this variable and that it is not exposed insecurely in client bundles. Document environment setup for development and production.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Define TypeScript Interfaces for API Responses and Hook Data",
+            "description": "Create comprehensive TypeScript interfaces to type the Alpha Vantage API responses and the data returned by the SWR hook.",
+            "dependencies": [],
+            "details": "Analyze Alpha Vantage API JSON response structure and define interfaces for time series data, metadata, and error formats. Use these interfaces in the API utility and SWR hook to ensure type safety and IntelliSense support.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Fallback UI Components for Loading and Error States",
+            "description": "Develop reusable React components to display fallback UI during data loading and error conditions in the stock data fetching flow.",
+            "dependencies": [],
+            "details": "Create components that show loading spinners or placeholders while data is being fetched, and error messages or retry options when API calls fail or rate limits are hit. Integrate these components with the SWR hook's returned states.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Create Lesson Content Structure and MDX Processing",
+        "description": "Setup MDX processing for lessons and create the 6 required lesson files with proper metadata",
+        "details": "1. Install MDX dependencies: `npm install @next/mdx @mdx-js/loader @mdx-js/react @types/mdx`\n2. Configure `next.config.js` for MDX processing\n3. Create lesson files in `/content/lessons/`:\n   - `01-understanding-stocks-index-funds.mdx`\n   - `02-reading-performance-charts.mdx`\n   - `03-comparing-investments.mdx`\n   - `04-research-before-you-buy.mdx`\n   - `05-keeping-emotions-in-check.mdx`\n   - `06-understanding-risk.mdx`\n4. Each file exports meta object with title, summary, learningObjectives, icon\n5. Create `lib/lessons.ts` utility to load and parse lesson metadata\n6. Implement teen-friendly content with short sentences, minimal slang",
+        "testStrategy": "Verify MDX files parse correctly, metadata extraction works, and lesson content renders properly in browser",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install MDX Dependencies",
+            "description": "Install all necessary MDX-related packages including @next/mdx, @mdx-js/loader, @mdx-js/react, and their TypeScript types.",
+            "dependencies": [],
+            "details": "Run npm install commands to add @next/mdx, @mdx-js/loader, @mdx-js/react, and @types/mdx to the project dependencies to enable MDX support in Next.js.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configure Next.js for MDX Support",
+            "description": "Modify next.config.js (or next.config.mjs) to integrate MDX processing and support .mdx file extensions as pages.",
+            "dependencies": [],
+            "details": "Use createMDX from @next/mdx to wrap the Next.js config, add 'mdx' and 'md' to pageExtensions, and create an mdx-components.tsx file for global MDX components configuration.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create Lesson MDX Files with Metadata",
+            "description": "Create six lesson MDX files in the /content/lessons/ directory, each exporting a meta object with title, summary, learning objectives, and other metadata.",
+            "dependencies": [],
+            "details": "Develop the following MDX files: 01-understanding-stocks-index-funds.mdx, 02-reading-performance-charts.mdx, 03-comparing-investments.mdx, 04-research-before-you-buy.mdx, 05-keeping-emotions-in-check.mdx, and 06-understanding-risk.mdx. Each file should include frontmatter or exported meta objects with structured metadata.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Export Meta Objects and Implement Metadata Parsing Utility",
+            "description": "Ensure each MDX lesson file exports a meta object and create a utility function to parse and aggregate metadata from all lesson files.",
+            "dependencies": [],
+            "details": "Implement a utility module that imports all lesson MDX files, extracts their meta objects, and provides a consolidated metadata list for use in lesson navigation and display.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Ensure Teen-Friendly Content Style in Lessons",
+            "description": "Review and adjust lesson content to maintain a teen-friendly tone and style appropriate for the target audience.",
+            "dependencies": [],
+            "details": "Apply content guidelines to ensure language is accessible, engaging, and appropriate for teenagers, avoiding jargon and complex terminology while maintaining educational value.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Test MDX Setup and Content Rendering",
+            "description": "Verify that MDX files parse correctly, metadata extraction works as expected, and lesson content renders properly in the Next.js application.",
+            "dependencies": [],
+            "details": "Perform functional testing by loading lesson pages, checking metadata availability, and confirming that the teen-friendly content style is preserved in the rendered output.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Build Watch-List Management Interface",
+        "description": "Create UI components for adding, removing, and displaying stock tickers in the watch-list",
+        "details": "1. Create `components/WatchList.tsx` with:\n   - Input field for adding tickers (with validation)\n   - List display of current watch-list items\n   - Remove buttons for each ticker\n   - Empty state when no items\n2. Create `components/TickerSearch.tsx` with:\n   - Autocomplete functionality for common stocks/ETFs\n   - Validation against Alpha Vantage symbol format\n3. Style with Tailwind CSS and shadcn/ui components\n4. Add Lucide icons for add/remove actions\n5. Implement keyboard navigation (WCAG 2.2 AA compliance)\n6. Responsive design for 375px, 768px, 1280px breakpoints",
+        "testStrategy": "Test add/remove functionality, input validation, keyboard navigation, responsive behavior across breakpoints",
+        "priority": "high",
+        "dependencies": [
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Develop WatchList Component UI",
+            "description": "Create the WatchList component with an input field for adding tickers, list display of current watch-list items, remove buttons for each ticker, and an empty state when no items are present.",
+            "dependencies": [],
+            "details": "Implement input validation for ticker symbols and ensure the list updates dynamically with add/remove actions.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement TickerSearch Autocomplete",
+            "description": "Build the TickerSearch component with autocomplete functionality for common stocks and ETFs, including validation against Alpha Vantage symbol format.",
+            "dependencies": [],
+            "details": "Integrate autocomplete suggestions and ensure input validation aligns with ticker symbol standards.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Apply Styling with Tailwind CSS and shadcn/ui",
+            "description": "Style the WatchList and TickerSearch components using Tailwind CSS and shadcn/ui components to ensure a consistent and modern UI.",
+            "dependencies": [],
+            "details": "Use utility-first Tailwind classes and shadcn/ui components for layout, spacing, and theming.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Integrate Lucide Icons",
+            "description": "Add Lucide icons for add and remove actions within the WatchList and TickerSearch components to enhance visual cues.",
+            "dependencies": [],
+            "details": "Ensure icons are accessible and visually consistent with the overall design.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Keyboard Navigation for Accessibility",
+            "description": "Enable keyboard navigation and interaction for the WatchList and TickerSearch components to comply with WCAG accessibility standards.",
+            "dependencies": [],
+            "details": "Support tab navigation, arrow key movement in autocomplete, and keyboard activation of add/remove buttons.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Ensure Responsive Design",
+            "description": "Make the WatchList and TickerSearch components responsive across different screen sizes and devices.",
+            "dependencies": [],
+            "details": "Use Tailwind responsive utilities and test UI behavior on mobile, tablet, and desktop breakpoints.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Implement Stock Price Charts and Data Visualization",
+        "description": "Create interactive price charts showing historical performance and key metrics for watch-list items",
+        "details": "1. Install chart library: `npm install recharts` (lightweight, accessible)\n2. Create `components/StockChart.tsx` with:\n   - Line chart showing price history over time\n   - Percentage change indicators\n   - Key metrics display (current price, day change, etc.)\n   - Loading and error states\n3. Create `components/StockCard.tsx` for watch-list items:\n   - Click to expand chart view\n   - Summary metrics visible in collapsed state\n4. Implement keyboard navigation for charts\n5. Add proper ARIA labels and screen reader support\n6. Use monospace font for numerical figures\n7. Responsive chart sizing and touch-friendly interactions",
+        "testStrategy": "Test chart rendering with real API data, verify accessibility with screen readers, test responsive behavior and touch interactions",
+        "priority": "high",
+        "dependencies": [
+          3,
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install Recharts Chart Library",
+            "description": "Install the Recharts library via npm to enable charting capabilities in the project.",
+            "dependencies": [],
+            "details": "Run `npm install recharts` in the project directory to add the Recharts package, ensuring compatibility with the React version used. Verify installation by checking package.json and node_modules.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Create StockChart Component with Line Chart and Metrics",
+            "description": "Develop the StockChart React component to display a line chart of stock price history along with key metrics and percentage changes.",
+            "dependencies": [],
+            "details": "Use Recharts components such as LineChart, Line, XAxis, YAxis, and CartesianGrid to render the price history. Include UI elements for current price, day change, and percentage change. Implement loading and error states for data fetching.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create StockCard Component with Expandable Views",
+            "description": "Implement the StockCard component to show summary metrics in a collapsed state and expand to reveal the StockChart component on user interaction.",
+            "dependencies": [],
+            "details": "Design the StockCard to display key stock information when collapsed. Add click or keyboard interaction to expand and show the detailed StockChart. Manage state for expanded/collapsed views and ensure smooth transitions.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement Keyboard Navigation for Charts and Cards",
+            "description": "Add keyboard accessibility to the StockChart and StockCard components to allow navigation and interaction without a mouse.",
+            "dependencies": [],
+            "details": "Enable focus management and keyboard controls such as tab navigation, arrow keys for chart data points, and enter/space to expand/collapse StockCard. Ensure logical tab order and visible focus indicators.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Add ARIA Labeling and Roles for Accessibility",
+            "description": "Enhance the StockChart and StockCard components with appropriate ARIA labels, roles, and properties to support screen readers and assistive technologies.",
+            "dependencies": [],
+            "details": "Apply ARIA roles such as 'region', 'button', and 'img' where appropriate. Use aria-label and aria-describedby to describe charts and interactive elements. Test with screen readers to verify accessibility compliance.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Use Monospace Font for Numeric Data Display",
+            "description": "Apply a monospace font style to all numeric data in the StockChart and StockCard components to improve readability and alignment.",
+            "dependencies": [],
+            "details": "Update CSS or styled components to use monospace fonts for price, percentage, and other numeric metrics. Ensure consistent font usage across all relevant UI elements.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Ensure Responsive and Touch-Friendly Design",
+            "description": "Make the StockChart and StockCard components responsive across breakpoints and optimized for touch interactions on mobile devices.",
+            "dependencies": [],
+            "details": "Implement CSS media queries and flexible layouts for screen widths including 375px, 768px, and 1280px. Add touch event handlers and ensure interactive elements have adequate size and spacing for touch input.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Create Lesson Pages with Dynamic Routing",
+        "description": "Implement dynamic lesson pages with progress tracking and scroll-based completion detection",
+        "details": "1. Create `app/lessons/[slug]/page.tsx` with:\n   - Dynamic route handling for lesson slugs\n   - MDX content rendering\n   - Scroll progress tracking (mark complete at 80%)\n   - Navigation between lessons\n2. Create `components/LessonLayout.tsx` with:\n   - Progress indicator\n   - Lesson metadata display (title, objectives, icon)\n   - Next/previous lesson navigation\n3. Implement scroll tracking with `useEffect` and `IntersectionObserver`\n4. Add Lucide icons for each lesson based on metadata\n5. Style with Tailwind typography classes\n6. Ensure mobile-friendly reading experience",
+        "testStrategy": "Test dynamic routing works for all lesson slugs, scroll tracking accurately detects 80% completion, navigation between lessons functions correctly",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Dynamic Route Page for Lessons",
+            "description": "Create the dynamic route page at app/lessons/[slug]/page.tsx to handle lesson slugs and render MDX content dynamically.",
+            "dependencies": [],
+            "details": "Set up the dynamic folder [slug] under app/lessons and create page.tsx inside it. Use async functions to fetch and render MDX content based on the slug parameter. Ensure the page supports dynamic routing as per Next.js conventions.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Render MDX Content in Lesson Pages",
+            "description": "Integrate MDX rendering within the dynamic lesson page to display lesson content with metadata.",
+            "dependencies": [
+              "7.1"
+            ],
+            "details": "Configure MDX processing and use components like MDXRemote or equivalent to render the lesson MDX files. Extract and display metadata such as title, objectives, and icons from the MDX frontmatter.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement Scroll Progress Tracking",
+            "description": "Add scroll progress tracking to detect when a user has scrolled through 80% of the lesson content and mark the lesson as complete.",
+            "dependencies": [
+              "7.2"
+            ],
+            "details": "Use React hooks such as useEffect and IntersectionObserver API to monitor scroll position. Update lesson completion state when 80% scroll threshold is reached.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create LessonLayout Component with Metadata and Progress",
+            "description": "Develop a reusable LessonLayout component that displays lesson metadata, progress indicators, and navigation controls.",
+            "dependencies": [
+              "7.2",
+              "7.3"
+            ],
+            "details": "Include UI elements for lesson title, learning objectives, and icons (using Lucide icons). Show progress indicators reflecting scroll completion. Provide next and previous lesson navigation buttons.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Lesson Navigation Between Lessons",
+            "description": "Enable navigation controls to move between lessons seamlessly within the lesson pages.",
+            "dependencies": [
+              "7.4"
+            ],
+            "details": "Use lesson metadata or a lesson index to determine next and previous lessons. Implement navigation buttons or links in LessonLayout to allow users to move forward or backward through lessons.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Enhance Accessibility and Styling",
+            "description": "Improve accessibility features and apply consistent styling to lesson pages and components.",
+            "dependencies": [
+              "7.4",
+              "7.5"
+            ],
+            "details": "Ensure keyboard navigation, ARIA attributes, and semantic HTML are used appropriately. Style components using Tailwind CSS or chosen styling framework to maintain visual consistency and responsiveness.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Build Lesson Library Overview Page",
+        "description": "Create main lessons index page showing all available lessons with progress indicators",
+        "details": "1. Create `app/lessons/page.tsx` with:\n   - Grid layout of lesson cards\n   - Progress indicators (completed/total)\n   - Lesson metadata preview\n   - Search/filter functionality\n2. Create `components/LessonCard.tsx` with:\n   - Lesson title, summary, and icon\n   - Completion status indicator\n   - Estimated reading time\n   - Click to navigate to lesson\n3. Add completion badges using Lucide icons\n4. Implement responsive grid layout\n5. Add loading states and error handling\n6. Include breadcrumb navigation",
+        "testStrategy": "Verify all lessons display correctly, progress indicators update when lessons are completed, responsive layout works across devices",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          4,
+          7
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create LessonCard Component",
+            "description": "Develop a reusable LessonCard component displaying lesson title, summary, icon, estimated reading time, and completion status indicator with click navigation.",
+            "dependencies": [],
+            "details": "Implement the LessonCard as a functional React component accepting props for metadata and progress. Include Lucide icons for completion badges. Ensure accessibility and basic styling.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement Grid Layout for Lessons Index Page",
+            "description": "Build the main lessons index page with a responsive grid layout displaying LessonCard components.",
+            "dependencies": [
+              "8.1"
+            ],
+            "details": "Create `app/lessons/page.tsx` to render all lessons in a grid. Integrate progress indicators showing completed vs total lessons. Add search and filter functionality for lessons.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Add Completion Badges to Lesson Cards",
+            "description": "Enhance LessonCard components with completion badges using Lucide icons to visually indicate lesson completion status.",
+            "dependencies": [
+              "8.1"
+            ],
+            "details": "Use Lucide icon library to display badges on LessonCards based on completion metadata. Ensure badges update dynamically with progress changes.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement Responsive Design",
+            "description": "Ensure the lessons index page and LessonCard components adapt gracefully to different screen sizes and devices.",
+            "dependencies": [
+              "8.2",
+              "8.1"
+            ],
+            "details": "Use CSS grid/flexbox and media queries or Tailwind CSS utilities to create a responsive grid layout. Test across mobile, tablet, and desktop breakpoints.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Add Loading and Error States",
+            "description": "Implement UI states for loading and error conditions on the lessons index page.",
+            "dependencies": [
+              "8.2"
+            ],
+            "details": "Show a loading spinner or skeleton cards while lesson data is fetching. Display user-friendly error messages if data fails to load.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement Breadcrumb Navigation",
+            "description": "Add breadcrumb navigation to the lessons index page for improved user orientation and navigation.",
+            "dependencies": [
+              "8.2"
+            ],
+            "details": "Create a breadcrumb component reflecting the current page hierarchy (e.g., Home / Lessons). Integrate it at the top of the lessons index page.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Implement Encryption/Decryption API Routes",
+        "description": "Create secure API endpoints for encrypting and decrypting user data using AES-256-GCM",
+        "details": "1. Create `app/api/encrypt/route.ts` with:\n   - POST handler accepting JSON state data\n   - AES-256-GCM encryption using Node.js crypto module\n   - 32-byte key from `ENCRYPTION_KEY` environment variable\n   - Return encrypted blob as application/octet-stream\n   - 200KB payload size limit\n   - 3-second maxDuration\n2. Create `app/api/decrypt/route.ts` with:\n   - POST handler accepting encrypted file data\n   - Decrypt and return plain JSON\n   - Proper error handling for malformed data\n3. Create `lib/crypto.ts` utility functions\n4. Add proper TypeScript types for API responses\n5. Implement comprehensive error handling and validation",
+        "testStrategy": "Test encryption/decryption roundtrip, verify file size limits, test malformed data handling, ensure environment key security",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create AES-256-GCM Encryption API Route",
+            "description": "Implement the POST handler in `app/api/encrypt/route.ts` that accepts JSON state data, encrypts it using AES-256-GCM with a 32-byte key from the `ENCRYPTION_KEY` environment variable, and returns the encrypted blob as application/octet-stream. Enforce a 200KB payload size limit and a 3-second maximum duration for processing.",
+            "dependencies": [],
+            "details": "Use Node.js crypto module for AES-256-GCM encryption. Generate a 12-byte IV (nonce) as per AES-GCM standard. Ensure proper error handling for invalid input and environment key issues.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Create AES-256-GCM Decryption API Route",
+            "description": "Implement the POST handler in `app/api/decrypt/route.ts` that accepts encrypted file data, decrypts it using AES-256-GCM with the same 32-byte key, and returns the decrypted JSON data. Include robust error handling for malformed or invalid encrypted data.",
+            "dependencies": [
+              "9.1"
+            ],
+            "details": "Use Node.js crypto module for decryption. Validate input format and handle authentication tag verification failures gracefully. Return appropriate HTTP error codes for decryption errors.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Develop Crypto Utility Functions",
+            "description": "Create reusable utility functions for AES-256-GCM encryption and decryption to be used by both API routes. Include functions for key retrieval, IV generation, encryption, decryption, and authentication tag handling.",
+            "dependencies": [],
+            "details": "Ensure utilities enforce 12-byte IV size for compatibility and security. Include input validation and error propagation. Abstract environment variable access for the encryption key.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Add TypeScript Typings for API and Crypto Utilities",
+            "description": "Define comprehensive TypeScript interfaces and types for API request and response payloads, crypto utility function parameters and return types, and error objects to ensure type safety and developer clarity.",
+            "dependencies": [
+              "9.3"
+            ],
+            "details": "Include types for JSON state data, encrypted binary data, error responses, and environment configuration. Use strict typing to prevent runtime errors and improve maintainability.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Comprehensive Error Handling and Validation",
+            "description": "Integrate thorough validation of inputs, payload sizes, and environment variables in both API routes and crypto utilities. Implement detailed error handling to catch and respond to malformed data, decryption failures, missing keys, and timeout breaches.",
+            "dependencies": [
+              "9.1",
+              "9.2",
+              "9.3",
+              "9.4"
+            ],
+            "details": "Return meaningful HTTP status codes and error messages. Log errors securely without exposing sensitive data. Enforce the 200KB payload size and 3-second maxDuration constraints with appropriate error responses.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Build Save/Load Data Functionality",
+        "description": "Implement client-side save/load features for downloading and uploading encrypted state files",
+        "details": "1. Install file handling library: `npm install file-saver @types/file-saver`\n2. Create `lib/dataManager.ts` with:\n   - `saveData()` function to POST current state to /api/encrypt\n   - `loadData()` function to upload .gt file to /api/decrypt\n   - State merging logic for loaded data\n   - Error handling and user feedback\n3. Create `components/DataManager.tsx` with:\n   - \"Download Data\" button triggering file download\n   - File input for selecting .gt files\n   - Progress indicators during save/load\n   - Success/error messages\n4. Integrate with existing contexts to save/restore state\n5. Default filename: `green-thumb-state.gt`\n6. Add proper file type validation",
+        "testStrategy": "Test complete save/load cycle, verify state persistence, test error scenarios (corrupted files, network issues), validate file type restrictions",
+        "priority": "high",
+        "dependencies": [
+          2,
+          9
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install File Handling Libraries",
+            "description": "Install necessary client-side libraries for file saving and loading, including file-saver and its TypeScript types.",
+            "dependencies": [],
+            "details": "Run `npm install file-saver @types/file-saver` to add the FileSaver.js library for client-side file saving functionality. Verify installation and import usage in the project.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Create DataManager Utility with Save/Load and State Merging",
+            "description": "Develop a utility module `lib/dataManager.ts` that handles saving current state by encrypting and posting to the API, loading encrypted files, decrypting, and merging loaded state with existing state.",
+            "dependencies": [
+              "10.1"
+            ],
+            "details": "Implement `saveData()` to POST current app state to `/api/encrypt` and trigger file download. Implement `loadData()` to upload `.gt` files, POST to `/api/decrypt`, parse decrypted JSON, and merge with current state. Include error handling and user feedback mechanisms.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Develop DataManager React Component with UI Controls and Feedback",
+            "description": "Create `components/DataManager.tsx` React component providing UI controls for downloading and uploading data files, including buttons, file input, and progress indicators.",
+            "dependencies": [
+              "10.2"
+            ],
+            "details": "Add 'Download Data' button to trigger saveData and file download. Add file input restricted to `.gt` files for loading data. Show progress indicators during save/load operations and display error or success messages to users.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Integrate DataManager with React Contexts",
+            "description": "Connect DataManager utility and component with existing React Context providers to access and update application state during save/load operations.",
+            "dependencies": [
+              "10.2",
+              "10.3"
+            ],
+            "details": "Use contexts such as WatchListContext and ProgressContext to retrieve current state for saving and to update state after loading and merging. Ensure proper context typing and state synchronization.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Define Filename Conventions for Saved Files",
+            "description": "Establish and implement consistent filename conventions for saved encrypted state files to improve user clarity and file management.",
+            "dependencies": [
+              "10.2",
+              "10.3"
+            ],
+            "details": "Decide on filename format including extension `.gt` and possibly timestamp or user identifier. Implement naming logic in saveData and DataManager component to use this convention when triggering file downloads.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement File Validation and Error Handling",
+            "description": "Add validation for uploaded files to ensure correct file type and format, and implement robust error handling for corrupted files, network errors, and invalid data during save/load.",
+            "dependencies": [
+              "10.3",
+              "10.4"
+            ],
+            "details": "Validate file extension `.gt` and file content before processing. Handle errors from API decrypt endpoint gracefully, showing user-friendly messages. Include fallback and retry mechanisms as needed.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Create Parent Dashboard with Basic Authentication",
+        "description": "Build password-protected parent dashboard showing teen's activity and progress",
+        "details": "1. Create `app/parent/page.tsx` with:\n   - Basic auth form (username: admin, password: admin)\n   - Client-side hash comparison against environment variable\n   - Activity summary display\n   - Lesson progress overview\n2. Create `components/ParentAuth.tsx` with:\n   - Login form with proper validation\n   - Session management (memory-only)\n   - Logout functionality\n3. Create `components/ActivitySummary.tsx` showing:\n   - Lessons completed count\n   - Watch-list items\n   - Last activity timestamp\n   - Progress charts\n4. Store auth hash in `PARENT_AUTH_HASH` environment variable\n5. Implement proper security measures (no credentials in bundle)\n6. Add conversation starter suggestions",
+        "testStrategy": "Test authentication flow, verify credentials don't appear in client bundle, test activity data accuracy, ensure proper logout behavior",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          7
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Parent Page with Basic Auth Form",
+            "description": "Develop the `app/parent/page.tsx` file including a basic authentication form with username and password inputs, client-side hash comparison against an environment variable, and display of activity summary and lesson progress.",
+            "dependencies": [],
+            "details": "Implement a login form with username 'admin' and password 'admin'. Use a client-side hash comparison to validate credentials against a hash stored in an environment variable. Display the ActivitySummary component and lesson progress overview upon successful login.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Develop ParentAuth Component with Session Management",
+            "description": "Create the `components/ParentAuth.tsx` component to handle login form validation, session management in memory, and logout functionality.",
+            "dependencies": [
+              "11.1"
+            ],
+            "details": "Build a login form with proper input validation. Manage authentication state in memory only (no persistent storage). Provide logout functionality that clears the session and returns to the login form.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement ActivitySummary Component",
+            "description": "Create the `components/ActivitySummary.tsx` component to display lessons completed count, watch-list items, and last activity timestamp.",
+            "dependencies": [
+              "11.1"
+            ],
+            "details": "Fetch and display the number of lessons completed, current watch-list items, and the timestamp of the last activity. Ensure data is accurate and updates appropriately.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Setup Environment Variable for Auth Hash",
+            "description": "Configure environment variables to securely store the hashed password used for client-side authentication comparison.",
+            "dependencies": [],
+            "details": "Add an environment variable (e.g., `NEXT_PUBLIC_PARENT_AUTH_HASH`) containing the hashed version of the password. Ensure this variable is not exposed in the client bundle except for the hash needed for comparison.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Security Measures for Authentication",
+            "description": "Apply security best practices to protect the authentication flow, including preventing credential exposure and securing session management.",
+            "dependencies": [
+              "11.1",
+              "11.2",
+              "11.4"
+            ],
+            "details": "Ensure credentials do not appear in the client bundle in plain text. Use secure hash comparison methods. Manage sessions in memory only to avoid persistent storage vulnerabilities. Validate inputs to prevent injection attacks.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Add Conversation Starter Features",
+            "description": "Integrate features that encourage user interaction or provide prompts within the parent dashboard after authentication.",
+            "dependencies": [
+              "11.1",
+              "11.3"
+            ],
+            "details": "Design and implement UI elements or components that provide conversation starters or prompts related to the teen's activity and progress, enhancing engagement on the dashboard.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Implement Static Data and Index Funds Information",
+        "description": "Create static data files for index funds and implement data loading utilities",
+        "details": "1. Create `/data/index-funds.json` with:\n   - Popular index funds metadata (VTI, VOO, VXUS, etc.)\n   - Fund descriptions, expense ratios, key facts\n   - JSON structure with proper TypeScript interfaces\n2. Create `lib/staticData.ts` with:\n   - Functions to load and parse static data\n   - Search functionality for funds\n   - Type-safe data access\n3. Integrate static data with watch-list suggestions\n4. Add fund information to chart displays\n5. Create educational content linking to static data\n6. Ensure data is accessible and properly formatted",
+        "testStrategy": "Verify static data loads correctly, search functionality works, data integrates properly with existing components",
+        "priority": "low",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Static JSON Data for Index Funds",
+            "description": "Develop a static JSON file containing metadata for popular index funds including fund descriptions, expense ratios, and key facts, structured with proper TypeScript interfaces.",
+            "dependencies": [],
+            "details": "Create `/data/index-funds.json` with data for funds like VTI, VOO, VXUS, ensuring JSON structure follows best practices for static data and type safety.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement Static Data Utility Module",
+            "description": "Build a utility module `lib/staticData.ts` to load, parse, and provide type-safe access to the static JSON data, including search functionality for index funds.",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "Implement functions to read the JSON file, parse it with TypeScript interfaces, and enable searching funds by name or ticker symbol.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Integrate Static Data with Watch-List Suggestions",
+            "description": "Connect the static index fund data with the watch-list feature to provide fund suggestions based on the loaded static data.",
+            "dependencies": [
+              "12.2"
+            ],
+            "details": "Use the staticData utility to feed watch-list suggestions dynamically, ensuring seamless integration and type safety.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Augment Chart Data with Fund Information",
+            "description": "Enhance chart components to display additional fund information sourced from the static data, improving user insights on charts.",
+            "dependencies": [
+              "12.2"
+            ],
+            "details": "Modify chart data processing to include fund metadata such as expense ratios and key facts alongside price data.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Link Educational Content to Static Data",
+            "description": "Create links from educational content to relevant static index fund data to provide contextual learning resources.",
+            "dependencies": [
+              "12.1",
+              "12.2"
+            ],
+            "details": "Implement mechanisms to associate educational lessons or articles with specific funds from the static JSON data for enhanced user education.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Validate Data Formatting and Consistency",
+            "description": "Perform validation checks on the static JSON data and utility outputs to ensure correct formatting, type safety, and data integrity.",
+            "dependencies": [
+              "12.1",
+              "12.2"
+            ],
+            "details": "Develop tests and validation scripts to verify JSON schema compliance, correct parsing, and consistent data formatting across all components.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Add Logo, Branding, and Visual Polish",
+        "description": "Implement visual branding elements, logo, and ensure consistent design system",
+        "details": "1. Create `/public/logo.svg` with \"Green Thumb\" vector logo\n2. Implement consistent color scheme:\n   - Primary: #22c55e (green-500)\n   - Secondary: #3b82f6 (blue-500)\n   - Neutral: #0f172a (slate-900)\n3. Add logo to navigation and key pages\n4. Ensure consistent typography (Inter font, mono for figures)\n5. Add proper favicon and meta tags\n6. Implement loading states and micro-interactions\n7. Add proper spacing and visual hierarchy\n8. Ensure brand consistency across all components",
+        "testStrategy": "Visual regression testing, verify logo displays correctly across devices, check color consistency, test loading states",
+        "priority": "low",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create and Optimize Logo SVG",
+            "description": "Design and finalize the 'Green Thumb' vector logo as an SVG file located at /public/logo.svg, ensuring scalability and clarity across devices.",
+            "dependencies": [],
+            "details": "Use vector graphic tools to create a clean, scalable logo. Optimize the SVG for web performance and accessibility.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement Consistent Color Scheme",
+            "description": "Apply the defined color palette (Primary: #22c55e, Secondary: #3b82f6, Neutral: #0f172a) consistently across the application UI components.",
+            "dependencies": [
+              "13.1"
+            ],
+            "details": "Define CSS variables or theme tokens for colors. Ensure colors meet accessibility contrast standards.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Add Logo to Navigation and Key Pages",
+            "description": "Integrate the logo into the navigation bar and other key pages to reinforce brand identity.",
+            "dependencies": [
+              "13.1"
+            ],
+            "details": "Place the logo in header/navigation components with responsive sizing and appropriate alt text for accessibility.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Ensure Typography Consistency",
+            "description": "Implement consistent typography using the Inter font for general text and a monospace font for figures and code elements.",
+            "dependencies": [
+              "13.2"
+            ],
+            "details": "Set global font styles and weights. Verify font loading performance and fallback fonts.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Add Favicon and Meta Tags",
+            "description": "Create and add a favicon for the site and implement relevant meta tags for SEO and social sharing.",
+            "dependencies": [
+              "13.1"
+            ],
+            "details": "Generate favicon files in multiple sizes. Add meta tags for title, description, viewport, and social media previews.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement Loading States and Micro-Interactions",
+            "description": "Design and integrate loading indicators and subtle micro-interactions to improve user experience and feedback.",
+            "dependencies": [
+              "13.2",
+              "13.4"
+            ],
+            "details": "Create reusable loading components and animation effects. Ensure interactions are smooth and consistent with branding.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Apply Proper Spacing and Visual Hierarchy",
+            "description": "Establish consistent spacing rules and visual hierarchy to enhance readability and UI clarity.",
+            "dependencies": [
+              "13.2",
+              "13.4"
+            ],
+            "details": "Define spacing scales (margins, paddings) and typographic hierarchy (headings, body text). Use design tokens if applicable.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Ensure Brand Consistency Across Components",
+            "description": "Audit and update all UI components to align with the established branding guidelines including logo usage, colors, typography, and spacing.",
+            "dependencies": [
+              "13.3",
+              "13.4",
+              "13.6",
+              "13.7"
+            ],
+            "details": "Review components for visual consistency. Update styles and assets to maintain a unified brand experience.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Implement Accessibility and Responsive Design",
+        "description": "Ensure WCAG 2.2 AA compliance and responsive design across all breakpoints",
+        "details": "1. Implement keyboard navigation for all interactive elements\n2. Add proper ARIA labels and roles\n3. Ensure color contrast meets WCAG 2.2 AA standards\n4. Test with screen readers (NVDA, JAWS, VoiceOver)\n5. Implement focus management and skip links\n6. Optimize for breakpoints: 375px, 768px, 1280px\n7. Test touch interactions on mobile devices\n8. Add proper heading hierarchy (h1-h6)\n9. Ensure charts are keyboard navigable\n10. Add alt text for all images and icons\n11. Test with accessibility tools (axe, Lighthouse)",
+        "testStrategy": "Automated accessibility testing with axe-core, manual testing with screen readers, keyboard-only navigation testing, responsive design testing across devices",
+        "priority": "high",
+        "dependencies": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Keyboard Navigation",
+            "description": "Ensure all interactive elements are fully operable using keyboard-only input, including tab order and keyboard shortcuts.",
+            "dependencies": [],
+            "details": "Test tabbing through all interactive components, ensure focus is visible and logical, and support keyboard activation for all controls.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Add ARIA Labels and Roles",
+            "description": "Apply appropriate ARIA roles, states, and properties to UI elements to improve accessibility for assistive technologies.",
+            "dependencies": [
+              "14.1"
+            ],
+            "details": "Use ARIA roles to define element types, add labels for unlabeled controls, and ensure dynamic content updates are announced.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Ensure Color Contrast Compliance",
+            "description": "Verify that text and UI elements meet WCAG 2.2 AA minimum contrast ratios for readability.",
+            "dependencies": [
+              "14.2"
+            ],
+            "details": "Check color contrast ratios for text, icons, and graphical elements using automated tools and manual verification.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Conduct Screen Reader Testing",
+            "description": "Test the application with popular screen readers such as NVDA, JAWS, and VoiceOver to ensure content is properly announced.",
+            "dependencies": [
+              "14.2"
+            ],
+            "details": "Verify that all interactive elements, status messages, and dynamic content are accessible and understandable via screen readers.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Focus Management and Skip Links",
+            "description": "Manage keyboard focus order and provide skip links to improve navigation efficiency for keyboard and screen reader users.",
+            "dependencies": [
+              "14.1"
+            ],
+            "details": "Ensure focus is not trapped, visible, and moves logically; add skip navigation links to bypass repetitive content.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Optimize Responsive Design for Breakpoints",
+            "description": "Ensure the UI adapts correctly and remains accessible at key breakpoints: 375px, 768px, and 1280px widths.",
+            "dependencies": [
+              "14.3"
+            ],
+            "details": "Test layout, font sizes, touch targets, and navigation at each breakpoint to maintain usability and accessibility.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Test Touch Interaction on Mobile Devices",
+            "description": "Verify that all interactive elements are operable via touch input and meet minimum target size requirements.",
+            "dependencies": [
+              "14.6"
+            ],
+            "details": "Check touch target sizes (minimum 24x24 CSS pixels), gesture alternatives, and responsiveness on various mobile devices.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Establish Proper Heading Hierarchy",
+            "description": "Use semantic heading tags (h1-h6) to create a logical and accessible document structure.",
+            "dependencies": [
+              "14.2"
+            ],
+            "details": "Ensure headings are nested correctly without skipping levels and reflect the content hierarchy for screen reader users.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Ensure Chart Accessibility",
+            "description": "Make charts keyboard navigable and provide accessible descriptions for data visualization.",
+            "dependencies": [
+              "14.2",
+              "14.8"
+            ],
+            "details": "Add keyboard focus support, ARIA roles, and descriptive text or long descriptions for charts and graphs.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Add Alt Text for Images and Icons",
+            "description": "Provide meaningful alternative text for all images and icons to support screen reader users.",
+            "dependencies": [
+              "14.2"
+            ],
+            "details": "Use concise alt attributes for decorative and functional images; provide extended descriptions for complex visuals.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 11,
+            "title": "Perform Accessibility Tool Testing",
+            "description": "Run automated accessibility testing tools such as axe-core and manual audits to identify and fix remaining issues.",
+            "dependencies": [
+              "14.3",
+              "14.4",
+              "14.6",
+              "14.7",
+              "14.9",
+              "14.10"
+            ],
+            "details": "Use tools to scan for WCAG 2.2 AA compliance, verify fixes, and document accessibility improvements.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Setup Testing Suite and Performance Optimization",
+        "description": "Implement comprehensive testing with Vitest and React Testing Library, optimize bundle size and performance",
+        "details": "1. Setup Vitest configuration: `npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom`\n2. Create test files for all major components and utilities\n3. Implement unit tests for:\n   - Context providers and hooks\n   - API integration functions\n   - Encryption/decryption utilities\n   - Component rendering and interactions\n4. Add integration tests for key user flows\n5. Setup test coverage reporting\n6. Optimize bundle size (target ≤100KB gzipped per route)\n7. Implement code splitting and lazy loading\n8. Add performance monitoring with Core Web Vitals\n9. Optimize images and assets\n10. Setup pre-commit hooks for testing",
+        "testStrategy": "Achieve >80% test coverage, verify all critical paths are tested, performance budgets met, bundle size targets achieved",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Setup Vitest and Testing Dependencies",
+            "description": "Install Vitest, React Testing Library, Jest DOM matchers, user-event, and jsdom for browser environment simulation.",
+            "dependencies": [],
+            "details": "Run npm install commands to add vitest, @testing-library/react, @testing-library/jest-dom, @testing-library/user-event, and jsdom as dev dependencies. This prepares the project for testing React components with Vitest and simulates a DOM environment for tests[1][2][3].",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configure Vitest",
+            "description": "Create or update vitest.config.ts to configure Vitest with React plugin, jsdom environment, global test APIs, and setup files.",
+            "dependencies": [
+              "15.1"
+            ],
+            "details": "Configure Vitest to use the React plugin, set test environment to 'jsdom', enable globals for test functions, and specify a setup file for additional test configurations[1][3].",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create Test Setup File",
+            "description": "Create a setupTests.ts file to configure Jest DOM matchers and cleanup after each test.",
+            "dependencies": [
+              "15.2"
+            ],
+            "details": "In the setupTests.ts file, import '@testing-library/jest-dom' to add custom matchers and configure cleanup after each test to avoid side effects[1][3].",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create Test Files for Components and Utilities",
+            "description": "Create test files covering all major React components, context providers, hooks, API integration functions, and encryption utilities.",
+            "dependencies": [
+              "15.3"
+            ],
+            "details": "Write test files for components and utilities to ensure coverage of rendering, interactions, state management, API calls, and encryption/decryption logic as per project requirements.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Unit Tests",
+            "description": "Develop unit tests for context providers, hooks, API integration functions, encryption/decryption utilities, and component rendering/interactions.",
+            "dependencies": [
+              "15.4"
+            ],
+            "details": "Write focused unit tests to verify individual functions and components behave correctly in isolation, including state updates and UI behavior[1].",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement Integration Tests",
+            "description": "Add integration tests to cover key user flows and interactions across multiple components and modules.",
+            "dependencies": [
+              "15.5"
+            ],
+            "details": "Develop tests that simulate real user scenarios involving multiple components and API interactions to ensure the system works as expected end-to-end[1].",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Setup Test Coverage Reporting",
+            "description": "Configure Vitest to generate test coverage reports and verify coverage thresholds are met.",
+            "dependencies": [
+              "15.6"
+            ],
+            "details": "Enable coverage reporting in Vitest configuration and ensure reports show coverage metrics for statements, branches, functions, and lines, targeting >80% coverage[1].",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Optimize Bundle Size",
+            "description": "Analyze and optimize the JavaScript bundle size to meet target size constraints (≤100KB gzipped per route).",
+            "dependencies": [
+              "15.7"
+            ],
+            "details": "Use tools like Vite bundle analyzer to identify large dependencies and optimize imports, remove unused code, and apply tree shaking to reduce bundle size.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Implement Code Splitting and Performance Monitoring",
+            "description": "Apply code splitting strategies and set up performance monitoring to improve load times and runtime efficiency.",
+            "dependencies": [
+              "15.8"
+            ],
+            "details": "Configure dynamic imports and route-based code splitting in the build process. Integrate performance monitoring tools to track runtime metrics and identify bottlenecks.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Implement Image Optimization and Pre-commit Hooks",
+            "description": "Optimize images for web delivery and set up pre-commit hooks to enforce code quality and run tests before commits.",
+            "dependencies": [
+              "15.9"
+            ],
+            "details": "Use image optimization tools or loaders to compress and resize images. Configure pre-commit hooks with tools like Husky to run linting, tests, and formatting checks automatically.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-08-02T03:40:48.786Z",
+      "updated": "2025-08-02T03:40:48.786Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

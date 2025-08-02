@@ -1,0 +1,133 @@
+{
+	"meta": {
+		"generatedAt": "2025-08-02T03:42:55.351Z",
+		"tasksAnalyzed": 15,
+		"totalTasks": 15,
+		"analysisCount": 15,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Setup Project Repository and CI/CD Pipeline",
+			"complexityScore": 6,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down the setup into subtasks covering project initialization, dependency installation, UI library setup, Tailwind CSS configuration, GitHub Actions workflow creation, Vercel deployment setup, and folder structure organization.",
+			"reasoning": "This task involves multiple setup steps including project scaffolding, configuring styling and UI libraries, CI/CD pipeline creation, and deployment configuration. Each step is distinct but follows common patterns in Next.js projects, making it moderately complex but straightforward with best practices available[1][3][4]."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Implement Core State Management with React Context",
+			"complexityScore": 5,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Expand into subtasks for creating WatchListContext, ProgressContext, combined AppProvider, defining TypeScript interfaces, and implementing custom hooks.",
+			"reasoning": "State management with React Context and TypeScript interfaces is a common pattern. The complexity arises from ensuring proper typing and separation of concerns, but the scope is limited to in-memory state without persistence, making it moderately simple[1]."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Setup Alpha Vantage Integration with SWR",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Detail subtasks for API utility creation with error handling, SWR hook implementation with caching and revalidation, environment variable setup, TypeScript interface definitions, and fallback UI implementation.",
+			"reasoning": "Integrating an external API with caching and error handling requires careful design, especially handling rate limits and invalid data. Using SWR simplifies caching but requires configuration. This task is moderately complex due to external dependencies and error scenarios[1]."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Create Lesson Content Structure and MDX Processing",
+			"complexityScore": 5,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into subtasks for installing MDX dependencies, configuring Next.js for MDX, creating lesson MDX files with metadata, exporting meta objects, utility for metadata parsing, and ensuring teen-friendly content style.",
+			"reasoning": "MDX setup and content creation is straightforward with existing libraries, but requires attention to metadata structure and content style. The complexity is moderate due to content creation and configuration steps[1]."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Build Watch-List Management Interface",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down into subtasks for WatchList component with input and list display, TickerSearch autocomplete, styling with Tailwind and shadcn/ui, icon integration, keyboard navigation for accessibility, and responsive design implementation.",
+			"reasoning": "UI development with validation, autocomplete, accessibility, and responsiveness adds complexity. Ensuring WCAG compliance and smooth UX across breakpoints requires detailed work, making this task moderately high in complexity[1]."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Implement Stock Price Charts and Data Visualization",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Expand subtasks to include chart library installation, StockChart component with line chart and metrics, StockCard component with expandable views, keyboard navigation, ARIA labeling, monospace font usage, and responsive/touch-friendly design.",
+			"reasoning": "Data visualization with accessibility and responsiveness is complex. Interactive charts require careful implementation of keyboard navigation and screen reader support, plus responsive and touch-friendly design, elevating complexity[1]."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Create Lesson Pages with Dynamic Routing",
+			"complexityScore": 6,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Detail subtasks for dynamic route page creation, MDX rendering, scroll progress tracking, lesson navigation, LessonLayout component with metadata and progress, and accessibility/styling enhancements.",
+			"reasoning": "Dynamic routing with MDX content and scroll-based progress tracking involves moderate complexity, especially integrating UI components and ensuring smooth navigation and accessibility[1]."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Build Lesson Library Overview Page",
+			"complexityScore": 5,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into subtasks for lessons index page with grid layout, LessonCard component with metadata and progress, completion badges, responsive design, loading/error states, and breadcrumb navigation.",
+			"reasoning": "Building an overview page with filtering, progress indicators, and responsive layout is moderately complex but follows common UI patterns, making it manageable with clear subtasks[1]."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Implement Encryption/Decryption API Routes",
+			"complexityScore": 7,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down into subtasks for encrypt API route with AES-256-GCM, decrypt API route, crypto utility functions, TypeScript typing, and comprehensive error handling and validation.",
+			"reasoning": "Implementing secure encryption/decryption with strict payload and timing constraints requires cryptographic knowledge and robust error handling, increasing complexity beyond typical API routes[1]."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Build Save/Load Data Functionality",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand subtasks for installing file handling libraries, dataManager utility with save/load and state merging, DataManager component with UI controls and feedback, integration with contexts, filename conventions, and file validation.",
+			"reasoning": "Client-side file handling with encrypted data, state merging, and user feedback involves multiple integration points and error scenarios, making this task moderately complex[1]."
+		},
+		{
+			"taskId": 11,
+			"taskTitle": "Create Parent Dashboard with Basic Authentication",
+			"complexityScore": 6,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Detail subtasks for parent page with basic auth form, ParentAuth component with session management, ActivitySummary component, environment variable setup for auth hash, security measures, and conversation starter features.",
+			"reasoning": "Basic authentication with client-side hash comparison and session management is moderately complex, requiring careful security considerations and UI integration[1]."
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Implement Static Data and Index Funds Information",
+			"complexityScore": 4,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down into subtasks for creating static JSON data, staticData utility with loading and search, integration with watch-list suggestions, chart data augmentation, educational content linking, and data formatting validation.",
+			"reasoning": "Static data creation and utility functions are relatively straightforward, with low complexity focused on data structure and integration[1]."
+		},
+		{
+			"taskId": 13,
+			"taskTitle": "Add Logo, Branding, and Visual Polish",
+			"complexityScore": 3,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Expand subtasks for logo creation and placement, color scheme implementation, typography consistency, favicon and meta tags, loading states, micro-interactions, spacing and hierarchy, and brand consistency across components.",
+			"reasoning": "Visual branding and polish are lower complexity tasks focused on design consistency and UI refinement, typically done after core functionality is in place[1]."
+		},
+		{
+			"taskId": 14,
+			"taskTitle": "Implement Accessibility and Responsive Design",
+			"complexityScore": 8,
+			"recommendedSubtasks": 11,
+			"expansionPrompt": "Detail subtasks for keyboard navigation, ARIA labels and roles, color contrast compliance, screen reader testing, focus management, breakpoint optimization, touch interaction testing, heading hierarchy, chart accessibility, alt text addition, and accessibility tool testing.",
+			"reasoning": "Ensuring WCAG 2.2 AA compliance and responsive design across multiple components and breakpoints is complex and requires thorough testing and iterative refinement[1]."
+		},
+		{
+			"taskId": 15,
+			"taskTitle": "Setup Testing Suite and Performance Optimization",
+			"complexityScore": 7,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Break down into subtasks for Vitest setup, test file creation, unit and integration tests, coverage reporting, bundle size optimization, code splitting, performance monitoring, image optimization, and pre-commit hooks.",
+			"reasoning": "Comprehensive testing and performance optimization involve multiple technical areas including tooling, code quality, and build optimization, making this a moderately high complexity task[1]."
+		}
+	]
+}
