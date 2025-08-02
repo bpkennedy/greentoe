@@ -60,7 +60,7 @@ Cypress.Commands.add('addStockToWatchList', (symbol: string) => {
   // Wait for and click on stock suggestion using visible text
   cy.contains(`${symbol}`).click();
   
-  // Verify stock card appears in watch list
+  // Verify stock card appears in watch list (but data might still be loading)
   cy.get(`[data-testid="stock-card-${symbol}"]`, { timeout: 5000 }).should('be.visible');
 });
 

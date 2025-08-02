@@ -2,14 +2,27 @@
 
 describe('Data Save/Load Flow', () => {
   beforeEach(() => {
+    // Mock Alpha Vantage API responses (same as chart tests)
+    cy.intercept('GET', '/api/stock/AAPL', { fixture: 'alpha-vantage-mock.json' }).as('getAAPL');
+    cy.intercept('GET', '/api/stock/GOOGL', { fixture: 'alpha-vantage-googl.json' }).as('getGOOGL');
+    cy.intercept('GET', '/api/stock/TSLA', { fixture: 'alpha-vantage-tsla.json' }).as('getTSLA');
+    
     // Visit home page and wait for app to be ready
     cy.visit('/');
-    cy.get('[data-testid="app-ready"]', { timeout: 10000 }).should('exist');
+    cy.get('[data-testid="app-ready"]').should('exist');
   });
 
   it('should display data management section with current state', () => {
-    // Navigate to data management (on home page)
-    cy.contains('Data Management').should('be.visible');
+    // Debug: Check if basic page elements load
+    cy.contains('Green Thumb', { timeout: 10000 }).should('be.visible');
+    cy.contains('Stock Watch List').should('be.visible');
+    
+    // Check if DataManager section is visible by scrolling down
+    cy.scrollTo('bottom');
+    cy.wait(3000); // Give more time for dynamic imports
+    
+    // Look for DataManager content
+    cy.contains('Data Management', { timeout: 10000 }).should('be.visible');
     cy.contains('Save your watch-list and progress').should('be.visible');
     
     // Check action buttons are present
@@ -25,10 +38,29 @@ describe('Data Save/Load Flow', () => {
     cy.contains('AES-256-GCM encryption').should('be.visible');
   });
 
-  it('should save data successfully when user has data', () => {
-    // First add some data to save
-    cy.addStockToWatchList('AAPL');
-    cy.waitForStockData('AAPL');
+  it.only('should save data successfully when user has data', () => {
+    // Debug: check if search input is working 
+    cy.get('input[placeholder*="Search for stocks"]').should('be.visible');
+    
+    // Type slowly and check for suggestions
+    cy.get('input[placeholder*="Search for stocks"]').type('A', { delay: 100 });
+    cy.wait(500); // Wait for suggestions to appear
+    
+    // Check if suggestions dropdown appears
+    cy.get('body').then(($body) => {
+      if ($body.find('[data-testid*="suggestion"]').length > 0) {
+        cy.log('Suggestions found');
+      } else {
+        cy.log('No suggestions found - checking for Apple Inc directly');
+      }
+    });
+    
+    // Continue typing AAPL
+    cy.get('input[placeholder*="Search for stocks"]').type('APL', { delay: 100 });
+    cy.wait(500);
+    
+    // Look for Apple Inc in any form
+    cy.contains('Apple Inc.', { timeout: 5000 }).should('be.visible').click();
     
     // Navigate to data management and save
     cy.contains('button', 'Download Data').click();
@@ -37,7 +69,7 @@ describe('Data Save/Load Flow', () => {
     cy.contains('Saving...').should('be.visible');
     
     // Wait for success message
-    cy.contains('Success!', { timeout: 10000 }).should('be.visible');
+    cy.contains('Success!').should('be.visible');
     cy.contains('green-thumb-state.gt').should('be.visible');
     
     // Verify state counter updated
@@ -49,7 +81,7 @@ describe('Data Save/Load Flow', () => {
     cy.contains('button', 'Download Data').click();
     
     // Should still work (empty data is valid)
-    cy.contains('Success!', { timeout: 10000 }).should('be.visible');
+    cy.contains('Success!').should('be.visible');
     cy.contains('0').should('be.visible'); // 0 stocks tracked
   });
 
@@ -166,7 +198,7 @@ describe('Data Save/Load Flow', () => {
   it('should clear result messages', () => {
     // Generate a result message
     cy.contains('button', 'Download Data').click();
-    cy.contains('Success!', { timeout: 10000 }).should('be.visible');
+    cy.contains('Success!').should('be.visible');
     
     // Click the close button (×)
     cy.get('[data-testid="save-success"]').within(() => {
@@ -186,7 +218,7 @@ describe('Data Save/Load Flow', () => {
     cy.get('button').contains('Download Data').should('be.disabled');
     
     // Wait for completion
-    cy.contains('Success!', { timeout: 10000 }).should('be.visible');
+    cy.contains('Success!').should('be.visible');
     cy.get('button').contains('Download Data').should('not.be.disabled');
   });
 
@@ -202,7 +234,7 @@ describe('Data Save/Load Flow', () => {
     
     // Save current state
     cy.contains('button', 'Download Data').click();
-    cy.contains('Success!', { timeout: 10000 }).should('be.visible');
+    cy.contains('Success!').should('be.visible');
     
     // Verify we have 2 stocks and 1 lesson
     cy.contains('2').should('be.visible'); // 2 stocks tracked

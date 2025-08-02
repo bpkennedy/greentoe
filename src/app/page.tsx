@@ -9,22 +9,8 @@ import { Separator } from "@/components/ui/separator";
 import { useStockData } from "@/lib/hooks/useStockDataAxios";
 import { TrendingUp, BookOpen, DollarSign, PieChart } from "lucide-react";
 
-// Lazy load heavy components to reduce initial bundle size
-const WatchList = dynamic(() => import("@/components/WatchList").then(mod => ({ default: mod.WatchList })), {
-  ssr: false,
-  loading: () => (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Watch List</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center justify-center py-8">
-          <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      </CardContent>
-    </Card>
-  ),
-});
+// Temporarily using regular import to debug
+import { WatchList } from "@/components/WatchList";
 
 const StockChart = dynamic(() => import("@/components/StockChart").then(mod => ({ default: mod.StockChart })), {
   ssr: false,
@@ -35,18 +21,8 @@ const StockChart = dynamic(() => import("@/components/StockChart").then(mod => (
   ),
 });
 
-const DataManager = dynamic(() => import("@/components/DataManager").then(mod => ({ default: mod.DataManager })), {
-  ssr: false,
-  loading: () => (
-    <Card>
-      <CardContent className="p-6">
-        <div className="flex items-center justify-center">
-          <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      </CardContent>
-    </Card>
-  ),
-});
+// Temporarily using regular import to debug
+import { DataManager } from "@/components/DataManager";
 
 /**
  * Demo component showing StockChart with sample data
