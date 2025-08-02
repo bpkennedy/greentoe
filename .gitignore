@@ -42,3 +42,6 @@ next-env.d.ts
 
 # cursor ide config with sensitive data
 .cursor/mcp.json
+
+cypress/videos
+cypress/screenshots

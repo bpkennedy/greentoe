@@ -74,9 +74,14 @@ Cypress.Commands.add('completeLesson', (lessonId: string) => {
 // Custom command to access parent dashboard
 Cypress.Commands.add('accessParentDashboard', (password: string = 'admin') => {
   cy.visit('/parent');
-  cy.get('[data-testid="parent-password"]').type(password);
-  cy.get('[data-testid="parent-login"]').click();
-  cy.get('[data-testid="parent-dashboard"]').should('be.visible');
+  
+  // Use label-based selection for form inputs (more resilient)
+  cy.contains('label', 'Username').parent().find('input').type('admin');
+  cy.contains('label', 'Password').parent().find('input').type(password);
+  cy.contains('button', 'Sign In').click();
+  
+  // Check for dashboard content using visible text
+  cy.contains('Monitor your teen\'s progress').should('be.visible');
 });
 
 // Custom command to save user data
