@@ -189,30 +189,46 @@ export function StockChart({
                    metrics.trend === 'down' ? TrendingDown : Minus;
 
   return (
-    <Card className={className}>
+    <Card 
+      className={className}
+      role="region"
+      aria-labelledby={`chart-title-${data.metadata.symbol}`}
+      aria-describedby={`chart-description-${data.metadata.symbol}`}
+    >
       {showMetrics && (
         <CardHeader className="pb-4">
           <div className="flex items-start justify-between">
             <div>
-              <CardTitle className="flex items-center gap-2">
-                <TrendIcon className={cn(
-                  'h-5 w-5',
-                  metrics.trend === 'up' ? 'text-green-600' : 
-                  metrics.trend === 'down' ? 'text-red-600' : 'text-muted-foreground'
-                )} />
-                {data.metadata.symbol}
+              <CardTitle 
+                id={`chart-title-${data.metadata.symbol}`}
+                className="flex items-center gap-2"
+              >
+                <TrendIcon 
+                  className={cn(
+                    'h-5 w-5',
+                    metrics.trend === 'up' ? 'text-green-600' : 
+                    metrics.trend === 'down' ? 'text-red-600' : 'text-muted-foreground'
+                  )}
+                  aria-hidden="true"
+                />
+                {data.metadata.symbol} Stock Chart
               </CardTitle>
               <p className="text-sm text-muted-foreground mt-1">
                 Last updated: {data.metadata.lastRefreshed}
               </p>
             </div>
             <div className="text-right">
-              <div className="font-mono text-2xl font-bold">
+              <div 
+                className="font-mono text-2xl font-bold"
+                aria-label={`Current price: ${metrics.currentPrice.toFixed(2)} dollars`}
+              >
                 ${metrics.currentPrice.toFixed(2)}
               </div>
               <Badge 
                 variant={metrics.isPositive ? "default" : "destructive"}
                 className="mt-1"
+                role="status"
+                aria-label={`Price change: ${metrics.isPositive ? 'up' : 'down'} ${Math.abs(metrics.change).toFixed(2)} dollars, ${Math.abs(metrics.changePercent).toFixed(2)} percent`}
               >
                 {metrics.isPositive ? '+' : ''}{metrics.change.toFixed(2)} 
                 ({metrics.changePercent.toFixed(2)}%)
@@ -223,8 +239,30 @@ export function StockChart({
       )}
 
       <CardContent className="pb-6">
+        {/* Chart Description for Screen Readers */}
+        <div id={`chart-description-${data.metadata.symbol}`} className="sr-only">
+          Line chart showing {data.metadata.symbol} stock price over the past 30 days. 
+          Current price is ${metrics.currentPrice.toFixed(2)}, 
+          {metrics.isPositive ? 'up' : 'down'} {Math.abs(metrics.changePercent).toFixed(2)}% 
+          from previous close. Chart shows price range from ${priceRange.min.toFixed(2)} to ${priceRange.max.toFixed(2)} dollars.
+        </div>
+
         {/* Chart */}
-        <div className="mb-6" style={{ height }}>
+        <div 
+          className="mb-6" 
+          style={{ height }}
+          role="img"
+          aria-labelledby={`chart-title-${data.metadata.symbol}`}
+          aria-describedby={`chart-description-${data.metadata.symbol}`}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            // Allow keyboard navigation hint
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              // Focus could be managed here for deeper chart interaction
+            }
+          }}
+        >
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -273,44 +311,64 @@ export function StockChart({
         {/* Key Metrics */}
         {showMetrics && (
           <>
-            <Separator className="mb-4" />
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="text-center">
+            <Separator className="mb-4" role="separator" aria-hidden="true" />
+            <div 
+              className="grid grid-cols-2 md:grid-cols-4 gap-4"
+              role="list"
+              aria-label="Key stock metrics"
+            >
+              <div className="text-center" role="listitem">
                 <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
-                  <TrendingUp className="h-3 w-3" />
-                  52W High
+                  <TrendingUp className="h-3 w-3" aria-hidden="true" />
+                  <span id={`${data.metadata.symbol}-52w-high-label`}>52W High</span>
                 </div>
-                <div className="font-mono font-semibold">
+                <div 
+                  className="font-mono font-semibold"
+                  aria-labelledby={`${data.metadata.symbol}-52w-high-label`}
+                  aria-label={`52 week high: ${metrics.high52Week.toFixed(2)} dollars`}
+                >
                   ${metrics.high52Week.toFixed(2)}
                 </div>
               </div>
               
-              <div className="text-center">
+              <div className="text-center" role="listitem">
                 <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
-                  <TrendingDown className="h-3 w-3" />
-                  52W Low
+                  <TrendingDown className="h-3 w-3" aria-hidden="true" />
+                  <span id={`${data.metadata.symbol}-52w-low-label`}>52W Low</span>
                 </div>
-                <div className="font-mono font-semibold">
+                <div 
+                  className="font-mono font-semibold"
+                  aria-labelledby={`${data.metadata.symbol}-52w-low-label`}
+                  aria-label={`52 week low: ${metrics.low52Week.toFixed(2)} dollars`}
+                >
                   ${metrics.low52Week.toFixed(2)}
                 </div>
               </div>
 
-              <div className="text-center">
+              <div className="text-center" role="listitem">
                 <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
-                  <Calendar className="h-3 w-3" />
-                  Avg Volume
+                  <Calendar className="h-3 w-3" aria-hidden="true" />
+                  <span id={`${data.metadata.symbol}-avg-volume-label`}>Avg Volume</span>
                 </div>
-                <div className="font-mono font-semibold">
+                <div 
+                  className="font-mono font-semibold"
+                  aria-labelledby={`${data.metadata.symbol}-avg-volume-label`}
+                  aria-label={`Average volume: ${formatVolume(metrics.avgVolume)}`}
+                >
                   {formatVolume(metrics.avgVolume)}
                 </div>
               </div>
 
-              <div className="text-center">
+              <div className="text-center" role="listitem">
                 <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
-                  <DollarSign className="h-3 w-3" />
-                  Previous Close
+                  <DollarSign className="h-3 w-3" aria-hidden="true" />
+                  <span id={`${data.metadata.symbol}-prev-close-label`}>Previous Close</span>
                 </div>
-                <div className="font-mono font-semibold">
+                <div 
+                  className="font-mono font-semibold"
+                  aria-labelledby={`${data.metadata.symbol}-prev-close-label`}
+                  aria-label={`Previous close: ${metrics.previousPrice.toFixed(2)} dollars`}
+                >
                   ${metrics.previousPrice.toFixed(2)}
                 </div>
               </div>

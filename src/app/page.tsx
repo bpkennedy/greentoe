@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { WatchList } from "@/components/WatchList";
 import { StockChart } from "@/components/StockChart";
 import { DataManager } from "@/components/DataManager";
+import { SkipLinks } from "@/components/SkipLinks";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -56,12 +57,14 @@ function FeatureCard({ icon: Icon, title, description, status }: {
   description: string;
   status: 'complete' | 'in-progress' | 'planned';
 }) {
+  const statusText = status === 'complete' ? 'Live' : status === 'in-progress' ? 'Building' : 'Planned';
+  
   return (
-    <Card className="h-full">
+    <Card className="h-full" role="listitem">
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
-          <div className="p-2 rounded-lg bg-blue-100">
-            <Icon className="h-5 w-5 text-blue-600" />
+          <div className="p-2 rounded-lg bg-blue-100" role="img" aria-label={`${title} icon`}>
+            <Icon className="h-5 w-5 text-blue-600" aria-hidden="true" />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
@@ -69,8 +72,10 @@ function FeatureCard({ icon: Icon, title, description, status }: {
               <Badge 
                 variant={status === 'complete' ? 'default' : status === 'in-progress' ? 'secondary' : 'outline'}
                 className="text-xs"
+                role="status"
+                aria-label={`Feature status: ${statusText}`}
               >
-                {status === 'complete' ? 'Live' : status === 'in-progress' ? 'Building' : 'Planned'}
+                {statusText}
               </Badge>
             </div>
             <p className="text-sm text-muted-foreground">{description}</p>
@@ -84,38 +89,51 @@ function FeatureCard({ icon: Icon, title, description, status }: {
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
+      <SkipLinks />
+      
       {/* Header */}
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header 
+        className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        role="banner"
+        id="navigation"
+      >
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-foreground">Green Thumb</h1>
               <p className="text-muted-foreground mt-1">Financial Education for Teenagers</p>
             </div>
-            <div className="flex items-center gap-3">
-              <Link 
-                href="/parent" 
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Parent Dashboard
-              </Link>
-              <div className="flex items-center gap-2">
-                <Badge variant="outline" className="text-xs">
-                  Alpha Version
-                </Badge>
-                <Badge variant="default" className="text-xs">
-                  Live Demo
-                </Badge>
+            <nav role="navigation" aria-label="Site navigation">
+              <div className="flex items-center gap-3">
+                <Link 
+                  href="/parent" 
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors touch-target focus-visible"
+                  aria-label="Access parent dashboard to monitor teen's progress"
+                >
+                  Parent Dashboard
+                </Link>
+                <div className="flex items-center gap-2" role="group" aria-label="Version information">
+                  <Badge variant="outline" className="text-xs">
+                    Alpha Version
+                  </Badge>
+                  <Badge variant="default" className="text-xs">
+                    Live Demo
+                  </Badge>
+                </div>
               </div>
-            </div>
+            </nav>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 space-y-8">
+      <main 
+        className="container mx-auto px-4 py-8 space-y-8" 
+        id="main-content"
+        role="main"
+      >
         {/* Hero Section */}
-        <section className="text-center space-y-6">
-          <h2 className="text-2xl font-bold text-foreground">
+        <section className="text-center space-y-6" aria-labelledby="hero-title">
+          <h2 id="hero-title" className="text-2xl font-bold text-foreground">
             Learn Investing Through Interactive Experience
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -125,32 +143,38 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
               href="/lessons" 
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6 py-2 rounded-md text-sm font-medium transition-colors"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6 py-2 rounded-md text-sm font-medium transition-colors touch-target focus-visible"
+              aria-label="Start learning with 6 financial education lessons"
             >
-              <BookOpen className="w-4 h-4" />
+              <BookOpen className="w-4 h-4" aria-hidden="true" />
               Start Learning Journey
             </Link>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm text-muted-foreground" role="note">
               6 lessons • 85 minutes • Beginner friendly
             </span>
           </div>
         </section>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8" role="region" aria-labelledby="interactive-tools-title">
+          <h2 id="interactive-tools-title" className="sr-only">Interactive Financial Tools</h2>
+          
           {/* Watch List */}
-          <div className="space-y-4">
+          <section className="space-y-4" aria-labelledby="watchlist-section">
+            <h3 id="watchlist-section" className="sr-only">Stock Watch List</h3>
             <WatchList />
-          </div>
+          </section>
 
           {/* Demo Chart */}
-          <div className="space-y-4">
+          <section className="space-y-4" aria-labelledby="chart-section">
+            <h3 id="chart-section" className="sr-only">Stock Price Chart</h3>
             <DemoChartSection />
-          </div>
+          </section>
         </div>
 
         {/* Data Management Section */}
-        <section className="max-w-2xl mx-auto">
+        <section className="max-w-2xl mx-auto" aria-labelledby="data-management-title">
+          <h3 id="data-management-title" className="sr-only">Save and Load Your Progress</h3>
           <DataManager 
             onDataLoaded={(data) => {
               console.log('Data loaded:', data);
@@ -163,16 +187,20 @@ export default function Home() {
           />
         </section>
 
-        <Separator />
+        <Separator role="separator" aria-hidden="true" />
 
         {/* Features Section */}
-        <section className="space-y-6">
+        <section className="space-y-6" aria-labelledby="features-title">
           <div className="text-center">
-            <h3 className="text-xl font-semibold mb-2">Platform Features</h3>
+            <h2 id="features-title" className="text-xl font-semibold mb-2">Platform Features</h2>
             <p className="text-muted-foreground">Built with modern web technologies and real market data</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+            role="list"
+            aria-label="Application features"
+          >
             <FeatureCard
               icon={TrendingUp}
               title="Real-Time Data"
