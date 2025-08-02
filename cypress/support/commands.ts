@@ -120,7 +120,7 @@ Cypress.Commands.add('waitForStockData', (symbol: string) => {
 });
 
 // Custom command for Tab key navigation
-Cypress.Commands.add('tab', { prevSubject: 'element' }, (subject) => {
+Cypress.Commands.add('tab', { prevSubject: 'element' }, (subject: any) => {
   return cy.wrap(subject).trigger('keydown', { key: 'Tab' });
 });
 
