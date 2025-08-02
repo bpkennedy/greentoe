@@ -75,11 +75,10 @@ jobs:
         wait-on: 'http://localhost:3000'
         wait-on-timeout: 120
       env:
-        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NEXT_PUBLIC_ALPHA_VANTAGE_KEY: demo
-        ENCRYPTION_KEY: test_encryption_key_32_characters_long
-        NEXT_PUBLIC_PARENT_AUTH_HASH: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+        ALPHA_VANTAGE_KEY: ${{ secrets.ALPHA_VANTAGE_KEY }}
+        ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+        NEXT_PUBLIC_PARENT_AUTH_HASH: ${{ vars.NEXT_PUBLIC_PARENT_AUTH_HASH }}
         
     - name: Upload Cypress Screenshots
       uses: actions/upload-artifact@v4
@@ -87,10 +86,3 @@ jobs:
       with:
         name: cypress-screenshots
         path: cypress/screenshots
-        
-    - name: Upload Cypress Videos
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: cypress-videos
-        path: cypress/videos
