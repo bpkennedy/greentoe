@@ -4,13 +4,14 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, TrendingUp, TrendingDown, Minus, BarChart3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { StockChart } from './StockChart';
 import { useStockData } from '@/lib/hooks/useStockDataAxios';
 import { StockDataWrapper } from '@/components/ui';
+import type { StockData } from '@/lib/types/alphaVantage';
 
 /**
  * Props for the StockCard component
@@ -39,7 +40,7 @@ function calculatePercentageChange(current: number, previous: number): number {
  */
 interface StockSummaryProps {
   symbol: string;
-  data: any; // Will be typed by StockDataWrapper
+  data: StockData;
   isExpanded: boolean;
   onToggle: () => void;
   onRemove?: () => void;

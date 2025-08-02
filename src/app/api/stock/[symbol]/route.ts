@@ -26,12 +26,13 @@ export async function GET(
     const stockData = await fetchStockData(symbol);
     return NextResponse.json(stockData);
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Return the error in the same format as our StockError type
-    const statusCode = error.type === 'RATE_LIMITED' ? 429 :
-                      error.type === 'INVALID_SYMBOL' ? 400 :
-                      error.type === 'API_KEY_ERROR' ? 401 : 500;
+    const stockError = error as { type?: string; message?: string; details?: string };
+    const statusCode = stockError.type === 'RATE_LIMITED' ? 429 :
+                      stockError.type === 'INVALID_SYMBOL' ? 400 :
+                      stockError.type === 'API_KEY_ERROR' ? 401 : 500;
 
-    return NextResponse.json(error, { status: statusCode });
+    return NextResponse.json(stockError, { status: statusCode });
   }
 }
