@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2025-01-01T12:00:00.000Z",
+  "watchList": ["TSLA", "NVDA"],
+  "completedLessons": [
+    "01-understanding-stocks-index-funds"
+  ],
+  "userPreferences": {
+    "theme": "dark",
+    "notifications": false
+  }
+}
