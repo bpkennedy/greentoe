@@ -2,6 +2,7 @@
 
 import { WatchList } from "@/components/WatchList";
 import { StockChart } from "@/components/StockChart";
+import { DataManager } from "@/components/DataManager";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -126,6 +127,20 @@ export default function Home() {
             <DemoChartSection />
           </div>
         </div>
+
+        {/* Data Management Section */}
+        <section className="max-w-2xl mx-auto">
+          <DataManager 
+            onDataLoaded={(data) => {
+              console.log('Data loaded:', data);
+              // Could show a toast notification here
+            }}
+            onDataSaved={(filename) => {
+              console.log('Data saved as:', filename);
+              // Could show a toast notification here
+            }}
+          />
+        </section>
 
         <Separator />
 

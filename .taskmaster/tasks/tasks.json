@@ -662,7 +662,7 @@
           2,
           9
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -670,7 +670,7 @@
             "description": "Install necessary client-side libraries for file saving and loading, including file-saver and its TypeScript types.",
             "dependencies": [],
             "details": "Run `npm install file-saver @types/file-saver` to add the FileSaver.js library for client-side file saving functionality. Verify installation and import usage in the project.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -681,7 +681,7 @@
               "10.1"
             ],
             "details": "Implement `saveData()` to POST current app state to `/api/encrypt` and trigger file download. Implement `loadData()` to upload `.gt` files, POST to `/api/decrypt`, parse decrypted JSON, and merge with current state. Include error handling and user feedback mechanisms.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -692,7 +692,7 @@
               "10.2"
             ],
             "details": "Add 'Download Data' button to trigger saveData and file download. Add file input restricted to `.gt` files for loading data. Show progress indicators during save/load operations and display error or success messages to users.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -704,7 +704,7 @@
               "10.3"
             ],
             "details": "Use contexts such as WatchListContext and ProgressContext to retrieve current state for saving and to update state after loading and merging. Ensure proper context typing and state synchronization.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -716,7 +716,7 @@
               "10.3"
             ],
             "details": "Decide on filename format including extension `.gt` and possibly timestamp or user identifier. Implement naming logic in saveData and DataManager component to use this convention when triggering file downloads.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -728,7 +728,7 @@
               "10.4"
             ],
             "details": "Validate file extension `.gt` and file content before processing. Handle errors from API decrypt endpoint gracefully, showing user-friendly messages. Include fallback and retry mechanisms as needed.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -1267,7 +1267,7 @@
     ],
     "metadata": {
       "created": "2025-08-02T03:40:48.786Z",
-      "updated": "2025-08-02T05:14:35.685Z",
+      "updated": "2025-08-02T05:28:19.625Z",
       "description": "Tasks for master context"
     }
   }
