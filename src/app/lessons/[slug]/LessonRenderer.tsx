@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
 import { useProgress } from '@/lib/contexts';
 import LessonLayout from '@/components/LessonLayout';
+import { getLessonComponent } from '@/lib/lessonLoader';
 import type { Lesson } from '@/lib/lessons';
 
 interface LessonRendererProps {
@@ -21,18 +21,8 @@ export default function LessonRenderer({ lesson, nextLesson, previousLesson }: L
   const [isCompleted, setIsCompleted] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Dynamically import the MDX content
-  const LessonContent = dynamic(
-    () => import(`../../../../content/lessons/${lesson.id}.mdx`),
-    {
-      loading: () => (
-        <div className="flex items-center justify-center py-8">
-          <div className="animate-pulse text-muted-foreground">Loading lesson content...</div>
-        </div>
-      ),
-      ssr: false, // Disable SSR for MDX content to avoid hydration issues
-    }
-  );
+  // Get the pre-imported MDX component
+  const LessonContent = getLessonComponent(lesson.id);
 
   // Scroll tracking effect
   useEffect(() => {
@@ -62,6 +52,17 @@ export default function LessonRenderer({ lesson, nextLesson, previousLesson }: L
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lesson.id, markLessonComplete, isCompleted]);
+
+  // Show error state if lesson content not found
+  if (!LessonContent) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="text-destructive">
+          Lesson content not found for &quot;{lesson.id}&quot;
+        </div>
+      </div>
+    );
+  }
 
   return (
     <LessonLayout
