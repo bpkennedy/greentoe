@@ -142,11 +142,11 @@ export async function saveData(
     // Check if running in test environment
     const isTestEnvironment = typeof window !== 'undefined' && 
       (window.location.href.includes('localhost') && 
-       (window as any).Cypress);
+       (window as typeof window & { Cypress?: unknown }).Cypress);
     
     if (isTestEnvironment) {
       // In test environment, store the result globally for verification
-      (window as any).lastSaveResult = {
+      (window as typeof window & { lastSaveResult?: unknown }).lastSaveResult = {
         filename,
         data: dataWithMetadata,
         blob: encryptedBlob
@@ -188,7 +188,7 @@ export async function loadData(
   // Use test config in test environment to allow JSON files
   const isTestEnvironment = typeof window !== 'undefined' &&
     (window.location.href.includes('localhost') &&
-     (window as any).Cypress);
+     (window as typeof window & { Cypress?: unknown }).Cypress);
   
   const effectiveConfig = isTestEnvironment ? TEST_CONFIG : config;
   console.log('🔥 Using config:', effectiveConfig.allowedExtensions); // Debug log

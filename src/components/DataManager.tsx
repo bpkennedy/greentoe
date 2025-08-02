@@ -271,7 +271,7 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
         <input
           ref={fileInputRef}
           type="file"
-          accept={typeof window !== 'undefined' && (window as any).Cypress ? ".gt,.json" : ".gt"}
+          accept={typeof window !== 'undefined' && (window as typeof window & { Cypress?: unknown }).Cypress ? ".gt,.json" : ".gt"}
           onChange={handleFileSelect}
           className="hidden"
           data-testid="data-manager-file-input"
