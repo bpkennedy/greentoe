@@ -587,13 +587,13 @@
         "id": 9,
         "title": "Implement Encryption/Decryption API Routes",
         "description": "Create secure API endpoints for encrypting and decrypting user data using AES-256-GCM",
-        "details": "1. Create `app/api/encrypt/route.ts` with:\n   - POST handler accepting JSON state data\n   - AES-256-GCM encryption using Node.js crypto module\n   - 32-byte key from `ENCRYPTION_KEY` environment variable\n   - Return encrypted blob as application/octet-stream\n   - 200KB payload size limit\n   - 3-second maxDuration\n2. Create `app/api/decrypt/route.ts` with:\n   - POST handler accepting encrypted file data\n   - Decrypt and return plain JSON\n   - Proper error handling for malformed data\n3. Create `lib/crypto.ts` utility functions\n4. Add proper TypeScript types for API responses\n5. Implement comprehensive error handling and validation",
+        "details": "1. Create `app/api/encrypt/route.ts` with:\n   - POST handler accepting JSON state data\n   - AES-256-GCM encryption using Node.js crypto module\n   - 32-byte key from `ENCRYPTION_KEY` environment variable\n   - Return encrypted blob as application/octet-stream\n   - 200KB payload size limit\n   - 3-second maxDuration\n2. Create `app/api/decrypt/route.ts` with:\n   - POST handler accepting encrypted file data\n   - Decrypt and return plain JSON\n   - Proper error handling for malformed data\n3. Create `lib/crypto.ts` utility functions\n4. Add proper TypeScript types for API responses\n5. Implement comprehensive error handling and validation\n<info added on 2025-08-02T05:12:03.526Z>\n## Security Implementation Guidelines (Based on 2024 Best Practices)\n\n**Key Management:**\n- Environment variable `ENCRYPTION_KEY` must be base64-encoded 32-byte key\n- Generate keys using `crypto.randomBytes(32)` for production\n- Implement key rotation policies for enhanced security\n- Never hardcode keys in source code\n\n**IV Generation:**\n- Use `crypto.randomBytes(12)` for each encryption operation\n- Never reuse IV with same key (critical for GCM security)\n- Package IV with ciphertext for transmission\n- IV must be unique but doesn't need to be secret\n\n**Authentication Tag Handling:**\n- Retrieve 16-byte auth tag using `cipher.getAuthTag()`\n- Package as: IV (12 bytes) + Auth Tag (16 bytes) + Encrypted Data\n- Set auth tag with `decipher.setAuthTag()` before decryption\n- Tag verification failure indicates tampering/corruption\n\n**Error Handling Patterns:**\n- Wrap crypto operations in try-catch blocks\n- Return 400 Bad Request for malformed input\n- Return 401 Unauthorized for authentication failures\n- Log errors securely without exposing sensitive data\n- Use constant-time comparison to prevent timing attacks\n- Implement timeout handling with abort controllers\n\n**Implementation Structure:**\n```\nEncryption: plaintext → IV + cipher.update() + cipher.final() + getAuthTag() → IV+Tag+Ciphertext\nDecryption: IV+Tag+Ciphertext → extract components → setAuthTag() + decipher.update() + decipher.final() → plaintext\n```\n\n**Additional Security Measures:**\n- Use Node.js `KeyObject` API for enhanced key security\n- Validate input sizes before processing (200KB limit)\n- Implement comprehensive roundtrip testing\n- Test edge cases: empty input, max size, corrupted data\n- Regular Node.js LTS updates for security patches\n</info added on 2025-08-02T05:12:03.526Z>",
         "testStrategy": "Test encryption/decryption roundtrip, verify file size limits, test malformed data handling, ensure environment key security",
         "priority": "high",
         "dependencies": [
           1
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -601,7 +601,7 @@
             "description": "Implement the POST handler in `app/api/encrypt/route.ts` that accepts JSON state data, encrypts it using AES-256-GCM with a 32-byte key from the `ENCRYPTION_KEY` environment variable, and returns the encrypted blob as application/octet-stream. Enforce a 200KB payload size limit and a 3-second maximum duration for processing.",
             "dependencies": [],
             "details": "Use Node.js crypto module for AES-256-GCM encryption. Generate a 12-byte IV (nonce) as per AES-GCM standard. Ensure proper error handling for invalid input and environment key issues.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -612,7 +612,7 @@
               "9.1"
             ],
             "details": "Use Node.js crypto module for decryption. Validate input format and handle authentication tag verification failures gracefully. Return appropriate HTTP error codes for decryption errors.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -621,7 +621,7 @@
             "description": "Create reusable utility functions for AES-256-GCM encryption and decryption to be used by both API routes. Include functions for key retrieval, IV generation, encryption, decryption, and authentication tag handling.",
             "dependencies": [],
             "details": "Ensure utilities enforce 12-byte IV size for compatibility and security. Include input validation and error propagation. Abstract environment variable access for the encryption key.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -632,7 +632,7 @@
               "9.3"
             ],
             "details": "Include types for JSON state data, encrypted binary data, error responses, and environment configuration. Use strict typing to prevent runtime errors and improve maintainability.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -646,7 +646,7 @@
               "9.4"
             ],
             "details": "Return meaningful HTTP status codes and error messages. Log errors securely without exposing sensitive data. Enforce the 200KB payload size and 3-second maxDuration constraints with appropriate error responses.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -1267,7 +1267,7 @@
     ],
     "metadata": {
       "created": "2025-08-02T03:40:48.786Z",
-      "updated": "2025-08-02T04:53:53.628Z",
+      "updated": "2025-08-02T05:14:35.685Z",
       "description": "Tasks for master context"
     }
   }

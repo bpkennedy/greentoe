@@ -19,6 +19,9 @@ Create a `.env` file in the project root and add your API key:
 ```bash
 # Alpha Vantage API Configuration
 ALPHA_VANTAGE_KEY=your_alpha_vantage_api_key_here
+
+# Data Encryption Configuration (for save/load functionality)
+ENCRYPTION_KEY=your_32_byte_base64_encoded_key_here
 ```
 
 **Alternative Configuration:**
@@ -28,6 +31,36 @@ If you need client-side access to the API key, you can use the public environmen
 # For client-side access (less secure)
 NEXT_PUBLIC_ALPHA_VANTAGE_KEY=your_alpha_vantage_api_key_here
 ```
+
+## Data Encryption Configuration
+
+The application uses AES-256-GCM encryption to securely save and load user data (watch-lists, lesson progress, etc.).
+
+### 1. Generate an Encryption Key
+
+You need a 32-byte (256-bit) encryption key. You can generate one using Node.js:
+
+```bash
+# Generate a random 32-byte key and encode it as base64
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+```
+
+This will output something like: `a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2=`
+
+### 2. Add the Key to Your Environment
+
+Add the generated key to your `.env` file:
+
+```bash
+ENCRYPTION_KEY=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2=
+```
+
+### 3. Security Best Practices
+
+- **Never commit** the `.env` file to version control
+- **Keep the key secure** - anyone with this key can decrypt user data
+- **Use different keys** for development, staging, and production environments
+- **Consider key rotation** - regenerate keys periodically for enhanced security
 
 ### 3. API Key Security
 
