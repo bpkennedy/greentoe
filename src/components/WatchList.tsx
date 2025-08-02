@@ -4,7 +4,7 @@ import React from 'react';
 import { X, TrendingUp, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useWatchList } from '@/lib/contexts';
-import { useStockData } from '@/lib/hooks/useStockData';
+import { useStockData } from '@/lib/hooks/useStockDataAxios';
 import { WatchListItemWrapper } from '@/components/ui';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';

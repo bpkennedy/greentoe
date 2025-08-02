@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { StockChart } from './StockChart';
-import { useStockData } from '@/lib/hooks/useStockData';
+import { useStockData } from '@/lib/hooks/useStockDataAxios';
 import { StockDataWrapper } from '@/components/ui';
 
 /**

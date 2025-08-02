@@ -5,7 +5,7 @@ import { StockChart } from "@/components/StockChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { useStockData } from "@/lib/hooks/useStockData";
+import { useStockData } from "@/lib/hooks/useStockDataAxios";
 import { TrendingUp, BookOpen, DollarSign, PieChart } from "lucide-react";
 
 /**
