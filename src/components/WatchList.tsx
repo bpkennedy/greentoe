@@ -64,6 +64,14 @@ export function WatchList({ className }: WatchListProps) {
     addTicker(symbol);
   };
 
+  // Expose addTicker to global scope for testing/automation
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      console.log('🔥 Setting testAddStock on window'); // Debug log
+      (window as any).testAddStock = handleAddTicker;
+    }
+  }, [handleAddTicker]);
+
   const handleRemoveTicker = (symbol: string) => {
     removeTicker(symbol);
   };

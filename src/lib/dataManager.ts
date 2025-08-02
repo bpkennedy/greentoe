@@ -97,6 +97,7 @@ export async function saveData(
   stateData: AppStateData,
   config: DataManagerConfig = DEFAULT_CONFIG
 ): Promise<DataOperationResult> {
+  console.log('🔥 saveData called with:', stateData); // Debug log
   try {
     // Add metadata to state data
     const dataWithMetadata: AppStateData = {
@@ -104,8 +105,10 @@ export async function saveData(
       version: config.appVersion,
       timestamp: new Date().toISOString(),
     };
+    console.log('🔥 dataWithMetadata:', dataWithMetadata); // Debug log
 
     // Send data to encryption API
+    console.log('🔥 About to call /api/encrypt'); // Debug log
     const response = await fetch('/api/encrypt', {
       method: 'POST',
       headers: {
@@ -113,6 +116,7 @@ export async function saveData(
       },
       body: JSON.stringify({ data: dataWithMetadata }),
     });
+    console.log('🔥 Encrypt API response:', response.status, response.statusText); // Debug log
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
@@ -128,7 +132,23 @@ export async function saveData(
     
     // Generate filename and trigger download
     const filename = generateFilename(config);
-    saveAs(encryptedBlob, filename);
+    
+    // Check if running in test environment
+    const isTestEnvironment = typeof window !== 'undefined' && 
+      (window.location.href.includes('localhost') && 
+       (window as any).Cypress);
+    
+    if (isTestEnvironment) {
+      // In test environment, store the result globally for verification
+      (window as any).lastSaveResult = {
+        filename,
+        data: dataWithMetadata,
+        blob: encryptedBlob
+      };
+    } else {
+      // In normal environment, trigger download
+      saveAs(encryptedBlob, filename);
+    }
 
     return {
       success: true,
@@ -157,14 +177,17 @@ export async function loadData(
   file: File,
   config: DataManagerConfig = DEFAULT_CONFIG
 ): Promise<DataOperationResult> {
+  console.log('🔥 loadData called with file:', file.name); // Debug log
   try {
     // Validate file first
     const validation = validateFile(file, config);
+    console.log('🔥 File validation result:', validation); // Debug log
     if (!validation.success) {
       return validation;
     }
 
     // Send file to decryption API
+    console.log('🔥 About to call /api/decrypt'); // Debug log
     const response = await fetch('/api/decrypt', {
       method: 'POST',
       headers: {

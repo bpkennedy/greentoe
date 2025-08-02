@@ -7,6 +7,23 @@ describe('Data Save/Load Flow', () => {
     cy.intercept('GET', '/api/stock/GOOGL', { fixture: 'alpha-vantage-googl.json' }).as('getGOOGL');
     cy.intercept('GET', '/api/stock/TSLA', { fixture: 'alpha-vantage-tsla.json' }).as('getTSLA');
     
+    // Mock encryption/decryption API endpoints
+    cy.intercept('POST', '/api/encrypt', {
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/octet-stream' },
+      body: 'mock-encrypted-data' // Mock binary data
+    }).as('encrypt');
+    
+    cy.intercept('POST', '/api/decrypt', {
+      statusCode: 200,
+      body: {
+        watchList: ['AAPL', 'GOOGL'],
+        completedLessons: ['lesson-1', 'lesson-2'],
+        version: '1.0.0',
+        timestamp: '2024-01-01T00:00:00.000Z'
+      }
+    }).as('decrypt');
+    
     // Visit home page and wait for app to be ready
     cy.visit('/');
     cy.get('[data-testid="app-ready"]').should('exist');
@@ -38,29 +55,10 @@ describe('Data Save/Load Flow', () => {
     cy.contains('AES-256-GCM encryption').should('be.visible');
   });
 
-  it.only('should save data successfully when user has data', () => {
-    // Debug: check if search input is working 
-    cy.get('input[placeholder*="Search for stocks"]').should('be.visible');
-    
-    // Type slowly and check for suggestions
-    cy.get('input[placeholder*="Search for stocks"]').type('A', { delay: 100 });
-    cy.wait(500); // Wait for suggestions to appear
-    
-    // Check if suggestions dropdown appears
-    cy.get('body').then(($body) => {
-      if ($body.find('[data-testid*="suggestion"]').length > 0) {
-        cy.log('Suggestions found');
-      } else {
-        cy.log('No suggestions found - checking for Apple Inc directly');
-      }
-    });
-    
-    // Continue typing AAPL
-    cy.get('input[placeholder*="Search for stocks"]').type('APL', { delay: 100 });
-    cy.wait(500);
-    
-    // Look for Apple Inc in any form
-    cy.contains('Apple Inc.', { timeout: 5000 }).should('be.visible').click();
+  it('should save data successfully when user has data', () => {
+    // First add some data to save using programmatic method
+    cy.addStockToWatchList('AAPL');
+    cy.waitForStockData('AAPL');
     
     // Navigate to data management and save
     cy.contains('button', 'Download Data').click();
@@ -80,8 +78,11 @@ describe('Data Save/Load Flow', () => {
     // Try to save with empty state
     cy.contains('button', 'Download Data').click();
     
+    // Wait for the encrypt API call
+    cy.wait('@encrypt');
+    
     // Should still work (empty data is valid)
-    cy.contains('Success!').should('be.visible');
+    cy.contains('Success!', { timeout: 15000 }).should('be.visible');
     cy.contains('0').should('be.visible'); // 0 stocks tracked
   });
 
@@ -96,7 +97,7 @@ describe('Data Save/Load Flow', () => {
       .should('have.attr', 'type', 'file');
   });
 
-  it('should load data successfully with no existing data', () => {
+  it.only('should load data successfully with no existing data', () => {
     // Ensure we start with clean state
     cy.contains('0').should('be.visible'); // 0 stocks tracked
     

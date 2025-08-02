@@ -54,11 +54,10 @@ declare global {
 
 // Custom command to add stock to watch list
 Cypress.Commands.add('addStockToWatchList', (symbol: string) => {
-  // Use the correct placeholder text to find search input
-  cy.get('input[placeholder*="Search for stocks"]').type(symbol);
-  
-  // Wait for and click on stock suggestion using visible text
-  cy.contains(`${symbol}`).click();
+  // Wait for WatchList component to mount and expose the test method
+  cy.window().should('have.property', 'testAddStock').then((win) => {
+    (win as any).testAddStock(symbol);
+  });
   
   // Verify stock card appears in watch list (but data might still be loading)
   cy.get(`[data-testid="stock-card-${symbol}"]`, { timeout: 5000 }).should('be.visible');

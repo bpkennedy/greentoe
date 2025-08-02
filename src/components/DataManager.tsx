@@ -59,13 +59,17 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
    * Handles the save data operation
    */
   const handleSaveData = async () => {
+    console.log('🔥 handleSaveData called'); // Debug log
     setIsLoading(true);
     setCurrentOperation('save');
     setResult(null);
 
     try {
       const currentState = getCurrentState(watchList, { completedLessons });
+      console.log('🔥 Current state:', currentState); // Debug log
+      
       const result = await saveData(currentState);
+      console.log('🔥 Save result:', result); // Debug log
       
       setResult(result);
       
@@ -75,7 +79,8 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
         const filename = filenameMatch ? filenameMatch[1] : 'green-thumb-state.gt';
         onDataSaved(filename);
       }
-    } catch {
+    } catch (error) {
+      console.error('🔥 Save error:', error); // Debug log
       setResult({
         success: false,
         message: 'An unexpected error occurred while saving',
@@ -91,15 +96,22 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
    * Handles file selection for loading
    */
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('🔥 handleFileSelect called'); // Debug log
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      console.log('🔥 No file selected'); // Debug log
+      return;
+    }
+    console.log('🔥 File selected:', file.name); // Debug log
 
     setIsLoading(true);
     setCurrentOperation('load');
     setResult(null);
 
     try {
+      console.log('🔥 Calling loadData'); // Debug log
       const result = await loadData(file);
+      console.log('🔥 Load result:', result); // Debug log
       setResult(result);
 
       if (result.success && result.data) {
