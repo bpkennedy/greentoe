@@ -8,7 +8,20 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { StockChart } from './StockChart';
+import dynamic from 'next/dynamic';
+
+// Lazy load charts since they're only shown when expanded
+const StockChart = dynamic(
+  () => import('./StockChart').then(mod => ({ default: mod.StockChart })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-64 flex items-center justify-center bg-muted/20 rounded">
+        <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    ),
+  }
+);
 import { useStockData } from '@/lib/hooks/useStockDataAxios';
 import { StockDataWrapper } from '@/components/ui';
 import type { ProcessedStockData } from '@/lib/types/alphaVantage';

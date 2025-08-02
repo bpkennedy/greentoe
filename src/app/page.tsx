@@ -1,15 +1,52 @@
 'use client';
 
 import Link from 'next/link';
-import { WatchList } from "@/components/WatchList";
-import { StockChart } from "@/components/StockChart";
-import { DataManager } from "@/components/DataManager";
+import dynamic from 'next/dynamic';
 import { SkipLinks } from "@/components/SkipLinks";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useStockData } from "@/lib/hooks/useStockDataAxios";
 import { TrendingUp, BookOpen, DollarSign, PieChart } from "lucide-react";
+
+// Lazy load heavy components to reduce initial bundle size
+const WatchList = dynamic(() => import("@/components/WatchList").then(mod => ({ default: mod.WatchList })), {
+  ssr: false,
+  loading: () => (
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle>Watch List</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex items-center justify-center py-8">
+          <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      </CardContent>
+    </Card>
+  ),
+});
+
+const StockChart = dynamic(() => import("@/components/StockChart").then(mod => ({ default: mod.StockChart })), {
+  ssr: false,
+  loading: () => (
+    <div className="h-64 flex items-center justify-center bg-muted/20 rounded">
+      <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  ),
+});
+
+const DataManager = dynamic(() => import("@/components/DataManager").then(mod => ({ default: mod.DataManager })), {
+  ssr: false,
+  loading: () => (
+    <Card>
+      <CardContent className="p-6">
+        <div className="flex items-center justify-center">
+          <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      </CardContent>
+    </Card>
+  ),
+});
 
 /**
  * Demo component showing StockChart with sample data
