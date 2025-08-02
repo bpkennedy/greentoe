@@ -25,7 +25,7 @@ function getApiKey(): string {
   const apiKey = process.env.ALPHA_VANTAGE_KEY || process.env.NEXT_PUBLIC_ALPHA_VANTAGE_KEY;
   
   if (!apiKey) {
-    throw new Error('Alpha Vantage API key not found. Please set ALPHA_VANTAGE_KEY or NEXT_PUBLIC_ALPHA_VANTAGE_KEY environment variable.');
+    throw new Error('🔑 Alpha Vantage API key not found!\n\n📋 Quick setup:\n1. Get FREE API key: https://www.alphavantage.co/support/#api-key\n2. Create .env file with: ALPHA_VANTAGE_KEY=your_key_here\n3. Restart server: npm run dev');
   }
   
   return apiKey;
