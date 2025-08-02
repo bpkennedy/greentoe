@@ -514,7 +514,7 @@
           4,
           7
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -522,7 +522,7 @@
             "description": "Develop a reusable LessonCard component displaying lesson title, summary, icon, estimated reading time, and completion status indicator with click navigation.",
             "dependencies": [],
             "details": "Implement the LessonCard as a functional React component accepting props for metadata and progress. Include Lucide icons for completion badges. Ensure accessibility and basic styling.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -533,7 +533,7 @@
               "8.1"
             ],
             "details": "Create `app/lessons/page.tsx` to render all lessons in a grid. Integrate progress indicators showing completed vs total lessons. Add search and filter functionality for lessons.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -544,7 +544,7 @@
               "8.1"
             ],
             "details": "Use Lucide icon library to display badges on LessonCards based on completion metadata. Ensure badges update dynamically with progress changes.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -556,7 +556,7 @@
               "8.1"
             ],
             "details": "Use CSS grid/flexbox and media queries or Tailwind CSS utilities to create a responsive grid layout. Test across mobile, tablet, and desktop breakpoints.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -567,7 +567,7 @@
               "8.2"
             ],
             "details": "Show a loading spinner or skeleton cards while lesson data is fetching. Display user-friendly error messages if data fails to load.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -578,7 +578,7 @@
               "8.2"
             ],
             "details": "Create a breadcrumb component reflecting the current page hierarchy (e.g., Home / Lessons). Integrate it at the top of the lessons index page.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -744,7 +744,7 @@
           2,
           7
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -752,7 +752,7 @@
             "description": "Develop the `app/parent/page.tsx` file including a basic authentication form with username and password inputs, client-side hash comparison against an environment variable, and display of activity summary and lesson progress.",
             "dependencies": [],
             "details": "Implement a login form with username 'admin' and password 'admin'. Use a client-side hash comparison to validate credentials against a hash stored in an environment variable. Display the ActivitySummary component and lesson progress overview upon successful login.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -763,7 +763,7 @@
               "11.1"
             ],
             "details": "Build a login form with proper input validation. Manage authentication state in memory only (no persistent storage). Provide logout functionality that clears the session and returns to the login form.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -774,7 +774,7 @@
               "11.1"
             ],
             "details": "Fetch and display the number of lessons completed, current watch-list items, and the timestamp of the last activity. Ensure data is accurate and updates appropriately.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -783,7 +783,7 @@
             "description": "Configure environment variables to securely store the hashed password used for client-side authentication comparison.",
             "dependencies": [],
             "details": "Add an environment variable (e.g., `NEXT_PUBLIC_PARENT_AUTH_HASH`) containing the hashed version of the password. Ensure this variable is not exposed in the client bundle except for the hash needed for comparison.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -796,7 +796,7 @@
               "11.4"
             ],
             "details": "Ensure credentials do not appear in the client bundle in plain text. Use secure hash comparison methods. Manage sessions in memory only to avoid persistent storage vulnerabilities. Validate inputs to prevent injection attacks.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -808,7 +808,7 @@
               "11.3"
             ],
             "details": "Design and implement UI elements or components that provide conversation starters or prompts related to the teen's activity and progress, enhancing engagement on the dashboard.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -1267,7 +1267,7 @@
     ],
     "metadata": {
       "created": "2025-08-02T03:40:48.786Z",
-      "updated": "2025-08-02T05:50:45.859Z",
+      "updated": "2025-08-02T06:02:27.628Z",
       "description": "Tasks for master context"
     }
   }

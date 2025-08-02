@@ -92,13 +92,21 @@ export default function Home() {
               <h1 className="text-3xl font-bold text-foreground">Green Thumb</h1>
               <p className="text-muted-foreground mt-1">Financial Education for Teenagers</p>
             </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                Alpha Version
-              </Badge>
-              <Badge variant="default" className="text-xs">
-                Live Demo
-              </Badge>
+            <div className="flex items-center gap-3">
+              <Link 
+                href="/parent" 
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Parent Dashboard
+              </Link>
+              <div className="flex items-center gap-2">
+                <Badge variant="outline" className="text-xs">
+                  Alpha Version
+                </Badge>
+                <Badge variant="default" className="text-xs">
+                  Live Demo
+                </Badge>
+              </div>
             </div>
           </div>
         </div>
