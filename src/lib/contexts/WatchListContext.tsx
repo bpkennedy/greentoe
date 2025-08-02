@@ -20,14 +20,23 @@ export function WatchListProvider({ children }: WatchListProviderProps) {
 
   // Add a ticker symbol to the watch-list (avoid duplicates)
   const addTicker = (symbol: string) => {
+    console.log('WatchListContext: addTicker called with:', symbol);
     const upperSymbol = symbol.toUpperCase().trim();
-    if (!upperSymbol) return; // Don't add empty symbols
+    console.log('WatchListContext: upperSymbol:', upperSymbol);
+    if (!upperSymbol) {
+      console.log('WatchListContext: empty symbol, returning early');
+      return; // Don't add empty symbols
+    }
     
     setWatchList(prevList => {
+      console.log('WatchListContext: current prevList:', prevList);
       if (prevList.includes(upperSymbol)) {
+        console.log('WatchListContext: symbol already exists, not adding');
         return prevList; // Symbol already exists, don't add duplicate
       }
-      return [...prevList, upperSymbol];
+      const newList = [...prevList, upperSymbol];
+      console.log('WatchListContext: adding symbol, new list:', newList);
+      return newList;
     });
   };
 

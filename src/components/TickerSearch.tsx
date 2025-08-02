@@ -168,12 +168,17 @@ export function TickerSearch({
 
   // Handle suggestion selection
   const handleSelectSuggestion = async (suggestion: StockSuggestion) => {
+    console.log('TickerSearch: handleSelectSuggestion called with:', suggestion.symbol);
     setIsLoading(true);
     try {
+      console.log('TickerSearch: calling onSelect with:', suggestion.symbol);
       await onSelect(suggestion.symbol);
+      console.log('TickerSearch: onSelect completed successfully');
       setQuery('');
       setIsOpen(false);
       setSelectedIndex(-1);
+    } catch (error) {
+      console.error('TickerSearch: onSelect failed:', error);
     } finally {
       setIsLoading(false);
     }
