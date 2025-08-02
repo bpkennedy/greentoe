@@ -1,16 +1,14 @@
 'use client';
 
 import React from 'react';
-import { X, TrendingUp, AlertCircle } from 'lucide-react';
+import { AlertCircle, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useWatchList } from '@/lib/contexts';
-import { useStockData } from '@/lib/hooks/useStockDataAxios';
-import { WatchListItemWrapper } from '@/components/ui';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { TickerSearch } from './TickerSearch';
+import { StockCard } from './StockCard';
 
 /**
  * Individual watch-list item component displaying stock data
@@ -22,110 +20,12 @@ interface WatchListItemProps {
 }
 
 function WatchListItem({ symbol, onRemove, className }: WatchListItemProps) {
-  const stockDataHook = useStockData(symbol);
-
   return (
-    <WatchListItemWrapper
-      symbol={symbol}
-      hookResult={stockDataHook}
-      onRemove={onRemove}
-      className={className}
-    >
-      {(data) => {
-        const latestData = data.timeSeries[0];
-        const previousData = data.timeSeries[1];
-        
-        if (!latestData) {
-          return (
-            <div className="text-sm text-gray-500">
-              No data available for {symbol}
-            </div>
-          );
-        }
-
-        const change = previousData 
-          ? latestData.close - previousData.close 
-          : 0;
-        const changePercent = previousData 
-          ? (change / previousData.close) * 100 
-          : 0;
-        
-        const isPositive = change >= 0;
-
-        return (
-          <Card 
-            className="hover:shadow-md transition-shadow"
-            role="listitem"
-            aria-labelledby={`stock-${symbol}-title`}
-            aria-describedby={`stock-${symbol}-details`}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                {/* Stock Symbol and Company Info */}
-                <div className="flex items-center gap-3">
-                  <div 
-                    className="p-2 rounded-full bg-blue-100"
-                    role="img"
-                    aria-label={`${symbol} stock icon`}
-                  >
-                    <TrendingUp className="h-4 w-4 text-blue-600" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 id={`stock-${symbol}-title`} className="font-semibold text-gray-900">{symbol}</h3>
-                      <Badge variant="secondary" className="text-xs" aria-hidden="true">
-                        Stock
-                      </Badge>
-                    </div>
-                    <p 
-                      id={`stock-${symbol}-details`}
-                      className="text-sm text-muted-foreground"
-                    >
-                      Updated: {new Date(latestData.date).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Price and Change */}
-                <div className="flex items-center gap-4">
-                  <div className="text-right">
-                    <div 
-                      className="font-mono text-lg font-semibold"
-                      aria-label={`Current price: ${latestData.close.toFixed(2)} dollars`}
-                    >
-                      ${latestData.close.toFixed(2)}
-                    </div>
-                    {previousData && (
-                      <Badge 
-                        variant={isPositive ? "default" : "destructive"}
-                        className="text-xs font-medium"
-                        role="status"
-                        aria-label={`Price change: ${isPositive ? 'up' : 'down'} ${Math.abs(change).toFixed(2)} dollars, ${Math.abs(changePercent).toFixed(2)} percent`}
-                      >
-                        {isPositive ? '+' : ''}{change.toFixed(2)} ({changePercent.toFixed(2)}%)
-                      </Badge>
-                    )}
-                  </div>
-
-                  {/* Remove Button */}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={onRemove}
-                    className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive touch-target focus-visible"
-                    title={`Remove ${symbol} from watch list`}
-                    aria-label={`Remove ${symbol} from watch list`}
-                  >
-                    <X className="h-4 w-4" aria-hidden="true" />
-                    <span className="sr-only">Remove {symbol}</span>
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        );
-      }}
-    </WatchListItemWrapper>
+    <StockCard 
+      symbol={symbol} 
+      onRemove={onRemove} 
+      className={cn('hover:shadow-md transition-shadow', className)}
+    />
   );
 }
 

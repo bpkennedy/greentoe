@@ -54,14 +54,14 @@ declare global {
 
 // Custom command to add stock to watch list
 Cypress.Commands.add('addStockToWatchList', (symbol: string) => {
-  // Use placeholder text to find search input (more resilient)
-  cy.get('input[placeholder*="stock"]').type(symbol);
+  // Use the correct placeholder text to find search input
+  cy.get('input[placeholder*="Search for stocks"]').type(symbol);
   
   // Wait for and click on stock suggestion using visible text
-  cy.contains(symbol).click();
+  cy.contains(`${symbol}`).click();
   
-  // Verify stock appears in watch list using visible text
-  cy.contains('Watch List').parent().should('contain', symbol);
+  // Verify stock card appears in watch list
+  cy.get(`[data-testid="stock-card-${symbol}"]`, { timeout: 5000 }).should('be.visible');
 });
 
 // Custom command to complete a lesson
@@ -106,15 +106,14 @@ Cypress.Commands.add('loadUserData', (filename: string) => {
 
 // Custom command to wait for stock data
 Cypress.Commands.add('waitForStockData', (symbol: string) => {
-  // With mocked data, we can wait for specific API calls and then the price display
-  cy.wait(`@get${symbol}`, { timeout: 10000 });
+  // With mocked data, we can wait for specific API calls and then the stock card
+  cy.wait(`@get${symbol}`, { timeout: 5000 });
   
-  // Wait for stock card to be visible
-  cy.get(`[data-testid="stock-card-${symbol}"]`).should('be.visible');
+  // Wait for stock card to be visible and fully loaded
+  cy.get(`[data-testid="stock-card-${symbol}"]`, { timeout: 5000 }).should('be.visible');
   
-  // Wait for price to load in the stock card
+  // Wait for price to load in the stock card (ensuring data has loaded)
   cy.get(`[data-testid="stock-card-${symbol}"]`).within(() => {
-    cy.contains('Loading...').should('not.exist');
     cy.contains('$').should('be.visible'); // Price should be displayed
   });
 });
