@@ -33,7 +33,6 @@ export async function GET(
     // Step 1: Check cache first
     const cachedData = cacheService.get(cleanSymbol);
     if (cachedData) {
-      console.log(`Serving cached data for ${cleanSymbol}`);
       return NextResponse.json(cachedData);
     }
 

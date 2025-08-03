@@ -167,8 +167,12 @@ export function AddInvestmentDialog({
   };
 
   const defaultTrigger = (
-    <Button variant="outline" size="sm" className="gap-2">
-      <Plus className="h-4 w-4" />
+    <Button 
+      variant="default" 
+      size="lg" 
+      className="gap-2 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200 font-semibold"
+    >
+      <Plus className="h-5 w-5" />
       Add Investment
     </Button>
   );
@@ -184,9 +188,9 @@ export function AddInvestmentDialog({
         {trigger || defaultTrigger}
       </DialogTrigger>
       
-      <DialogContent className={cn('max-w-md', className)} aria-labelledby="add-investment-title">
+      <DialogContent className={cn('max-w-md', className)}>
         <DialogHeader>
-          <DialogTitle id="add-investment-title" className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-primary" />
             Add Investment to Track
           </DialogTitle>

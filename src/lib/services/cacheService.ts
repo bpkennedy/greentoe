@@ -113,7 +113,6 @@ class CacheService {
     if (!entry) {
       this.stats.misses++;
       this.updateStats();
-      console.log(`Cache MISS for ${key}`);
       return null;
     }
 
@@ -121,13 +120,11 @@ class CacheService {
       this.cache.delete(key);
       this.stats.misses++;
       this.updateStats();
-      console.log(`Cache EXPIRED for ${key}`);
       return null;
     }
 
     this.stats.hits++;
     this.updateStats();
-    console.log(`Cache HIT for ${key} (age: ${Math.round((Date.now() - entry.timestamp) / 1000 / 60)}min)`);
     return entry.data;
   }
 
@@ -151,9 +148,6 @@ class CacheService {
 
     this.cache.set(key, entry);
     this.updateStats();
-    
-    const ttlMinutes = Math.round(ttl / 1000 / 60);
-    console.log(`Cache SET for ${key} (TTL: ${ttlMinutes}min, size: ${this.cache.size})`);
   }
 
   /**
@@ -182,7 +176,6 @@ class CacheService {
    * Clear all cached data
    */
   clear(): void {
-    const size = this.cache.size;
     this.cache.clear();
     this.stats = {
       hits: 0,
@@ -192,7 +185,6 @@ class CacheService {
       entries: 0,
       memoryUsage: 0
     };
-    console.log(`Cache CLEARED (removed ${size} entries)`);
   }
 
   /**
@@ -264,8 +256,6 @@ class CacheService {
       this.stopCleanupTimer();
       this.startCleanupTimer();
     }
-    
-    console.log('Cache configuration updated:', this.config);
   }
 
   /**

@@ -6,16 +6,17 @@ import type {
 } from '../types/financialModelingPrep';
 
 /**
- * Yahoo Finance historical data structure (from the library)
+ * Yahoo Finance chart data structure (from the library)
+ * Note: Using chart() method instead of deprecated historical()
  */
 interface YahooHistoricalData {
   date: Date;
-  open: number;
-  high: number;
-  low: number;
-  close: number;
-  adjClose?: number;
-  volume: number;
+  open: number | null;
+  high: number | null;
+  low: number | null;
+  close: number | null;
+  adjclose?: number | null;
+  volume: number | null;
 }
 
 /**
@@ -57,18 +58,26 @@ function convertYahooDataToFMP(yahooData: YahooHistoricalData): FMPStockDataPoin
   const changePercent = 0;
   const changeOverTime = 0;
 
+  // Handle null values by providing defaults
+  const safeOpen = yahooData.open ?? 0;
+  const safeHigh = yahooData.high ?? 0;
+  const safeLow = yahooData.low ?? 0;
+  const safeClose = yahooData.close ?? 0;
+  const safeVolume = yahooData.volume ?? 0;
+  const safeAdjClose = yahooData.adjclose ?? safeClose;
+
   return {
     date: yahooData.date.toISOString().split('T')[0], // Convert Date to YYYY-MM-DD string
-    open: Number(yahooData.open.toFixed(2)),
-    high: Number(yahooData.high.toFixed(2)),
-    low: Number(yahooData.low.toFixed(2)),
-    close: Number(yahooData.close.toFixed(2)),
-    adjClose: Number((yahooData.adjClose || yahooData.close).toFixed(2)),
-    volume: yahooData.volume,
-    unadjustedVolume: yahooData.volume, // Yahoo doesn't distinguish, use same value
+    open: Number(safeOpen.toFixed(2)),
+    high: Number(safeHigh.toFixed(2)),
+    low: Number(safeLow.toFixed(2)),
+    close: Number(safeClose.toFixed(2)),
+    adjClose: Number(safeAdjClose.toFixed(2)),
+    volume: safeVolume,
+    unadjustedVolume: safeVolume, // Yahoo doesn't distinguish, use same value
     change,
     changePercent,
-    vwap: Number(((yahooData.high + yahooData.low + yahooData.close) / 3).toFixed(2)), // Approximate VWAP
+    vwap: Number(((safeHigh + safeLow + safeClose) / 3).toFixed(2)), // Approximate VWAP
     label: yahooData.date.toLocaleDateString('en-US', { 
       month: 'long', 
       day: 'numeric', 
@@ -128,13 +137,13 @@ async function fetchWithRetry(symbol: string, retryCount = 0): Promise<YahooHist
 
     console.log(`Fetching Yahoo Finance data for ${symbol} from: ${startDate.toISOString().split('T')[0]} to ${endDate.toISOString().split('T')[0]}`);
 
-    const result = await yahooFinance.historical(symbol.toUpperCase(), queryOptions);
+    const result = await yahooFinance.chart(symbol.toUpperCase(), queryOptions);
     
-    if (!result || result.length === 0) {
+    if (!result || !result.quotes || result.quotes.length === 0) {
       throw createStockError('INVALID_SYMBOL', `No data found for symbol: ${symbol}`);
     }
 
-    return result;
+    return result.quotes;
 
   } catch (error) {
     console.error(`Yahoo Finance API error (attempt ${retryCount + 1}):`, error);
@@ -200,8 +209,6 @@ export async function fetchStockData(symbol: string): Promise<FMPProcessedStockD
     
     // Calculate change and changePercent values
     const dataWithChanges = calculateChanges(sortedData);
-    
-    console.log(`Successfully processed ${dataWithChanges.length} data points for ${cleanSymbol} from Yahoo Finance`);
     
     return {
       symbol: cleanSymbol,

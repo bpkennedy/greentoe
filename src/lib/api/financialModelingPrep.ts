@@ -131,7 +131,6 @@ export async function fetchStockData(symbol: string): Promise<FMPProcessedStockD
       }
       
       const processedData = processStockData(data.historical, data.symbol);
-      console.log(`Successfully processed ${processedData.dataPoints} data points for ${symbol}`);
       return processedData;
     }
 
