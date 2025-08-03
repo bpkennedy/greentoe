@@ -24,6 +24,8 @@ interface AddInvestmentDialogProps {
   initialSymbol?: string;
   /** Callback when investment is successfully added */
   onInvestmentAdded?: (symbol: string) => void;
+  /** Callback when dialog is closed */
+  onClose?: () => void;
   /** Custom trigger button */
   trigger?: React.ReactNode;
   /** Whether dialog starts open */
@@ -40,6 +42,7 @@ interface AddInvestmentDialogProps {
 export function AddInvestmentDialog({
   initialSymbol = '',
   onInvestmentAdded,
+  onClose,
   trigger,
   defaultOpen = false,
   autoClose = true,
@@ -48,6 +51,21 @@ export function AddInvestmentDialog({
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [symbol, setSymbol] = useState(initialSymbol.toUpperCase());
   const [reasoning, setReasoning] = useState('');
+
+  // Update dialog state when props change
+  useEffect(() => {
+    console.log('🔥 AddInvestmentDialog: defaultOpen changed to:', defaultOpen);
+    setIsOpen(defaultOpen);
+  }, [defaultOpen]);
+
+  // Update symbol when initialSymbol prop changes
+  useEffect(() => {
+    console.log('🔥 AddInvestmentDialog: initialSymbol changed to:', initialSymbol);
+    setSymbol(initialSymbol.toUpperCase());
+  }, [initialSymbol]);
+
+  // Debug render
+  console.log('🔥 AddInvestmentDialog rendered with:', { defaultOpen, initialSymbol, isOpen });
   const [customPrice, setCustomPrice] = useState('');
   const [useCurrentPrice, setUseCurrentPrice] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -120,6 +138,7 @@ export function AddInvestmentDialog({
       // Auto-close if requested
       if (autoClose) {
         setIsOpen(false);
+        onClose?.();
       }
 
       // Reset form
@@ -155,7 +174,12 @@ export function AddInvestmentDialog({
   );
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={(open) => {
+      setIsOpen(open);
+      if (!open) {
+        onClose?.();
+      }
+    }}>
       <DialogTrigger asChild>
         {trigger || defaultTrigger}
       </DialogTrigger>
@@ -326,7 +350,10 @@ export function AddInvestmentDialog({
           <Button
             type="button"
             variant="outline"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+              onClose?.();
+            }}
             disabled={isSubmitting}
           >
             Cancel

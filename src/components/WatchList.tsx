@@ -180,12 +180,16 @@ export function WatchList({ className }: WatchListProps) {
 
   const handleAddInvestment = React.useCallback((symbol: string) => {
     // Open dialog for detailed investment tracking
+    console.log('🔥 handleAddInvestment called with symbol:', symbol);
+    console.log('🔥 Current showAddDialog state:', showAddDialog);
     setSelectedSymbolForDialog(symbol);
     setShowAddDialog(true);
-  }, []);
+    console.log('🔥 Set showAddDialog to true and selectedSymbolForDialog to:', symbol);
+  }, [showAddDialog]);
 
   const handleTickerSearchSelect = React.useCallback((symbol: string) => {
     // When user selects from TickerSearch, use the enhanced dialog
+    console.log('🔥 TickerSearch selected symbol:', symbol);
     handleAddInvestment(symbol);
   }, [handleAddInvestment]);
 
@@ -322,6 +326,11 @@ export function WatchList({ className }: WatchListProps) {
         initialSymbol={selectedSymbolForDialog}
         defaultOpen={showAddDialog}
         onInvestmentAdded={handleInvestmentAdded}
+        onClose={() => {
+          console.log('🔥 Dialog closed, resetting state');
+          setShowAddDialog(false);
+          setSelectedSymbolForDialog('');
+        }}
         autoClose={true}
       />
     </Card>
