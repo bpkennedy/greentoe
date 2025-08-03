@@ -22,10 +22,10 @@ An interactive educational platform designed to teach young adults about stock m
 
 ### Prerequisites
 
-1. Get a free API key from [Financial Modeling Prep](https://financialmodelingprep.com/developer/docs)
-2. Copy `env.example` to `.env.local` and add your API key:
+1. **No API keys required!** The app now uses Yahoo Finance data which is free and doesn't require registration.
+2. Copy `env.example` to `.env.local` and configure encryption:
    ```
-   FMP_API_KEY=your_fmp_api_key_here
+   ENCRYPTION_KEY=your-32-character-encryption-key-here
    ```
 
 ### Installation

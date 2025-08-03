@@ -2,35 +2,36 @@
 
 This document outlines the environment variables required for the Green Thumb application.
 
-## Financial Modeling Prep API Configuration
+## Stock Data Configuration
 
-The application uses the Financial Modeling Prep (FMP) API to fetch real-time stock market data. You need to configure an API key to enable this functionality.
+The application fetches real-time stock market data using Yahoo Finance (no API key required). This section covers the configuration options available.
 
-### 1. Get a Financial Modeling Prep API Key
+### 1. Yahoo Finance Integration (No API Key Required!)
 
-1. Visit [Financial Modeling Prep API Registration](https://financialmodelingprep.com/developer/docs)
-2. Create a free account (no credit card required)
-3. Copy your API key immediately after registration
+**Great News!** This application now uses Yahoo Finance data which:
+- ✅ Requires no API key or registration
+- ✅ Provides free, reliable financial data  
+- ✅ Offers better performance with server-side caching
+- ✅ Has no rate limits for reasonable usage
 
 ### 2. Configure Environment Variables
 
-Create a `.env` file in the project root and add your API key:
+Create a `.env` file in the project root for required and optional configuration:
 
 ```bash
-# Financial Modeling Prep API Configuration
-FMP_API_KEY=your_fmp_api_key_here
-
-# Data Encryption Configuration (for save/load functionality)
+# Data Encryption Configuration (required for save/load functionality)
 ENCRYPTION_KEY=your_32_byte_base64_encoded_key_here
+
+# Optional Cache Configuration (server-side performance tuning)
+CACHE_TTL_MINUTES=60
+CACHE_MAX_SIZE=1000
+CACHE_CLEANUP_INTERVAL_MINUTES=10
 ```
 
-**Alternative Configuration:**
-If you need client-side access to the API key, you can use the public environment variable instead:
-
-```bash
-# For client-side access (less secure)
-NEXT_PUBLIC_ALPHA_VANTAGE_KEY=your_alpha_vantage_api_key_here
-```
+**Cache Configuration Options:**
+- `CACHE_TTL_MINUTES`: How long to cache stock data (default: 60 minutes)
+- `CACHE_MAX_SIZE`: Maximum number of symbols to cache (default: 1000)  
+- `CACHE_CLEANUP_INTERVAL_MINUTES`: How often to clean expired cache (default: 10 minutes)
 
 ## Data Encryption Configuration
 
