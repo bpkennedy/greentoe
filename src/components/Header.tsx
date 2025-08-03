@@ -41,7 +41,8 @@ export function Header({
                 width={200}
                 height={40}
                 priority
-                className="h-8 w-auto transition-transform group-hover:scale-105"
+                className="h-8 transition-transform group-hover:scale-105"
+                style={{ width: '200px' }}
               />
             </div>
           </Link>

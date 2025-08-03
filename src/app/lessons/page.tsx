@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { 
   TrendingUp, 
@@ -17,6 +19,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { getAllLessons, getLessonProgress, getTotalEstimatedTime } from '@/lib/lessons';
+import { useProgress } from '@/lib/contexts';
 
 // Icon mapping for lessons
 const LESSON_ICONS = {
@@ -32,8 +35,8 @@ const LESSON_ICONS = {
  * Lessons index page showing all available lessons
  */
 export default function LessonsPage() {
-  // TODO: Get completed lessons from user context
-  const completedLessons: string[] = [];
+  // Get completed lessons from progress context
+  const { completedLessons } = useProgress();
   const lessons = getAllLessons(completedLessons);
   const progress = getLessonProgress(completedLessons);
   const totalTime = getTotalEstimatedTime();
@@ -182,15 +185,3 @@ export default function LessonsPage() {
   );
 }
 
-/**
- * Generate metadata for the lessons index page
- */
-export const metadata = {
-  title: 'Financial Education Lessons | Green Thumb',
-  description: 'Learn investing fundamentals with our comprehensive lesson series designed for teenagers. Master stocks, index funds, charts, and more.',
-  openGraph: {
-    title: 'Financial Education Lessons',
-    description: 'Master investing fundamentals with lessons designed specifically for teenagers.',
-    type: 'website',
-  },
-};

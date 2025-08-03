@@ -14,6 +14,7 @@ interface ProgressProviderProps {
 /**
  * ProgressProvider component that manages the state of completed lessons
  * Provides function to mark lessons as complete by their slug
+ * Integrates with the existing save/export data system
  */
 export function ProgressProvider({ children }: ProgressProviderProps) {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
@@ -27,13 +28,27 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
       if (prevLessons.includes(trimmedSlug)) {
         return prevLessons; // Lesson already marked complete, don't add duplicate
       }
-      return [...prevLessons, trimmedSlug];
+      const newLessons = [...prevLessons, trimmedSlug];
+      console.log('🎯 Lesson marked complete:', trimmedSlug, 'Total completed:', newLessons.length);
+      return newLessons;
     });
   };
+
+  // Function to load lesson progress from saved data
+  const loadLessonProgress = (progressData: { completedLessons: string[] }) => {
+    setCompletedLessons(progressData.completedLessons || []);
+  };
+
+  // Function to get current progress for saving
+  const getLessonProgressData = () => ({
+    completedLessons
+  });
 
   const value: ProgressContextType = {
     completedLessons,
     markLessonComplete,
+    loadLessonProgress,
+    getLessonProgressData,
   };
 
   return (

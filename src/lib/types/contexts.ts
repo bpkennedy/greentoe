@@ -33,4 +33,8 @@ export interface ProgressContextType {
   completedLessons: string[];
   /** Mark a lesson as complete by its slug */
   markLessonComplete: (slug: string) => void;
+  /** Load lesson progress from saved data */
+  loadLessonProgress: (progressData: { completedLessons: string[] }) => void;
+  /** Get current progress data for saving */
+  getLessonProgressData: () => { completedLessons: string[] };
 }
