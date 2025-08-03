@@ -143,8 +143,8 @@ export function TickerSearch({
     }
 
     if (query.length >= 2) { // Require at least 2 characters for live search
-      setIsLoading(true);
       const searchTimeout = setTimeout(async () => {
+        setIsLoading(true); // Set loading only when actually starting the API call
         try {
           console.log(`🔍 TickerSearch: Searching for "${query}"`);
           const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
@@ -166,7 +166,10 @@ export function TickerSearch({
         }
       }, 300); // Debounce search requests
 
-      return () => clearTimeout(searchTimeout);
+      return () => {
+        clearTimeout(searchTimeout);
+        setIsLoading(false); // Clear loading if timeout is cancelled
+      };
     } else if (query.length === 1) {
       // For single character, use static search for instant feedback
       const results = searchStocks(query, 8);
