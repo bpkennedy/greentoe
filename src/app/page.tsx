@@ -85,7 +85,7 @@ function FeatureCard({ icon: Icon, title, description, status }: {
               <h3 className="heading-small">{title}</h3>
               <Badge 
                 variant={status === 'complete' ? 'default' : status === 'in-progress' ? 'secondary' : 'outline'}
-                className="text-caption"
+                className="text-caption text-white"
                 role="status"
                 aria-label={`Feature status: ${statusText}`}
               >

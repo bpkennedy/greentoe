@@ -50,38 +50,33 @@ export function Header({
             <nav role="navigation" aria-label="Site navigation">
               <div className="flex items-center gap-6">
                 {/* Main Navigation Links */}
-                <div className="hidden sm:flex items-center gap-4">
-                  <Link 
-                    href="/"
-                    className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary ${
-                      currentPage === 'home' 
-                        ? 'text-primary' 
-                        : 'text-muted-foreground'
-                    }`}
-                    aria-label="Home - Interactive financial tools"
-                    aria-current={currentPage === 'home' ? 'page' : undefined}
-                  >
-                    <Home className="h-4 w-4" />
-                    <span className="hidden md:inline">Home</span>
-                  </Link>
-                  
-                  <Link 
-                    href="/lessons"
-                    className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary ${
-                      currentPage === 'lessons' 
-                        ? 'text-primary' 
-                        : 'text-muted-foreground'
-                    }`}
-                    aria-label="Lessons - Financial education courses"
-                    aria-current={currentPage === 'lessons' ? 'page' : undefined}
-                  >
-                    <BookOpen className="h-4 w-4" />
-                    <span className="hidden md:inline">Lessons</span>
-                  </Link>
-                </div>
-
-                {/* Divider */}
-                <div className="hidden sm:block w-px h-4 bg-border" aria-hidden="true" />
+                <Link 
+                  href="/"
+                  className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary ${
+                    currentPage === 'home' 
+                      ? 'text-primary' 
+                      : 'text-muted-foreground'
+                  }`}
+                  aria-label="Home - Interactive financial tools"
+                  aria-current={currentPage === 'home' ? 'page' : undefined}
+                >
+                  <Home className="h-4 w-4" />
+                  <span className="hidden md:inline">Home</span>
+                </Link>
+                
+                <Link 
+                  href="/lessons"
+                  className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary ${
+                    currentPage === 'lessons' 
+                      ? 'text-primary' 
+                      : 'text-muted-foreground'
+                  }`}
+                  aria-label="Lessons - Financial education courses"
+                  aria-current={currentPage === 'lessons' ? 'page' : undefined}
+                >
+                  <BookOpen className="h-4 w-4" />
+                  <span className="hidden md:inline">Lessons</span>
+                </Link>
 
                 {/* Parent Dashboard Link */}
                 <Link 
@@ -97,16 +92,6 @@ export function Header({
                   <Users className="h-4 w-4" />
                   <span className="hidden sm:inline">Parent Dashboard</span>
                 </Link>
-
-                {/* Status Badges */}
-                <div className="flex items-center gap-2" role="group" aria-label="App status">
-                  <Badge variant="outline" className="text-xs hidden sm:inline-flex">
-                    Alpha
-                  </Badge>
-                  <Badge variant="default" className="text-xs bg-primary text-primary-foreground">
-                    Live
-                  </Badge>
-                </div>
               </div>
             </nav>
           )}
