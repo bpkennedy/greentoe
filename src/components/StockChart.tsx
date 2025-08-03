@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { 
   LineChart, 
   Line, 
@@ -88,70 +88,7 @@ function formatVolume(volume: number): string {
   return volume.toString();
 }
 
-/**
- * Key Facts Expansion Component
- */
-interface KeyFactsExpansionProps {
-  keyFacts: string[];
-}
 
-function KeyFactsExpansion({ keyFacts }: KeyFactsExpansionProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
-  console.log('🔥 KeyFactsExpansion rendered with:', { 
-    keyFactsLength: keyFacts.length, 
-    hasMoreThan3: keyFacts.length > 3,
-    isExpanded 
-  });
-
-  const handleToggle = () => {
-    console.log('🔥 KeyFactsExpansion handleToggle called! Current state:', isExpanded, 'Will change to:', !isExpanded);
-    setIsExpanded(!isExpanded);
-  };
-
-  const handleClick = (e: React.MouseEvent) => {
-    console.log('🔥 KeyFactsExpansion handleClick called!', e.type, e.target);
-    e.preventDefault();
-    e.stopPropagation();
-    handleToggle();
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    console.log('🔥 KeyFactsExpansion handleKeyDown called!', e.key);
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      e.stopPropagation();
-      handleToggle();
-    }
-  };
-
-  return (
-    <div className="text-sm">
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        className="cursor-pointer brand-green hover:opacity-80 font-medium flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 rounded p-1"
-      >
-        <span className={`transform transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}>
-          ▶
-        </span>
-        View all key facts ({keyFacts.length})
-      </div>
-      {isExpanded && (
-        <ul className="mt-2 space-y-1 text-muted-foreground pl-4">
-          {keyFacts.slice(3).map((fact, index) => (
-            <li key={index + 3} className="flex items-start gap-2">
-              <span className="brand-green mt-1">•</span>
-              <span>{fact}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
 
 /**
  * Fund Information Panel Component
@@ -213,7 +150,7 @@ function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
               <span className="text-sm font-medium brand-green">Key Facts</span>
             </div>
             <ul className="space-y-1 text-sm text-muted-foreground">
-              {fundInfo.keyFacts.slice(0, 3).map((fact, index) => (
+              {fundInfo.keyFacts.map((fact, index) => (
                 <li key={index} className="flex items-start gap-2">
                   <span className="brand-green mt-1">•</span>
                   <span>{fact}</span>
@@ -222,10 +159,6 @@ function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
             </ul>
           </div>
         </div>
-        
-        {fundInfo.keyFacts.length > 3 && (
-          <KeyFactsExpansion keyFacts={fundInfo.keyFacts} />
-        )}
 
         <div className="pt-2 border-t brand-success-border">
           <p className="text-xs brand-green italic">

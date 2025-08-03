@@ -274,9 +274,22 @@ export async function searchStocks(query: string): Promise<StockSearchSuggestion
     
     console.log(`Yahoo Finance search returned ${searchResults?.quotes?.length || 0} results`);
     
+    // Debug: Log the raw quotes to see what we're getting
+    console.log('🔍 Raw search results:', searchResults?.quotes?.map(q => ({
+      symbol: q.symbol,
+      shortName: q.shortName,
+      longName: q.longName,
+      quoteType: q.quoteType
+    })));
+    
     // Transform results to match our StockSuggestion format
     const suggestions = (searchResults?.quotes || [])
-      .filter((quote: YahooSearchQuote) => quote.symbol && quote.shortName) // Only include valid quotes
+      .filter((quote: YahooSearchQuote) => {
+        // Only require symbol and at least one name field
+        const hasValidData = quote.symbol && (quote.shortName || quote.longName);
+        console.log(`🔍 Filtering quote ${quote.symbol}: hasValidData=${hasValidData}`);
+        return hasValidData;
+      })
       .slice(0, 10) // Limit to 10 results
       .map((quote: YahooSearchQuote): StockSearchSuggestion => ({
         symbol: quote.symbol,
@@ -287,6 +300,7 @@ export async function searchStocks(query: string): Promise<StockSearchSuggestion
         reason: `${quote.exchange || 'Unknown'} • ${quote.quoteType || 'Stock'}`
       }));
 
+    console.log(`🔍 Final suggestions count: ${suggestions.length}`);
     return suggestions;
   } catch (error) {
     console.error('Error searching Yahoo Finance:', error);
