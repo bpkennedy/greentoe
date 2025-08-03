@@ -287,7 +287,7 @@ export function TickerSearch({
       {isOpen && suggestions.length > 0 && (
         <div
           ref={suggestionsRef}
-          className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
+          className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto animate-in fade-in-0 slide-in-from-top-2 duration-200"
           role="listbox"
           aria-label="Stock suggestions"
         >
@@ -314,7 +314,7 @@ export function TickerSearch({
 
       {/* No results message */}
       {isOpen && query.length >= 2 && suggestions.length === 0 && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 animate-in fade-in-0 slide-in-from-top-2 duration-200">
           <div className="px-3 py-4 text-center">
             <p className="text-sm text-gray-600">
               No suggestions found for &quot;{query}&quot;

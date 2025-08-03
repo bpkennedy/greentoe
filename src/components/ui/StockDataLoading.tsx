@@ -22,7 +22,7 @@ export function LoadingSpinner({ size = 'md', className }: LoadingSpinnerProps) 
   return (
     <div
       className={cn(
-        'animate-spin rounded-full border-2 border-gray-300 border-t-blue-600',
+        'animate-spin rounded-full border-2 border-gray-200 border-t-primary transition-colors duration-300',
         sizeClasses[size],
         className
       )}
@@ -43,32 +43,32 @@ export function StockCardSkeleton({ className }: StockCardSkeletonProps) {
   return (
     <div
       className={cn(
-        'rounded-lg border border-gray-200 bg-white p-4 shadow-sm',
+        'rounded-lg border border-gray-200 bg-white p-4 shadow-sm animate-in fade-in-0 duration-300',
         className
       )}
       aria-label="Loading stock data"
     >
       {/* Stock symbol and name skeleton */}
       <div className="mb-3 flex items-center justify-between">
-        <div className="h-5 w-16 animate-pulse rounded bg-gray-200" />
-        <div className="h-4 w-12 animate-pulse rounded bg-gray-200" />
+        <div className="h-5 w-16 rounded bg-gray-200 loading-shimmer" />
+        <div className="h-4 w-12 rounded bg-gray-200 loading-shimmer" />
       </div>
 
       {/* Price skeleton */}
-      <div className="mb-2 h-7 w-24 animate-pulse rounded bg-gray-200" />
+      <div className="mb-2 h-7 w-24 rounded bg-gray-200 loading-shimmer" />
 
       {/* Change indicator skeleton */}
-      <div className="mb-4 h-4 w-20 animate-pulse rounded bg-gray-200" />
+      <div className="mb-4 h-4 w-20 rounded bg-gray-200 loading-shimmer" />
 
       {/* Chart area skeleton */}
-      <div className="h-32 w-full animate-pulse rounded bg-gray-100" />
+      <div className="h-32 w-full rounded bg-gray-100 loading-shimmer" />
 
       {/* Stats skeleton */}
       <div className="mt-4 grid grid-cols-2 gap-2">
-        <div className="h-4 w-full animate-pulse rounded bg-gray-200" />
-        <div className="h-4 w-full animate-pulse rounded bg-gray-200" />
-        <div className="h-4 w-full animate-pulse rounded bg-gray-200" />
-        <div className="h-4 w-full animate-pulse rounded bg-gray-200" />
+        <div className="h-4 w-full rounded bg-gray-200 loading-shimmer" />
+        <div className="h-4 w-full rounded bg-gray-200 loading-shimmer" />
+        <div className="h-4 w-full rounded bg-gray-200 loading-shimmer" />
+        <div className="h-4 w-full rounded bg-gray-200 loading-shimmer" />
       </div>
     </div>
   );
@@ -107,10 +107,10 @@ export function LoadingOverlay({
     <div className={cn('relative', className)}>
       {children}
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-white/80 backdrop-blur-sm">
-          <div className="flex flex-col items-center gap-2">
+        <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-white/80 backdrop-blur-sm transition-all duration-300 animate-in fade-in-0">
+          <div className="flex flex-col items-center gap-3 animate-in slide-in-from-bottom-2 duration-500">
             <LoadingSpinner size="lg" />
-            <span className="text-sm font-medium text-gray-700">{loadingText}</span>
+            <span className="text-sm font-medium text-gray-700 animate-pulse">{loadingText}</span>
           </div>
         </div>
       )}
