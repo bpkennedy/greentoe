@@ -1,7 +1,9 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback, useMemo } from 'react';
 import { WatchListContextType } from '../types/contexts';
+import { InvestmentEntry, InvestmentWithPerformance } from '../types/investment';
+import { createDefaultInvestmentEntry } from '../utils/investmentCalculations';
 
 // Create the context with undefined as default value
 const WatchListContext = createContext<WatchListContextType | undefined>(undefined);
@@ -12,35 +14,107 @@ interface WatchListProviderProps {
 }
 
 /**
- * WatchListProvider component that manages the state of ticker symbols in the watch-list
- * Provides functions to add and remove ticker symbols from the watch-list
+ * WatchListProvider component that manages investment tracking in the watch-list
+ * Provides functions to add, remove, and update investments with performance tracking
  */
 export function WatchListProvider({ children }: WatchListProviderProps) {
-  const [watchList, setWatchList] = useState<string[]>([]);
+  const [investments, setInvestments] = useState<InvestmentEntry[]>([]);
+  const [performanceCache, setPerformanceCache] = useState<Map<string, InvestmentWithPerformance>>(new Map());
 
-  // Add a ticker symbol to the watch-list (avoid duplicates)
-  const addTicker = (symbol: string) => {
-    const upperSymbol = symbol.toUpperCase().trim();
+  // Add an investment to the watch-list
+  const addInvestment = useCallback((investment: Omit<InvestmentEntry, 'dateAdded'>) => {
+    const upperSymbol = investment.symbol.toUpperCase().trim();
     if (!upperSymbol) return; // Don't add empty symbols
     
-    setWatchList(prevList => {
-      if (prevList.includes(upperSymbol)) {
+    setInvestments(prevList => {
+      // Check if symbol already exists
+      if (prevList.some(inv => inv.symbol === upperSymbol)) {
         return prevList; // Symbol already exists, don't add duplicate
       }
-      return [...prevList, upperSymbol];
+      
+      const newInvestment: InvestmentEntry = {
+        ...investment,
+        symbol: upperSymbol,
+        dateAdded: new Date().toISOString()
+      };
+      
+      return [...prevList, newInvestment];
     });
-  };
+  }, []);
 
-  // Remove a ticker symbol from the watch-list
-  const removeTicker = (symbol: string) => {
+  // Add a ticker symbol (legacy support)
+  const addTicker = useCallback((symbol: string) => {
+    addInvestment(createDefaultInvestmentEntry(symbol, 0, `Added ${symbol} to watchlist`));
+  }, [addInvestment]);
+
+  // Remove an investment from the watch-list
+  const removeInvestment = useCallback((symbol: string) => {
     const upperSymbol = symbol.toUpperCase().trim();
-    setWatchList(prevList => prevList.filter(ticker => ticker !== upperSymbol));
-  };
+    setInvestments(prevList => prevList.filter(inv => inv.symbol !== upperSymbol));
+    
+    // Also remove from performance cache
+    setPerformanceCache(prevCache => {
+      const newCache = new Map(prevCache);
+      newCache.delete(upperSymbol);
+      return newCache;
+    });
+  }, []);
+
+  // Legacy support for removeTicker
+  const removeTicker = useCallback((symbol: string) => {
+    removeInvestment(symbol);
+  }, [removeInvestment]);
+
+  // Update investment reasoning
+  const updateInvestmentReasoning = useCallback((symbol: string, reasoning: string) => {
+    const upperSymbol = symbol.toUpperCase().trim();
+    setInvestments(prevList => 
+      prevList.map(inv => 
+        inv.symbol === upperSymbol 
+          ? { ...inv, reasoning }
+          : inv
+      )
+    );
+  }, []);
+
+  // Refresh performance data (placeholder - will be implemented in UI components)
+  const refreshPerformanceData = useCallback(async () => {
+    // This will be implemented when we integrate with stock price data
+    // For now, we'll just clear the cache to force recalculation
+    setPerformanceCache(new Map());
+  }, []);
+
+  // Get legacy format for backward compatibility
+  const getLegacyWatchList = useCallback((): string[] => {
+    return investments.map(inv => inv.symbol);
+  }, [investments]);
+
+  // Memoized investments with performance data
+  const investmentsWithPerformance = useMemo((): InvestmentWithPerformance[] => {
+    return investments.map(investment => {
+      const cached = performanceCache.get(investment.symbol);
+      if (cached) {
+        return cached;
+      }
+
+      // For now, return without performance data - will be populated by UI components
+      return {
+        ...investment,
+        performance: undefined
+      };
+    });
+  }, [investments, performanceCache]);
 
   const value: WatchListContextType = {
-    watchList,
+    watchList: investments,
+    investmentsWithPerformance,
+    addInvestment,
     addTicker,
+    removeInvestment,
     removeTicker,
+    updateInvestmentReasoning,
+    refreshPerformanceData,
+    getLegacyWatchList,
   };
 
   return (

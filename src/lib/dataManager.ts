@@ -6,13 +6,22 @@ import { saveAs } from 'file-saver';
  * and provides file download/upload capabilities
  */
 
+import { InvestmentEntry } from './types/investment';
+import { migrateLegacyWatchList, needsMigration } from './utils/investmentCalculations';
+
 /**
  * Structure of the application state data
  */
 export interface AppStateData {
+  /** Legacy watchlist format for backward compatibility */
   watchList?: string[];
+  /** New investment tracking format */
+  investments?: InvestmentEntry[];
+  /** Lesson progress */
   completedLessons?: string[];
+  /** Data format version for migration purposes */
   version?: string;
+  /** Last update timestamp */
   timestamp?: string;
 }
 
@@ -279,8 +288,34 @@ export async function loadData(
 }
 
 /**
+ * Migrate legacy watchlist format to new investment format
+ */
+function migrateWatchListData(data: AppStateData): AppStateData {
+  // If we have investments data, no migration needed
+  if (data.investments && data.investments.length > 0) {
+    return data;
+  }
+
+  // If we have legacy watchList data, migrate it
+  if (data.watchList && needsMigration(data.watchList)) {
+    const migratedInvestments = migrateLegacyWatchList(data.watchList, data.timestamp);
+    
+    return {
+      ...data,
+      investments: migratedInvestments,
+      // Keep legacy watchList for backward compatibility
+      watchList: data.watchList,
+      version: '2.0.0' // Mark as migrated
+    };
+  }
+
+  return data;
+}
+
+/**
  * Merges loaded data with current application state
  * Provides different merge strategies for different data types
+ * Handles migration from legacy watchlist format
  * 
  * @param currentState - Current application state
  * @param loadedData - Data loaded from file
@@ -292,29 +327,57 @@ export function mergeStateData(
   loadedData: AppStateData,
   strategy: 'merge' | 'replace' = 'merge'
 ): AppStateData {
+  // Migrate data if needed
+  const migratedLoadedData = migrateWatchListData(loadedData);
+  const migratedCurrentState = migrateWatchListData(currentState);
+
   switch (strategy) {
     case 'replace':
       // Replace current state entirely with loaded data
       return {
-        ...loadedData,
+        ...migratedLoadedData,
         timestamp: new Date().toISOString(), // Update timestamp
       };
 
     case 'merge':
     default:
       // Merge - combine current and loaded data, removing duplicates
+      const mergedInvestments: InvestmentEntry[] = [];
+      const seenSymbols = new Set<string>();
+
+      // Add current investments
+      (migratedCurrentState.investments || []).forEach(investment => {
+        if (!seenSymbols.has(investment.symbol)) {
+          mergedInvestments.push(investment);
+          seenSymbols.add(investment.symbol);
+        }
+      });
+
+      // Add loaded investments (only if not already present)
+      (migratedLoadedData.investments || []).forEach(investment => {
+        if (!seenSymbols.has(investment.symbol)) {
+          mergedInvestments.push(investment);
+          seenSymbols.add(investment.symbol);
+        }
+      });
+
+      // Merge legacy watchList for backward compatibility
+      const mergedWatchList = [
+        ...(migratedCurrentState.watchList || []),
+        ...(migratedLoadedData.watchList || [])
+      ].filter((item, index, arr) => arr.indexOf(item) === index);
+
       return {
-        ...currentState,
-        ...loadedData,
-        watchList: [
-          ...(currentState.watchList || []),
-          ...(loadedData.watchList || [])
-        ].filter((item, index, arr) => arr.indexOf(item) === index), // Remove duplicates
+        ...migratedCurrentState,
+        ...migratedLoadedData,
+        investments: mergedInvestments,
+        watchList: mergedWatchList,
         completedLessons: [
-          ...(currentState.completedLessons || []),
-          ...(loadedData.completedLessons || [])
+          ...(migratedCurrentState.completedLessons || []),
+          ...(migratedLoadedData.completedLessons || [])
         ].filter((item, index, arr) => arr.indexOf(item) === index), // Remove duplicates
         timestamp: new Date().toISOString(),
+        version: '2.0.0'
       };
   }
 }
@@ -322,12 +385,33 @@ export function mergeStateData(
 /**
  * Gets current application state from contexts
  * This will be used by the React component to gather state data
+ * Supports both legacy string[] format and new InvestmentEntry[] format
  */
-export function getCurrentState(watchList: string[], progressData: { completedLessons: string[] }): AppStateData {
+export function getCurrentState(
+  watchListData: string[] | InvestmentEntry[], 
+  progressData: { completedLessons: string[] }
+): AppStateData {
+  // Handle both legacy and new formats
+  let watchList: string[] = [];
+  let investments: InvestmentEntry[] = [];
+
+  if (Array.isArray(watchListData) && watchListData.length > 0) {
+    // Check if it's the new format (InvestmentEntry[])
+    if (typeof watchListData[0] === 'object' && watchListData[0] !== null && 'symbol' in watchListData[0]) {
+      // New format: InvestmentEntry[]
+      investments = watchListData as InvestmentEntry[];
+      watchList = investments.map(inv => inv.symbol); // Legacy compatibility
+    } else {
+      // Legacy format: string[]
+      watchList = watchListData as string[];
+    }
+  }
+
   return {
-    watchList,
+    watchList, // Keep for backward compatibility
+    investments, // New format for enhanced tracking
     completedLessons: progressData.completedLessons,
-    version: DEFAULT_CONFIG.appVersion,
+    version: '2.0.0', // Updated version
     timestamp: new Date().toISOString(),
   };
 }

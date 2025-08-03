@@ -177,9 +177,9 @@ export function ActivitySummary() {
               <div className="space-y-2">
                 <h4 className="text-sm font-medium">Current Watch-List</h4>
                 <div className="grid grid-cols-2 gap-2">
-                  {watchList.slice(0, 6).map((symbol) => (
-                    <Badge key={symbol} variant="outline" className="justify-center">
-                      {symbol}
+                  {watchList.slice(0, 6).map((investment) => (
+                    <Badge key={investment.symbol} variant="outline" className="justify-center">
+                      {investment.symbol}
                     </Badge>
                   ))}
                   {watchList.length > 6 && (

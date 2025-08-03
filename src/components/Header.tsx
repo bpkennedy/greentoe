@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { BookOpen, Home, Users } from 'lucide-react';
+import { DataManagementModal } from './DataManagementModal';
 
 interface HeaderProps {
   showFullNavigation?: boolean;
@@ -92,6 +93,9 @@ export function Header({
                   <Users className="h-4 w-4" />
                   <span className="hidden sm:inline">Parent Dashboard</span>
                 </Link>
+
+                {/* Data Management Modal */}
+                <DataManagementModal />
               </div>
             </nav>
           )}

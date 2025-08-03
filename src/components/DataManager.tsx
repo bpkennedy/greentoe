@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useWatchList, useProgress } from '@/lib/contexts';
+
 import { 
   saveData, 
   loadData, 
@@ -43,7 +44,7 @@ type MergeStrategy = 'merge' | 'replace';
  * Provides UI controls for saving and loading encrypted user data
  */
 export function DataManager({ className, onDataLoaded, onDataSaved }: DataManagerProps) {
-  const { watchList, addTicker } = useWatchList();
+  const { watchList, addTicker, addInvestment } = useWatchList();
   const { completedLessons, markLessonComplete } = useProgress();
   
   const [isLoading, setIsLoading] = useState(false);
@@ -150,15 +151,14 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
     const currentState = getCurrentState(watchList, { completedLessons });
     const mergedData = mergeStateData(currentState, loadedData, strategy);
 
-    // Update watch list
-    if (mergedData.watchList) {
-      // Clear current watchlist if replacing
-      if (strategy === 'replace') {
-        // Note: We would need a clearWatchList function in the context
-        // For now, we'll add the new items (the context prevents duplicates)
-      }
-      
-      // Add all tickers from merged data
+    // Update watch list with investment data
+    if (mergedData.investments && mergedData.investments.length > 0) {
+      // Use the new investment format if available
+      mergedData.investments.forEach(investment => {
+        addInvestment(investment);
+      });
+    } else if (mergedData.watchList) {
+      // Fallback to legacy format
       mergedData.watchList.forEach(ticker => {
         addTicker(ticker);
       });

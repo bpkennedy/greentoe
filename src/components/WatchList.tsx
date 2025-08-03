@@ -8,23 +8,28 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { TickerSearch } from './TickerSearch';
-import { StockCard } from './StockCard';
+
+import { InvestmentCard } from './InvestmentCard';
+import { AddInvestmentDialog } from './AddInvestmentDialog';
 import { getBeginnerFriendlySuggestions } from '@/lib/data/commonStocks';
+import type { InvestmentEntry } from '@/lib/types/investment';
 
 /**
- * Individual watch-list item component displaying stock data
+ * Individual watch-list item component displaying investment data
  */
 interface WatchListItemProps {
-  symbol: string;
+  investment: InvestmentEntry;
   onRemove: () => void;
+  onUpdateReasoning?: (symbol: string, reasoning: string) => void;
   className?: string;
 }
 
-function WatchListItem({ symbol, onRemove, className }: WatchListItemProps) {
+function WatchListItem({ investment, onRemove, onUpdateReasoning, className }: WatchListItemProps) {
   return (
-    <StockCard 
-      symbol={symbol} 
-      onRemove={onRemove} 
+    <InvestmentCard 
+      investment={investment} 
+      onRemove={onRemove}
+      onUpdateReasoning={onUpdateReasoning}
       className={cn('hover:shadow-md transition-shadow', className)}
     />
   );
@@ -164,11 +169,25 @@ interface WatchListProps {
 
 export function WatchList({ className }: WatchListProps) {
   console.log('🔥 WatchList component rendered'); // Debug log
-  const { watchList, addTicker, removeTicker } = useWatchList();
+  const { watchList, addTicker, removeInvestment, updateInvestmentReasoning } = useWatchList();
+  const [selectedSymbolForDialog, setSelectedSymbolForDialog] = React.useState<string>('');
+  const [showAddDialog, setShowAddDialog] = React.useState(false);
 
   const handleAddTicker = React.useCallback((symbol: string) => {
+    // For legacy compatibility and quick add functionality
     addTicker(symbol);
   }, [addTicker]);
+
+  const handleAddInvestment = React.useCallback((symbol: string) => {
+    // Open dialog for detailed investment tracking
+    setSelectedSymbolForDialog(symbol);
+    setShowAddDialog(true);
+  }, []);
+
+  const handleTickerSearchSelect = React.useCallback((symbol: string) => {
+    // When user selects from TickerSearch, use the enhanced dialog
+    handleAddInvestment(symbol);
+  }, [handleAddInvestment]);
 
   // Expose addTicker to global scope for testing/automation
   React.useEffect(() => {
@@ -186,7 +205,13 @@ export function WatchList({ className }: WatchListProps) {
   }, [handleAddTicker]);
 
   const handleRemoveTicker = (symbol: string) => {
-    removeTicker(symbol);
+    // Use the new removeInvestment method for enhanced tracking
+    removeInvestment(symbol);
+  };
+
+  const handleInvestmentAdded = () => {
+    setShowAddDialog(false);
+    setSelectedSymbolForDialog('');
   };
 
   return (
@@ -205,7 +230,7 @@ export function WatchList({ className }: WatchListProps) {
             Add stocks to your watch list
           </label>
           <TickerSearch 
-            onSelect={handleAddTicker} 
+            onSelect={handleTickerSearchSelect} 
             placeholder="Search for stocks and ETFs to add..."
           />
         </div>
@@ -253,11 +278,12 @@ export function WatchList({ className }: WatchListProps) {
               <div id="watchlist-help" className="sr-only">
                 List of stocks in your watch list. Use Tab to navigate between items and Enter or Space to interact with remove buttons.
               </div>
-              {watchList.map((symbol) => (
+              {watchList.map((investment) => (
                 <WatchListItem
-                  key={symbol}
-                  symbol={symbol}
-                  onRemove={() => handleRemoveTicker(symbol)}
+                  key={investment.symbol}
+                  investment={investment}
+                  onRemove={() => handleRemoveTicker(investment.symbol)}
+                  onUpdateReasoning={updateInvestmentReasoning}
                 />
               ))}
             </div>
@@ -290,6 +316,14 @@ export function WatchList({ className }: WatchListProps) {
           </>
         )}
       </CardContent>
+
+      {/* Add Investment Dialog */}
+      <AddInvestmentDialog
+        initialSymbol={selectedSymbolForDialog}
+        defaultOpen={showAddDialog}
+        onInvestmentAdded={handleInvestmentAdded}
+        autoClose={true}
+      />
     </Card>
   );
 }
