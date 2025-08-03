@@ -1,0 +1,360 @@
+{
+  "funds": [
+    {
+      "symbol": "VTI",
+      "name": "Vanguard Total Stock Market ETF",
+      "provider": "Vanguard",
+      "category": "Total Market",
+      "type": "ETF",
+      "description": "VTI tracks the CRSP US Total Market Index, providing exposure to the entire U.S. equity market, including small-, mid-, and large-cap growth and value stocks.",
+      "expenseRatio": 0.03,
+      "keyFacts": [
+        "Covers nearly 4,000 stocks",
+        "Suitable for investors seeking broad U.S. market exposure",
+        "One of the largest ETFs by assets under management (AUM)",
+        "Core holding for diversified U.S. equity exposure"
+      ],
+      "indexTracked": "CRSP US Total Market Index",
+      "marketCap": "All Cap",
+      "region": "US",
+      "assetClass": "Equity",
+      "inceptionYear": 2001,
+      "minimumInvestment": 0,
+      "isEducational": true,
+      "educationalTags": ["diversification", "total-market", "low-cost", "beginner-friendly"]
+    },
+    {
+      "symbol": "VOO",
+      "name": "Vanguard S&P 500 ETF",
+      "provider": "Vanguard",
+      "category": "Large Cap",
+      "type": "ETF",
+      "description": "VOO tracks the S&P 500 Index, representing 500 of the largest U.S. companies, covering about 75% of the U.S. stock market capitalization.",
+      "expenseRatio": 0.03,
+      "keyFacts": [
+        "One of the most popular ETFs for large-cap U.S. stocks",
+        "Offers broad exposure to the U.S. economy's largest companies",
+        "Historically difficult to beat by active funds",
+        "Strong performance aligned with S&P 500 gains"
+      ],
+      "indexTracked": "S&P 500 Index",
+      "marketCap": "Large Cap",
+      "region": "US",
+      "assetClass": "Equity",
+      "inceptionYear": 2010,
+      "minimumInvestment": 0,
+      "isEducational": true,
+      "educationalTags": ["sp500", "large-cap", "low-cost", "blue-chip"]
+    },
+    {
+      "symbol": "VXUS",
+      "name": "Vanguard Total International Stock ETF",
+      "provider": "Vanguard",
+      "category": "International",
+      "type": "ETF",
+      "description": "VXUS tracks the FTSE Global All Cap ex US Index, providing exposure to both developed and emerging international markets outside the U.S.",
+      "expenseRatio": 0.07,
+      "keyFacts": [
+        "Covers thousands of stocks across 40+ countries",
+        "Diversifies portfolio internationally",
+        "For investors seeking global equity diversification beyond the U.S.",
+        "Includes both developed and emerging markets"
+      ],
+      "indexTracked": "FTSE Global All Cap ex US Index",
+      "marketCap": "All Cap",
+      "region": "International",
+      "assetClass": "Equity",
+      "inceptionYear": 2011,
+      "minimumInvestment": 0,
+      "isEducational": true,
+      "educationalTags": ["international", "diversification", "global", "emerging-markets"]
+    },
+    {
+      "symbol": "SPY",
+      "name": "SPDR S&P 500 ETF Trust",
+      "provider": "SPDR",
+      "category": "Large Cap",
+      "type": "ETF",
+      "description": "SPY is the oldest and largest ETF tracking the S&P 500 Index, launched in 1993 with a long track record.",
+      "expenseRatio": 0.09,
+      "keyFacts": [
+        "Launched in 1993, it has a long track record",
+        "One of the most liquid ETFs in the world",
+        "Strong historical performance, outperforming many active funds since inception",
+        "2024 return approximately 27.7%"
+      ],
+      "indexTracked": "S&P 500 Index",
+      "marketCap": "Large Cap",
+      "region": "US",
+      "assetClass": "Equity",
+      "inceptionYear": 1993,
+      "minimumInvestment": 0,
+      "isEducational": true,
+      "educationalTags": ["sp500", "liquid", "oldest-etf", "large-cap"]
+    },
+    {
+      "symbol": "QQQ",
+      "name": "Invesco QQQ Trust",
+      "provider": "Invesco",
+      "category": "Growth/Technology",
+      "type": "ETF",
+      "description": "QQQ tracks the Nasdaq-100 Index, focusing on the 100 largest non-financial companies listed on Nasdaq, heavily weighted toward technology.",
+      "expenseRatio": 0.20,
+      "keyFacts": [
+        "Growth-oriented fund with heavy tech sector exposure",
+        "Focuses on 100 largest non-financial Nasdaq companies",
+        "2024 return about 25.6%",
+        "Popular choice for technology sector exposure"
+      ],
+      "indexTracked": "Nasdaq-100 Index",
+      "marketCap": "Large Cap",
+      "region": "US",
+      "assetClass": "Equity",
+      "inceptionYear": 1999,
+      "minimumInvestment": 0,
+      "isEducational": true,
+      "educationalTags": ["technology", "growth", "nasdaq", "innovation"]
+    },
+    {
+      "symbol": "FXAIX",
+      "name": "Fidelity 500 Index Fund",
+      "provider": "Fidelity",
+      "category": "Large Cap",
+      "type": "Mutual Fund",
+      "description": "FXAIX tracks the S&P 500 Index, similar to VOO and SPY, but as a mutual fund with extremely low costs.",
+      "expenseRatio": 0.015,
+      "keyFacts": [
+        "Very low expense ratio at 0.015%",
+        "No minimum investment",
+        "Suitable for investors preferring mutual funds over ETFs",
+        "One of the lowest-cost S&P 500 funds available"
+      ],
+      "indexTracked": "S&P 500 Index",
+      "marketCap": "Large Cap",
+      "region": "US",
+      "assetClass": "Equity",
+      "inceptionYear": 1988,
+      "minimumInvestment": 0,
+      "isEducational": true,
+      "educationalTags": ["sp500", "mutual-fund", "ultra-low-cost", "fidelity"]
+    },
+    {
+      "symbol": "SWPPX",
+      "name": "Schwab S&P 500 Index Fund",
+      "provider": "Schwab",
+      "category": "Large Cap",
+      "type": "Mutual Fund",
+      "description": "Mutual fund tracking the S&P 500 Index with an extremely low expense ratio and strong track record since 1997.",
+      "expenseRatio": 0.02,
+      "keyFacts": [
+        "Extremely low expense ratio at 0.02%",
+        "No minimum investment",
+        "Strong track record since 1997",
+        "Investor-friendly product from Charles Schwab"
+      ],
+      "indexTracked": "S&P 500 Index",
+      "marketCap": "Large Cap",
+      "region": "US",
+      "assetClass": "Equity",
+      "inceptionYear": 1997,
+      "minimumInvestment": 0,
+      "isEducational": true,
+      "educationalTags": ["sp500", "mutual-fund", "low-cost", "schwab"]
+    },
+    {
+      "symbol": "VIGAX",
+      "name": "Vanguard Growth Index Fund",
+      "provider": "Vanguard",
+      "category": "Growth",
+      "type": "Mutual Fund",
+      "description": "Tracks the CRSP US Large Cap Growth Index, focusing on large U.S. companies with higher growth potential, such as technology and consumer services.",
+      "expenseRatio": 0.05,
+      "keyFacts": [
+        "Growth-oriented alternative to broad market funds",
+        "One of the best performers in 2024 with a 34.2% return",
+        "Focuses on large-cap growth companies",
+        "Higher growth potential with moderate risk"
+      ],
+      "indexTracked": "CRSP US Large Cap Growth Index",
+      "marketCap": "Large Cap",
+      "region": "US",
+      "assetClass": "Equity",
+      "inceptionYear": 1992,
+      "minimumInvestment": 3000,
+      "isEducational": true,
+      "educationalTags": ["growth", "large-cap", "technology", "performance"]
+    },
+    {
+      "symbol": "VSMAX",
+      "name": "Vanguard Small Cap Index Fund",
+      "provider": "Vanguard",
+      "category": "Small Cap",
+      "type": "Mutual Fund",
+      "description": "Tracks small-cap U.S. stocks, providing diversification into smaller companies with potentially higher growth prospects.",
+      "expenseRatio": 0.05,
+      "keyFacts": [
+        "Tracks small-cap U.S. stocks",
+        "Good for diversification into smaller companies",
+        "Higher growth potential with increased volatility",
+        "Complements large-cap holdings"
+      ],
+      "indexTracked": "CRSP US Small Cap Index",
+      "marketCap": "Small Cap",
+      "region": "US",
+      "assetClass": "Equity",
+      "inceptionYear": 1960,
+      "minimumInvestment": 3000,
+      "isEducational": true,
+      "educationalTags": ["small-cap", "growth-potential", "diversification", "volatility"]
+    },
+    {
+      "symbol": "VBTLX",
+      "name": "Vanguard Total Bond Market Index Fund",
+      "provider": "Vanguard",
+      "category": "Bonds",
+      "type": "Mutual Fund",
+      "description": "Tracks U.S. investment-grade bonds, providing fixed income diversification and stability to balance equity holdings.",
+      "expenseRatio": 0.05,
+      "keyFacts": [
+        "Tracks U.S. investment-grade bonds",
+        "Provides fixed income diversification",
+        "Lower volatility than stocks",
+        "Important component of balanced portfolios"
+      ],
+      "indexTracked": "Bloomberg U.S. Aggregate Bond Index",
+      "marketCap": "N/A",
+      "region": "US",
+      "assetClass": "Fixed Income",
+      "inceptionYear": 1986,
+      "minimumInvestment": 3000,
+      "isEducational": true,
+      "educationalTags": ["bonds", "fixed-income", "stability", "diversification"]
+    },
+    {
+      "symbol": "FNILX",
+      "name": "Fidelity ZERO Large Cap Index",
+      "provider": "Fidelity",
+      "category": "Large Cap",
+      "type": "Mutual Fund",
+      "description": "Tracks large-cap U.S. stocks with zero expense ratio, making it one of the most cost-effective investment options available.",
+      "expenseRatio": 0.00,
+      "keyFacts": [
+        "Zero expense ratio - completely free",
+        "No minimum investment",
+        "Attractive for cost-conscious investors",
+        "Tracks large-cap U.S. stocks"
+      ],
+      "indexTracked": "Fidelity U.S. Large Cap Index",
+      "marketCap": "Large Cap",
+      "region": "US",
+      "assetClass": "Equity",
+      "inceptionYear": 2018,
+      "minimumInvestment": 0,
+      "isEducational": true,
+      "educationalTags": ["zero-cost", "large-cap", "revolutionary", "fidelity"]
+    }
+  ],
+  "categories": [
+    {
+      "id": "total-market",
+      "name": "Total Market",
+      "description": "Funds that provide exposure to the entire U.S. stock market",
+      "fundSymbols": ["VTI"]
+    },
+    {
+      "id": "large-cap",
+      "name": "Large Cap",
+      "description": "Funds focused on large-capitalization U.S. companies",
+      "fundSymbols": ["VOO", "SPY", "FXAIX", "SWPPX", "FNILX"]
+    },
+    {
+      "id": "international",
+      "name": "International",
+      "description": "Funds providing exposure to markets outside the United States",
+      "fundSymbols": ["VXUS"]
+    },
+    {
+      "id": "growth",
+      "name": "Growth",
+      "description": "Funds focused on companies with higher growth potential",
+      "fundSymbols": ["QQQ", "VIGAX"]
+    },
+    {
+      "id": "small-cap",
+      "name": "Small Cap",
+      "description": "Funds focused on smaller U.S. companies with growth potential",
+      "fundSymbols": ["VSMAX"]
+    },
+    {
+      "id": "bonds",
+      "name": "Fixed Income",
+      "description": "Bond funds providing stability and income",
+      "fundSymbols": ["VBTLX"]
+    }
+  ],
+  "providers": [
+    {
+      "id": "vanguard",
+      "name": "Vanguard",
+      "description": "Known for low-cost index funds and investor-owned structure",
+      "fundSymbols": ["VTI", "VOO", "VXUS", "VIGAX", "VSMAX", "VBTLX"]
+    },
+    {
+      "id": "fidelity",
+      "name": "Fidelity",
+      "description": "Offers zero-cost funds and comprehensive investment services",
+      "fundSymbols": ["FXAIX", "FNILX"]
+    },
+    {
+      "id": "schwab",
+      "name": "Charles Schwab",
+      "description": "Provides low-cost investment options with excellent customer service",
+      "fundSymbols": ["SWPPX"]
+    },
+    {
+      "id": "spdr",
+      "name": "SPDR",
+      "description": "Pioneer in ETF industry, offering the first U.S. ETF",
+      "fundSymbols": ["SPY"]
+    },
+    {
+      "id": "invesco",
+      "name": "Invesco",
+      "description": "Specializes in active and passive investment strategies",
+      "fundSymbols": ["QQQ"]
+    }
+  ],
+  "educationalTags": [
+    {
+      "id": "beginner-friendly",
+      "name": "Beginner Friendly",
+      "description": "Good starting points for new investors",
+      "fundSymbols": ["VTI", "VOO", "FXAIX"]
+    },
+    {
+      "id": "low-cost",
+      "name": "Low Cost",
+      "description": "Funds with extremely low expense ratios",
+      "fundSymbols": ["VTI", "VOO", "FXAIX", "SWPPX", "FNILX"]
+    },
+    {
+      "id": "diversification",
+      "name": "Diversification",
+      "description": "Funds that help spread investment risk",
+      "fundSymbols": ["VTI", "VXUS", "VSMAX", "VBTLX"]
+    },
+    {
+      "id": "technology",
+      "name": "Technology Focus",
+      "description": "Funds with significant technology sector exposure",
+      "fundSymbols": ["QQQ", "VIGAX"]
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2024-12-31",
+    "dataSource": "Research from Morningstar, Vanguard, Fidelity, and other financial data providers",
+    "totalFunds": 11,
+    "averageExpenseRatio": 0.048,
+    "version": "1.0.0"
+  }
+}

@@ -19,7 +19,31 @@ interface SuggestionItemProps {
 }
 
 function SuggestionItem({ suggestion, isSelected, onClick, onMouseEnter }: SuggestionItemProps) {
-  const Icon = suggestion.type === 'etf' ? Building2 : TrendingUp;
+  const getIcon = () => {
+    if (suggestion.type === 'index-fund') return Building2;
+    if (suggestion.type === 'etf') return Building2;
+    return TrendingUp;
+  };
+  
+  const getIconColor = () => {
+    if (suggestion.type === 'index-fund') return suggestion.isEducational ? 'text-emerald-600' : 'text-green-600';
+    if (suggestion.type === 'etf') return 'text-green-600';
+    return 'text-blue-600';
+  };
+  
+  const getIconBg = () => {
+    if (suggestion.type === 'index-fund') return suggestion.isEducational ? 'bg-emerald-100' : 'bg-green-100';
+    if (suggestion.type === 'etf') return 'bg-green-100';
+    return 'bg-blue-100';
+  };
+  
+  const getBadgeVariant = () => {
+    if (suggestion.type === 'index-fund') return 'default';
+    if (suggestion.type === 'etf') return 'default';
+    return 'secondary';
+  };
+  
+  const Icon = getIcon();
   
   return (
     <Button
@@ -33,12 +57,9 @@ function SuggestionItem({ suggestion, isSelected, onClick, onMouseEnter }: Sugge
     >
       <div className={cn(
         'p-1.5 rounded-full flex-shrink-0 mr-3',
-        suggestion.type === 'etf' ? 'bg-green-100' : 'bg-blue-100'
+        getIconBg()
       )}>
-        <Icon className={cn(
-          'h-3 w-3',
-          suggestion.type === 'etf' ? 'text-green-600' : 'text-blue-600'
-        )} />
+        <Icon className={cn('h-3 w-3', getIconColor())} />
       </div>
       
       <div className="flex-1 min-w-0">
@@ -47,18 +68,37 @@ function SuggestionItem({ suggestion, isSelected, onClick, onMouseEnter }: Sugge
             {suggestion.symbol}
           </span>
           <Badge 
-            variant={suggestion.type === 'etf' ? 'default' : 'secondary'}
+            variant={getBadgeVariant()}
             className="text-xs"
           >
-            {suggestion.type.toUpperCase()}
+            {suggestion.type === 'index-fund' ? 'INDEX' : suggestion.type.toUpperCase()}
           </Badge>
+          {suggestion.isEducational && (
+            <Badge 
+              variant="outline"
+              className="text-xs text-emerald-700 border-emerald-200"
+            >
+              EDUCATIONAL
+            </Badge>
+          )}
         </div>
         <div className="text-sm text-muted-foreground truncate">
           {suggestion.name}
         </div>
-        {suggestion.category && (
-          <div className="text-xs text-muted-foreground">
-            {suggestion.category}
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          {suggestion.category && (
+            <span>{suggestion.category}</span>
+          )}
+          {suggestion.expenseRatio !== undefined && (
+            <>
+              {suggestion.category && <span>•</span>}
+              <span>{suggestion.expenseRatio}% expense ratio</span>
+            </>
+          )}
+        </div>
+        {suggestion.reason && (
+          <div className="text-xs text-muted-foreground italic">
+            {suggestion.reason}
           </div>
         )}
       </div>

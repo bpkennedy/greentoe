@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { TickerSearch } from './TickerSearch';
 import { StockCard } from './StockCard';
+import { getBeginnerFriendlySuggestions } from '@/lib/data/commonStocks';
 
 /**
  * Individual watch-list item component displaying stock data
@@ -32,20 +33,124 @@ function WatchListItem({ symbol, onRemove, className }: WatchListItemProps) {
 
 
 /**
+ * Educational fund suggestions component
+ */
+interface FundSuggestionProps {
+  symbol: string;
+  name: string;
+  category: string;
+  expenseRatio: number;
+  reason: string;
+  isEducational: boolean;
+  onAdd: (symbol: string) => void;
+}
+
+function FundSuggestion({ symbol, name, category, expenseRatio, reason, isEducational, onAdd }: FundSuggestionProps) {
+  return (
+    <Card className="hover:shadow-sm transition-shadow cursor-pointer" onClick={() => onAdd(symbol)}>
+      <CardContent className="p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="font-mono font-semibold text-sm">{symbol}</span>
+              <Badge variant="default" className="text-xs">INDEX</Badge>
+              {isEducational && (
+                <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-200">
+                  EDUCATIONAL
+                </Badge>
+              )}
+            </div>
+            <div className="text-sm text-muted-foreground truncate mt-1">{name}</div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+              <span>{category}</span>
+              <span>•</span>
+              <span>{expenseRatio}% expense ratio</span>
+            </div>
+            <div className="text-xs text-muted-foreground italic mt-1">{reason}</div>
+          </div>
+          <div className="ml-4 flex-shrink-0">
+            <TrendingUp className="h-4 w-4 text-emerald-600" />
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+/**
  * Empty state component shown when watch list is empty
  */
-function EmptyWatchList({ className }: { className?: string }) {
+function EmptyWatchList({ className, onAddTicker }: { className?: string; onAddTicker: (symbol: string) => void }) {
+  const [suggestions, setSuggestions] = React.useState<Array<{
+    symbol: string;
+    name: string;
+    category: string;
+    expenseRatio: number;
+    reason: string;
+    isEducational: boolean;
+  }>>([]);
+
+  React.useEffect(() => {
+    try {
+      const fundSuggestions = getBeginnerFriendlySuggestions(4);
+      setSuggestions(fundSuggestions.map(s => ({
+        symbol: s.symbol,
+        name: s.name,
+        category: s.category || 'Index Fund',
+        expenseRatio: s.expenseRatio || 0,
+        reason: s.reason || 'Great for beginners',
+        isEducational: s.isEducational || false
+      })));
+    } catch (error) {
+      console.warn('Error loading fund suggestions:', error);
+    }
+  }, []);
+
   return (
-    <div className={cn('text-center py-12', className)}>
-      <div className="p-4 mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-        <TrendingUp className="h-8 w-8 text-gray-400" />
+    <div className={cn('py-8', className)}>
+      <div className="text-center mb-8">
+        <div className="p-4 mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+          <TrendingUp className="h-8 w-8 text-gray-400" />
+        </div>
+        <h3 className="mt-4 text-lg font-medium text-gray-900">
+          Your watch list is empty
+        </h3>
+        <p className="mt-2 text-sm text-gray-500">
+          Add some stock ticker symbols to get started tracking your investments.
+        </p>
       </div>
-      <h3 className="mt-4 text-lg font-medium text-gray-900">
-        Your watch list is empty
-      </h3>
-      <p className="mt-2 text-sm text-gray-500">
-        Add some stock ticker symbols to get started tracking your investments.
-      </p>
+
+      {suggestions.length > 0 && (
+        <div className="space-y-4">
+          <div className="text-center">
+            <h4 className="text-md font-medium text-gray-900 mb-2">
+              📚 Beginner-Friendly Suggestions
+            </h4>
+            <p className="text-sm text-gray-600">
+              These educational index funds are perfect for getting started
+            </p>
+          </div>
+          
+          <div className="grid gap-3">
+            {suggestions.map((suggestion) => (
+              <FundSuggestion
+                key={suggestion.symbol}
+                symbol={suggestion.symbol}
+                name={suggestion.name}
+                category={suggestion.category}
+                expenseRatio={suggestion.expenseRatio}
+                reason={suggestion.reason}
+                isEducational={suggestion.isEducational}
+                onAdd={onAddTicker}
+              />
+            ))}
+          </div>
+          
+          <div className="text-center text-xs text-gray-500 mt-4">
+            💡 These are low-cost, diversified funds recommended for new investors
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -107,7 +212,7 @@ export function WatchList({ className }: WatchListProps) {
 
         {/* Watch List Items */}
         {watchList.length === 0 ? (
-          <EmptyWatchList />
+          <EmptyWatchList onAddTicker={handleAddTicker} />
         ) : (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -175,7 +280,7 @@ export function WatchList({ className }: WatchListProps) {
                       About the data
                     </p>
                     <p className="text-muted-foreground mt-1">
-                      Stock prices are updated daily and cached for 24 hours. Data is provided by Alpha Vantage.
+                      Stock prices are updated daily and cached for 24 hours. Data is provided by Financial Modeling Prep.
                       Past performance does not guarantee future results.
                     </p>
                   </div>
