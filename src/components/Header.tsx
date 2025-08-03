@@ -38,7 +38,7 @@ export function Header({
               <Image
                 src="/logo-horizontal.svg"
                 alt="GreenToe Logo"
-                width={160}
+                width={200}
                 height={40}
                 priority
                 className="h-8 w-auto transition-transform group-hover:scale-105"

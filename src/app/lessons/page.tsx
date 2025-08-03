@@ -73,7 +73,7 @@ export default function LessonsPage() {
           </div>
 
           {/* Lessons grid */}
-          <div className="grid gap-6 space-y-0">
+          <div className="grid gap-6 space-y-0 mt-12">
             {lessons.map((lesson, index) => {
               const IconComponent = LESSON_ICONS[lesson.icon as keyof typeof LESSON_ICONS] || BookOpen;
               const isCompleted = lesson.completed;
