@@ -318,48 +318,39 @@ export function WatchList({ className }: WatchListProps) {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Prominent Add Investment CTA */}
-            <div className="text-center pt-6 pb-2">
-              <AddInvestmentDialog
-                onInvestmentAdded={handleInvestmentAdded}
-                onClose={() => {
-                  console.log('🔥 CTA Dialog closed, resetting state');
-                  setShowAddDialog(false);
-                  setSelectedSymbolForDialog('');
-                }}
-                autoClose={true}
-                trigger={
-                  <Button 
-                    size="lg" 
-                    className="gap-3 bg-gradient-to-r from-primary via-primary to-blue-600 hover:from-primary/90 hover:via-primary/90 hover:to-blue-600/90 shadow-lg hover:shadow-xl transition-all duration-300 font-semibold text-base px-8 py-6 rounded-xl border-0 group"
-                  >
-                    <Plus className="h-5 w-5 group-hover:rotate-90 transition-transform duration-200" />
-                    Add Investment
-                    <span className="opacity-75 text-sm font-normal ml-1">to Portfolio</span>
-                  </Button>
-                }
-              />
-              <p className="text-xs text-muted-foreground mt-3">
-                ✨ Track performance, set alerts, and learn from your investments
-              </p>
-            </div>
           </>
         )}
+
+        {/* Prominent Add Investment CTA - Always Visible */}
+        <div className="text-center pt-6 pb-2">
+          <AddInvestmentDialog
+            initialSymbol={selectedSymbolForDialog}
+            defaultOpen={showAddDialog}
+            onInvestmentAdded={handleInvestmentAdded}
+            onClose={() => {
+              console.log('🔥 CTA Dialog closed, resetting state');
+              setShowAddDialog(false);
+              setSelectedSymbolForDialog('');
+            }}
+            autoClose={true}
+            trigger={
+              <Button 
+                size="lg" 
+                className="gap-3 bg-gradient-to-r from-primary via-primary to-blue-600 hover:from-primary/90 hover:via-primary/90 hover:to-blue-600/90 shadow-lg hover:shadow-xl transition-all duration-300 font-semibold text-base px-8 py-6 rounded-xl border-0 group"
+              >
+                <Plus className="h-5 w-5 group-hover:rotate-90 transition-transform duration-200" />
+                Add Investment
+                <span className="opacity-75 text-sm font-normal ml-1">to Portfolio</span>
+              </Button>
+            }
+          />
+          <p className="text-xs text-muted-foreground mt-3">
+            ✨ Track performance, set alerts, and learn from your investments
+          </p>
+        </div>
       </CardContent>
 
-      {/* Add Investment Dialog */}
-      <AddInvestmentDialog
-        initialSymbol={selectedSymbolForDialog}
-        defaultOpen={showAddDialog}
-        onInvestmentAdded={handleInvestmentAdded}
-        onClose={() => {
-          console.log('🔥 Dialog closed, resetting state');
-          setShowAddDialog(false);
-          setSelectedSymbolForDialog('');
-        }}
-        autoClose={true}
-      />
+
     </Card>
   );
 }
