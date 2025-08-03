@@ -306,7 +306,7 @@ export function WatchList({ className }: WatchListProps) {
                       About the data
                     </p>
                     <p className="text-muted-foreground mt-1">
-                      Stock prices are updated daily and cached for 24 hours. Data is provided by Financial Modeling Prep.
+                      Stock prices are updated daily and cached for 60 minutes. Data is provided by Yahoo Finance.
                       Past performance does not guarantee future results.
                     </p>
                   </div>

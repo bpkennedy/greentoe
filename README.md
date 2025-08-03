@@ -4,7 +4,7 @@ An interactive educational platform designed to teach young adults about stock m
 
 ## Features
 
-- **Real Stock Data**: Live stock data powered by Financial Modeling Prep API
+- **Real Stock Data**: Live stock data powered by Yahoo Finance (free, no API key required)
 - **Interactive Charts**: Dynamic price charts with technical analysis
 - **Educational Lessons**: Step-by-step lessons on investing fundamentals
 - **Stock Watchlist**: Track and compare multiple stocks
@@ -13,10 +13,11 @@ An interactive educational platform designed to teach young adults about stock m
 
 ## API Migration Notice
 
-**🔄 Recently Updated**: We've migrated from Alpha Vantage to Financial Modeling Prep for stock data, providing:
-- **Higher Rate Limits**: 250 calls/day vs Alpha Vantage's 25/day
-- **Better Data Quality**: More reliable and comprehensive stock data
-- **Improved Performance**: Faster response times and better uptime
+**🔄 Recently Updated**: We've migrated to Yahoo Finance for stock data, providing:
+- **No API Keys Required**: Free access without registration or rate limits
+- **60-Minute Server-Side Caching**: Optimized performance with intelligent caching
+- **Reliable Data Quality**: High-quality stock data from Yahoo Finance
+- **Zero Cost**: No subscription fees or API costs
 
 ## Getting Started
 

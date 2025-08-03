@@ -159,8 +159,9 @@ function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
         </div>
         
         {fundInfo.keyFacts.length > 3 && (
-          <details className="text-sm">
-            <summary className="cursor-pointer brand-green hover:opacity-80 font-medium">
+          <details className="text-sm group">
+            <summary className="cursor-pointer brand-green hover:opacity-80 font-medium list-none flex items-center gap-1">
+              <span className="transform transition-transform group-open:rotate-90">▶</span>
               View all key facts ({fundInfo.keyFacts.length})
             </summary>
             <ul className="mt-2 space-y-1 text-muted-foreground pl-4">
