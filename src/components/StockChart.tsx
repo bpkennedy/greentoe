@@ -320,14 +320,14 @@ export function StockChart({
             </div>
             <div className="text-right">
               <div 
-                className="font-mono text-2xl font-bold"
+                className="financial-currency text-2xl"
                 aria-label={`Current price: ${metrics.currentPrice.toFixed(2)} dollars`}
               >
                 ${metrics.currentPrice.toFixed(2)}
               </div>
               <Badge 
                 variant={metrics.isPositive ? "default" : "destructive"}
-                className="mt-1"
+                className="mt-1 financial-percentage"
                 role="status"
                 aria-label={`Price change: ${metrics.isPositive ? 'up' : 'down'} ${Math.abs(metrics.change).toFixed(2)} dollars, ${Math.abs(metrics.changePercent).toFixed(2)} percent`}
               >
@@ -421,12 +421,12 @@ export function StockChart({
               data-testid={`chart-metrics-${data.symbol}`}
             >
               <div className="text-center" role="listitem">
-                <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
+                <div className="flex items-center justify-center gap-1 data-label mb-1">
                   <TrendingUp className="h-3 w-3" aria-hidden="true" />
                   <span id={`${data.symbol}-52w-high-label`}>52W High</span>
                 </div>
                 <div 
-                  className="font-mono font-semibold"
+                  className="financial-currency"
                   aria-labelledby={`${data.symbol}-52w-high-label`}
                   aria-label={`52 week high: ${metrics.high52Week.toFixed(2)} dollars`}
                 >
@@ -435,12 +435,12 @@ export function StockChart({
               </div>
               
               <div className="text-center" role="listitem">
-                <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
+                <div className="flex items-center justify-center gap-1 data-label mb-1">
                   <TrendingDown className="h-3 w-3" aria-hidden="true" />
                   <span id={`${data.symbol}-52w-low-label`}>52W Low</span>
                 </div>
                 <div 
-                  className="font-mono font-semibold"
+                  className="financial-currency"
                   aria-labelledby={`${data.symbol}-52w-low-label`}
                   aria-label={`52 week low: ${metrics.low52Week.toFixed(2)} dollars`}
                 >
@@ -449,12 +449,12 @@ export function StockChart({
               </div>
 
               <div className="text-center" role="listitem">
-                <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
+                <div className="flex items-center justify-center gap-1 data-label mb-1">
                   <Calendar className="h-3 w-3" aria-hidden="true" />
                   <span id={`${data.symbol}-avg-volume-label`}>Avg Volume</span>
                 </div>
                 <div 
-                  className="font-mono font-semibold"
+                  className="financial-number"
                   aria-labelledby={`${data.symbol}-avg-volume-label`}
                   aria-label={`Average volume: ${formatVolume(metrics.avgVolume)}`}
                 >
@@ -463,12 +463,12 @@ export function StockChart({
               </div>
 
               <div className="text-center" role="listitem">
-                <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
+                <div className="flex items-center justify-center gap-1 data-label mb-1">
                   <DollarSign className="h-3 w-3" aria-hidden="true" />
                   <span id={`${data.symbol}-prev-close-label`}>Previous Close</span>
                 </div>
                 <div 
-                  className="font-mono font-semibold"
+                  className="financial-currency"
                   aria-labelledby={`${data.symbol}-prev-close-label`}
                   aria-label={`Previous close: ${metrics.previousPrice.toFixed(2)} dollars`}
                 >

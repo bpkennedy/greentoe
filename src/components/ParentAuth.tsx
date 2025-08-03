@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Header } from '@/components/Header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -193,16 +194,19 @@ export function ParentAuth({ children }: ParentAuthProps) {
   // Show dashboard content if authenticated
   return (
     <div className="min-h-screen bg-background" data-testid="parent-dashboard">
-      {/* Header with logout */}
-      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      {/* Header with Logo */}
+      <Header currentPage="parent" />
+      
+      {/* Parent Dashboard Subheader */}
+      <div className="border-b bg-muted/20">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-8 h-8 bg-primary/10 rounded-lg">
-              <Shield className="w-4 h-4 text-primary" />
+            <div className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-lg">
+              <Shield className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold">Parent Dashboard</h1>
-              <p className="text-sm text-muted-foreground">Monitor your teen&apos;s progress</p>
+              <h1 className="text-xl font-semibold text-foreground">Parent Dashboard</h1>
+              <p className="text-sm text-muted-foreground">Monitor your teen&apos;s learning progress and activity</p>
             </div>
           </div>
           <Button 

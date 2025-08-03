@@ -1,0 +1,38 @@
+<svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="horizontal-logo-title">
+  <title id="horizontal-logo-title">GreenToe - Financial Education Platform</title>
+  <defs>
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#374151;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Growth leaf icon -->
+  <g id="icon">
+    <!-- Main leaf shape -->
+    <path d="M4 32C4 20 10 8 22 8C28 8 32 14 32 20C32 26 28 32 22 32C16 32 10 26 4 20V32Z" fill="url(#leafGradient)" stroke="#16a34a" stroke-width="0.8"/>
+    <!-- Leaf vein/stem detail -->
+    <path d="M10 26L22 14" stroke="#16a34a" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M13 23L19 17" stroke="#16a34a" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <!-- Small growth indicator dots -->
+    <circle cx="25" cy="12" r="1.8" fill="#22c55e" opacity="0.8"/>
+    <circle cx="29" cy="17" r="1.3" fill="#22c55e" opacity="0.6"/>
+    <circle cx="27" cy="23" r="1" fill="#22c55e" opacity="0.5"/>
+  </g>
+  
+  <!-- GreenToe text horizontal layout -->
+  <g id="text" fill="url(#textGradient)">
+    <!-- Green -->
+    <text x="42" y="18" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" letter-spacing="-0.02em">Green</text>
+    <!-- Toe with accent color -->
+    <text x="42" y="32" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="500" letter-spacing="-0.01em" fill="#22c55e">Toe</text>
+    
+    <!-- Tagline -->
+    <text x="110" y="20" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="400" letter-spacing="0.01em" fill="#6b7280" opacity="0.9">Financial Education</text>
+    <text x="110" y="30" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="400" letter-spacing="0.01em" fill="#6b7280" opacity="0.9">for Young Investors</text>
+  </g>
+</svg>

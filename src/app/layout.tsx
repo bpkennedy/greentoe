@@ -1,21 +1,40 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/lib/contexts";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono", 
   subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "Green Thumb - Financial Education for Teens",
-  description: "Learn about investing, manage your watch-list, and explore the stock market with interactive lessons designed for teenagers.",
+  title: "GreenToe - Financial Education for Young Investors",
+  description: "Learn about investing, manage your watch-list, and explore index funds with interactive lessons designed for young investors. Build financial literacy through hands-on experience.",
+  keywords: "financial education, investing, teenagers, index funds, stock market, financial literacy",
+  authors: [{ name: "GreenToe" }],
+  creator: "GreenToe Financial Education",
+  publisher: "GreenToe",
+  openGraph: {
+    title: "GreenToe - Financial Education for Young Investors",
+    description: "Learn about investing and build financial literacy through interactive lessons and real market data.",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GreenToe - Financial Education for Young Investors",
+    description: "Learn about investing and build financial literacy through interactive lessons and real market data.",
+  },
 };
 
 export default function RootLayout({
@@ -26,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
         <AppProvider>
           <div data-testid="app-ready">

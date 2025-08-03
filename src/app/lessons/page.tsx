@@ -11,6 +11,7 @@ import {
   Clock,
   ArrowRight
 } from 'lucide-react';
+import { Header } from '@/components/Header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -39,29 +40,30 @@ export default function LessonsPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header currentPage="lessons" />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-foreground mb-4">
+            <h1 className="heading-page text-foreground mb-4">
               Financial Education Lessons
             </h1>
-            <p className="text-lg text-muted-foreground mb-6">
-              Master investing fundamentals with our comprehensive lesson series designed specifically for teenagers.
+            <p className="text-body-large text-muted-foreground mb-6">
+              Master investing fundamentals with our comprehensive lesson series designed specifically for young investors.
             </p>
             
             {/* Overall progress */}
             <Card className="max-w-md mx-auto">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">Your Progress</span>
-                  <span className="text-sm text-muted-foreground">
+                  <span className="data-label">Your Progress</span>
+                  <span className="text-body-small text-muted-foreground">
                     {progress.completed}/{progress.total} lessons
                   </span>
                 </div>
                 <Progress value={progress.percentage} className="mb-2" />
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>{progress.percentage}% complete</span>
+                <div className="flex items-center justify-between text-caption text-muted-foreground">
+                  <span className="financial-percentage">{progress.percentage}% complete</span>
                   <span>{totalTime} total</span>
                 </div>
               </CardContent>

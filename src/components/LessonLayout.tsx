@@ -13,9 +13,9 @@ import {
   ChevronRight,
   CheckCircle,
   Clock,
-  BookOpen,
-  ArrowLeft
+  BookOpen
 } from 'lucide-react';
+import { LessonHeader } from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -58,17 +58,18 @@ export default function LessonLayout({
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header with progress */}
-      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-        <div className="container mx-auto px-4 py-4">
+      {/* Header with Logo */}
+      <LessonHeader lessonTitle={lesson.title} />
+      
+      {/* Progress Bar */}
+      <div className="sticky top-16 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between mb-3">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Dashboard
-            </Link>
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <span>Lesson {lesson.order}</span>
+              <span>•</span>
+              <span>{lesson.estimatedTime} read</span>
+            </div>
             <div className="flex items-center gap-3">
               <Badge variant={isCompleted ? "default" : "secondary"} className="flex items-center gap-1">
                 {isCompleted ? (

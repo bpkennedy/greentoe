@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { SkipLinks } from "@/components/SkipLinks";
+import { Header } from "@/components/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -81,17 +82,17 @@ function FeatureCard({ icon: Icon, title, description, status }: {
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <h3 className="font-semibold">{title}</h3>
+              <h3 className="heading-small">{title}</h3>
               <Badge 
                 variant={status === 'complete' ? 'default' : status === 'in-progress' ? 'secondary' : 'outline'}
-                className="text-xs"
+                className="text-caption"
                 role="status"
                 aria-label={`Feature status: ${statusText}`}
               >
                 {statusText}
               </Badge>
             </div>
-            <p className="text-sm text-muted-foreground">{description}</p>
+            <p className="text-body-small text-muted-foreground">{description}</p>
           </div>
         </div>
       </CardContent>
@@ -104,40 +105,8 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <SkipLinks />
       
-      {/* Header */}
-      <header 
-        className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-        role="banner"
-        id="navigation"
-      >
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">Green Thumb</h1>
-              <p className="text-muted-foreground mt-1">Financial Education for Teenagers</p>
-            </div>
-            <nav role="navigation" aria-label="Site navigation">
-              <div className="flex items-center gap-3">
-                <Link 
-                  href="/parent" 
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors touch-target focus-visible"
-                  aria-label="Access parent dashboard to monitor teen's progress"
-                >
-                  Parent Dashboard
-                </Link>
-                <div className="flex items-center gap-2" role="group" aria-label="Version information">
-                  <Badge variant="outline" className="text-xs">
-                    Alpha Version
-                  </Badge>
-                  <Badge variant="default" className="text-xs">
-                    Live Demo
-                  </Badge>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
-      </header>
+      {/* Header with Logo */}
+      <Header currentPage="home" />
 
       <main 
         className="container mx-auto px-4 py-8 space-y-8" 
@@ -146,23 +115,23 @@ export default function Home() {
       >
         {/* Hero Section */}
         <section className="text-center space-y-6" aria-labelledby="hero-title">
-          <h2 id="hero-title" className="text-2xl font-bold text-foreground">
+          <h2 id="hero-title" className="heading-hero text-foreground">
             Learn Investing Through Interactive Experience
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-body-large text-muted-foreground max-w-2xl mx-auto">
             Build your watch-list, analyze stock charts, and learn about investing with real market data. 
-            All designed specifically for teenagers taking their first steps into financial literacy.
+            All designed specifically for young investors taking their first steps into financial literacy.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
               href="/lessons" 
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6 py-2 rounded-md text-sm font-medium transition-colors touch-target focus-visible"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6 py-2 rounded-md btn-text transition-colors touch-target focus-visible"
               aria-label="Start learning with 6 financial education lessons"
             >
               <BookOpen className="w-4 h-4" aria-hidden="true" />
               Start Learning Journey
             </Link>
-            <span className="text-sm text-muted-foreground" role="note">
+            <span className="text-caption text-muted-foreground" role="note">
               6 lessons • 85 minutes • Beginner friendly
             </span>
           </div>
@@ -205,8 +174,8 @@ export default function Home() {
         {/* Features Section */}
         <section className="space-y-6" aria-labelledby="features-title">
           <div className="text-center">
-            <h2 id="features-title" className="text-xl font-semibold mb-2">Platform Features</h2>
-            <p className="text-muted-foreground">Built with modern web technologies and real market data</p>
+            <h2 id="features-title" className="heading-section mb-2">Platform Features</h2>
+            <p className="text-body text-muted-foreground">Built with modern web technologies and real market data</p>
           </div>
 
           <div 
@@ -245,41 +214,41 @@ export default function Home() {
         <section className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Technical Implementation</CardTitle>
+              <CardTitle className="heading-card">Technical Implementation</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div>
-                  <div className="font-semibold text-blue-600">Next.js 15</div>
-                  <div className="text-xs text-muted-foreground">App Router</div>
+                  <div className="data-value text-blue-600">Next.js 15</div>
+                  <div className="text-caption text-muted-foreground">App Router</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-green-600">React 19</div>
-                  <div className="text-xs text-muted-foreground">Context API</div>
+                  <div className="data-value text-green-600">React 19</div>
+                  <div className="text-caption text-muted-foreground">Context API</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-purple-600">TypeScript</div>
-                  <div className="text-xs text-muted-foreground">Type Safety</div>
+                  <div className="data-value text-purple-600">TypeScript</div>
+                  <div className="text-caption text-muted-foreground">Type Safety</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-orange-600">Tailwind CSS</div>
-                  <div className="text-xs text-muted-foreground">shadcn/ui</div>
+                  <div className="data-value text-orange-600">Tailwind CSS</div>
+                  <div className="text-caption text-muted-foreground">shadcn/ui</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-cyan-600">SWR</div>
-                  <div className="text-xs text-muted-foreground">Data Fetching</div>
+                  <div className="data-value text-cyan-600">Axios</div>
+                  <div className="text-caption text-muted-foreground">Data Fetching</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-red-600">Recharts</div>
-                  <div className="text-xs text-muted-foreground">Visualization</div>
+                  <div className="data-value text-red-600">Recharts</div>
+                  <div className="text-caption text-muted-foreground">Visualization</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-indigo-600">Alpha Vantage</div>
-                  <div className="text-xs text-muted-foreground">Market Data</div>
+                  <div className="data-value text-indigo-600">FMP API</div>
+                  <div className="text-caption text-muted-foreground">Market Data</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-600">WCAG 2.2</div>
-                  <div className="text-xs text-muted-foreground">Accessibility</div>
+                  <div className="data-value text-gray-600">WCAG 2.2</div>
+                  <div className="text-caption text-muted-foreground">Accessibility</div>
                 </div>
               </div>
             </CardContent>
