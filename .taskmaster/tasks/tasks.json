@@ -1283,8 +1283,8 @@
             "dependencies": [
               "16.1"
             ],
-            "details": "Modify data manager and API routes to serialize/deserialize new fields securely. Ensure encryption/decryption processes support the extended data without breaking existing data formats.\n<info added on 2025-08-03T21:52:51.218Z>\nUI bug fixes completed and documentation updated to reflect Yahoo Finance migration. Fixed expandable \"View all key facts\" section with rotating arrow indicators and smooth animations. Verified \"View Details\" button functionality for opening Yahoo Finance URLs. Updated all references from Financial Modeling Prep to Yahoo Finance across WatchList.tsx and README.md, including cache duration correction from 24 hours to 60 minutes and emphasis on free API access. All changes maintain backward compatibility with no breaking functionality.\n</info added on 2025-08-03T21:52:51.218Z>",
-            "status": "in-progress",
+            "details": "Modify data manager and API routes to serialize/deserialize new fields securely. Ensure encryption/decryption processes support the extended data without breaking existing data formats.\n<info added on 2025-08-03T21:52:51.218Z>\nUI bug fixes completed and documentation updated to reflect Yahoo Finance migration. Fixed expandable \"View all key facts\" section with rotating arrow indicators and smooth animations. Verified \"View Details\" button functionality for opening Yahoo Finance URLs. Updated all references from Financial Modeling Prep to Yahoo Finance across WatchList.tsx and README.md, including cache duration correction from 24 hours to 60 minutes and emphasis on free API access. All changes maintain backward compatibility with no breaking functionality.\n</info added on 2025-08-03T21:52:51.218Z>\n<info added on 2025-08-03T21:55:26.890Z>\nData persistence and backward compatibility implementation has been verified and confirmed as fully operational. The system successfully supports both new InvestmentEntry format with investment reasoning, purchase price, and dateAdded fields, as well as legacy string array format through automatic migration. AppStateData interface handles version tracking, migrateWatchListData() provides seamless conversion, and all serialization/deserialization processes work with both formats. Encryption/decryption APIs are format-agnostic and maintain data integrity throughout the migration process. Zero data loss confirmed during format transitions, with proper fallback mechanisms ensuring compatibility with existing saved states.\n</info added on 2025-08-03T21:55:26.890Z>",
+            "status": "done",
             "testStrategy": "Verify data persistence and retrieval of new fields, test encryption/decryption roundtrips, and confirm backward compatibility with older saved data."
           },
           {
@@ -1383,7 +1383,7 @@
     ],
     "metadata": {
       "created": "2025-08-02T03:40:48.786Z",
-      "updated": "2025-08-03T21:45:41.753Z",
+      "updated": "2025-08-03T21:55:30.987Z",
       "description": "Tasks for master context"
     }
   }

@@ -272,7 +272,10 @@ export function StockCard({
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => window.open(`https://finance.yahoo.com/quote/${symbol}`, '_blank')}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(`https://finance.yahoo.com/quote/${symbol}`, '_blank');
+                      }}
                       className="text-xs"
                       data-testid={`view-details-${symbol}`}
                     >

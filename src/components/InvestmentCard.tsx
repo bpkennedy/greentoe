@@ -9,7 +9,6 @@ import {
   Minus, 
   BarChart3, 
   Calendar,
-  DollarSign,
   Target,
   Edit3,
   Info
@@ -342,8 +341,7 @@ export function InvestmentCard({
                       
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Purchase Price:</span>
-                        <span className="flex items-center gap-1 font-mono">
-                          <DollarSign className="h-3 w-3" />
+                        <span className="font-mono">
                           {formatCurrency(investment.purchasePrice)}
                         </span>
                       </div>
@@ -449,7 +447,10 @@ export function InvestmentCard({
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => window.open(`https://finance.yahoo.com/quote/${investment.symbol}`, '_blank')}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(`https://finance.yahoo.com/quote/${investment.symbol}`, '_blank');
+                      }}
                       className="text-xs"
                       data-testid={`view-details-${investment.symbol}`}
                     >
