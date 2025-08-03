@@ -270,6 +270,56 @@
   .prose-spacing p + h3 {
     @apply mt-8;
   }
+
+  /* Brand-consistent color utilities */
+  .brand-green {
+    @apply text-primary;
+  }
+  
+  .brand-green-bg {
+    @apply bg-primary;
+  }
+  
+  .brand-green-border {
+    @apply border-primary;
+  }
+  
+  .brand-success {
+    @apply text-primary;
+  }
+  
+  .brand-success-bg {
+    @apply bg-primary/10;
+  }
+  
+  .brand-success-border {
+    @apply border-primary/20;
+  }
+  
+  .brand-card {
+    @apply bg-primary/5 border-primary/20;
+  }
+  
+  .brand-accent {
+    @apply bg-primary/10 text-primary border-primary/30;
+  }
+  
+  .educational-highlight {
+    @apply bg-primary/5 text-primary border-primary/20;
+  }
+  
+  /* Success states using brand colors */
+  .brand-success-light {
+    @apply bg-primary/5 text-primary;
+  }
+  
+  .brand-success-medium {
+    @apply bg-primary/10 text-primary;
+  }
+  
+  .brand-success-strong {
+    @apply bg-primary text-primary-foreground;
+  }
   
   /* Educational content typography with enhanced hierarchy */
   .lesson-content {

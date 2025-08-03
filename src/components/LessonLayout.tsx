@@ -121,7 +121,7 @@ export default function LessonLayout({
                 <ul className="space-y-2">
                   {lesson.learningObjectives.map((objective, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="w-4 h-4 brand-success mt-0.5 flex-shrink-0" />
                       <span className="text-sm">{objective}</span>
                     </li>
                   ))}
@@ -176,15 +176,15 @@ export default function LessonLayout({
 
           {/* Completion message */}
           {isCompleted && (
-            <Card className="mt-8 border-green-200 bg-green-50">
+            <Card className="mt-8 brand-card">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600" />
+                  <CheckCircle className="w-6 h-6 brand-success" />
                   <div>
-                    <h3 className="font-semibold text-green-900">
+                    <h3 className="font-semibold brand-green">
                       Lesson completed!
                     </h3>
-                    <p className="text-sm text-green-700">
+                    <p className="text-sm brand-green">
                       Great job finishing &quot;{lesson.title}&quot;. 
                       {nextLesson ? " Ready for the next lesson?" : " You've completed all lessons!"}
                     </p>

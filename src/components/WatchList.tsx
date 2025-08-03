@@ -55,9 +55,9 @@ function FundSuggestion({ symbol, name, category, expenseRatio, reason, isEducat
               <span className="font-mono font-semibold text-sm">{symbol}</span>
               <Badge variant="default" className="text-xs">INDEX</Badge>
               {isEducational && (
-                <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-200">
-                  EDUCATIONAL
-                </Badge>
+                          <Badge variant="educational" className="text-xs">
+            EDUCATIONAL
+          </Badge>
               )}
             </div>
             <div className="text-sm text-muted-foreground truncate mt-1">{name}</div>
@@ -69,7 +69,7 @@ function FundSuggestion({ symbol, name, category, expenseRatio, reason, isEducat
             <div className="text-xs text-muted-foreground italic mt-1">{reason}</div>
           </div>
           <div className="ml-4 flex-shrink-0">
-            <TrendingUp className="h-4 w-4 text-emerald-600" />
+                          <TrendingUp className="h-4 w-4 brand-green" />
           </div>
         </div>
       </CardContent>

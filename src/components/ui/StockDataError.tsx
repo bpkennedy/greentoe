@@ -65,7 +65,7 @@ export function StockErrorDisplay({
           {showRetryButton && error.canRetry && onRetry && (
             <button
               onClick={onRetry}
-              className="mt-3 inline-flex items-center gap-2 rounded-md bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="mt-3 inline-flex items-center gap-2 rounded-md bg-white px-3 py-1.5 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             >
               <RefreshCw className="h-4 w-4" />
               Try Again

@@ -26,14 +26,14 @@ function SuggestionItem({ suggestion, isSelected, onClick, onMouseEnter }: Sugge
   };
   
   const getIconColor = () => {
-    if (suggestion.type === 'index-fund') return suggestion.isEducational ? 'text-emerald-600' : 'text-green-600';
-    if (suggestion.type === 'etf') return 'text-green-600';
+    if (suggestion.type === 'index-fund') return suggestion.isEducational ? 'text-primary' : 'text-primary';
+    if (suggestion.type === 'etf') return 'text-primary';
     return 'text-blue-600';
   };
   
   const getIconBg = () => {
-    if (suggestion.type === 'index-fund') return suggestion.isEducational ? 'bg-emerald-100' : 'bg-green-100';
-    if (suggestion.type === 'etf') return 'bg-green-100';
+    if (suggestion.type === 'index-fund') return suggestion.isEducational ? 'bg-primary/15' : 'bg-primary/10';
+    if (suggestion.type === 'etf') return 'bg-primary/10';
     return 'bg-blue-100';
   };
   
@@ -75,8 +75,8 @@ function SuggestionItem({ suggestion, isSelected, onClick, onMouseEnter }: Sugge
           </Badge>
           {suggestion.isEducational && (
             <Badge 
-              variant="outline"
-              className="text-xs text-emerald-700 border-emerald-200"
+              variant="educational"
+              className="text-xs"
             >
               EDUCATIONAL
             </Badge>

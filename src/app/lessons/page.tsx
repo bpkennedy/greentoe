@@ -83,7 +83,7 @@ export default function LessonsPage() {
                 <Card 
                   key={lesson.id} 
                   className={`transition-all hover:shadow-md ${
-                    isCompleted ? 'border-green-200 bg-green-50/50' : 
+                    isCompleted ? 'brand-success-border brand-success-bg' : 
                     isNext ? 'border-primary/50 shadow-sm' : ''
                   }`}
                 >
@@ -91,10 +91,10 @@ export default function LessonsPage() {
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-4 flex-1">
                         <div className={`flex items-center justify-center w-12 h-12 rounded-lg ${
-                          isCompleted ? 'bg-green-100' : 'bg-primary/10'
+                          isCompleted ? 'brand-success-medium' : 'bg-primary/10'
                         }`}>
                           {isCompleted ? (
-                            <CheckCircle className="w-6 h-6 text-green-600" />
+                            <CheckCircle className="w-6 h-6 brand-success" />
                           ) : (
                             <IconComponent className="w-6 h-6 text-primary" />
                           )}

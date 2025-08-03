@@ -141,7 +141,7 @@ export function ActivitySummary() {
                 .slice(-3)
                 .map((lesson) => (
                   <div key={lesson.id} className="flex items-center gap-3">
-                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 brand-success flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{lesson.title}</p>
                       <p className="text-xs text-muted-foreground">{lesson.estimatedTime}</p>

@@ -356,13 +356,13 @@ export function DataManager({ className, onDataLoaded, onDataSaved }: DataManage
             <div 
               className={`flex items-start gap-3 p-3 rounded-lg ${
                 result.success 
-                  ? 'bg-green-50 border border-green-200 text-green-800' 
+                  ? 'brand-success-light border brand-success-border brand-success' 
                   : 'bg-red-50 border border-red-200 text-red-800'
               }`}
               data-testid={result.success ? 'save-success' : 'save-error'}
             >
               {result.success ? (
-                <CheckCircle className="w-5 h-5 mt-0.5 text-green-600" />
+                <CheckCircle className="w-5 h-5 mt-0.5 brand-success" />
               ) : (
                 <AlertCircle className="w-5 h-5 mt-0.5 text-red-600" />
               )}

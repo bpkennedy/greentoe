@@ -223,7 +223,7 @@ export default function Home() {
                   <div className="text-caption text-muted-foreground">App Router</div>
                 </div>
                 <div>
-                  <div className="data-value text-green-600">React 19</div>
+                  <div className="data-value brand-green">React 19</div>
                   <div className="text-caption text-muted-foreground">Context API</div>
                 </div>
                 <div>

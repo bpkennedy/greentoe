@@ -37,8 +37,8 @@ function FundSuggestionCard({
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-full bg-emerald-100">
-              <Building2 className="h-4 w-4 text-emerald-600" />
+                    <div className="p-2 rounded-full brand-success-medium">
+          <Building2 className="h-4 w-4 brand-success" />
             </div>
             <div>
               <CardTitle className="text-lg font-semibold">{symbol}</CardTitle>
@@ -54,12 +54,12 @@ function FundSuggestionCard({
       <CardContent className="space-y-4">
         <div>
           <h4 className="font-medium text-sm mb-1">{name}</h4>
-          <p className="text-sm text-emerald-700 font-medium">{category}</p>
+                        <p className="text-sm brand-green font-medium">{category}</p>
         </div>
         
         {reason && (
-          <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
-            <p className="text-sm text-emerald-800 italic">💡 {reason}</p>
+          <div className="p-3 brand-success-light rounded-lg border brand-success-border">
+            <p className="text-sm brand-green italic">💡 {reason}</p>
           </div>
         )}
         
@@ -68,7 +68,7 @@ function FundSuggestionCard({
           <ul className="space-y-1">
             {keyFacts.slice(0, 2).map((fact, index) => (
               <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
-                <span className="text-emerald-500 mt-1 text-xs">•</span>
+                                  <span className="brand-green mt-1 text-xs">•</span>
                 <span>{fact}</span>
               </li>
             ))}
@@ -80,7 +80,7 @@ function FundSuggestionCard({
             onClick={() => onAddToWatchList(symbol)}
             variant="outline" 
             size="sm" 
-            className="w-full text-emerald-700 border-emerald-200 hover:bg-emerald-50"
+            className="w-full"
           >
             <TrendingUp className="h-3 w-3 mr-2" />
             Add to Watch List
@@ -149,10 +149,10 @@ export function LessonFundSuggestions({
   }
 
   return (
-    <div className={cn('my-8 p-6 bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl border border-emerald-200', className)}>
+    <div className={cn('my-8 p-6 brand-card rounded-xl', className)}>
       <div className="text-center mb-6">
-        <h3 className="text-xl font-semibold text-emerald-800 mb-2">{title}</h3>
-        <p className="text-emerald-700 text-sm max-w-2xl mx-auto">{description}</p>
+        <h3 className="text-xl font-semibold brand-green mb-2">{title}</h3>
+        <p className="brand-green text-sm max-w-2xl mx-auto">{description}</p>
       </div>
       
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -172,7 +172,7 @@ export function LessonFundSuggestions({
       </div>
       
       <div className="mt-6 text-center">
-        <p className="text-xs text-emerald-600">
+        <p className="text-xs brand-green">
           💡 These suggestions are for educational purposes. Always do your own research before investing.
         </p>
       </div>

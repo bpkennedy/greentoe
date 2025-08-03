@@ -119,12 +119,12 @@ function StockSummary({ symbol, data, isExpanded, onToggle, onRemove }: StockSum
       <div className="flex items-center gap-3">
         <div className={cn(
           'p-2 rounded-full',
-          trend === 'up' ? 'bg-green-100' : 
+          trend === 'up' ? 'brand-success-bg' : 
           trend === 'down' ? 'bg-red-100' : 'bg-muted'
         )}>
           <TrendIcon className={cn(
             'h-4 w-4',
-            trend === 'up' ? 'text-green-600' : 
+            trend === 'up' ? 'brand-success' : 
             trend === 'down' ? 'text-red-600' : 'text-muted-foreground'
           )} />
         </div>
@@ -133,10 +133,7 @@ function StockSummary({ symbol, data, isExpanded, onToggle, onRemove }: StockSum
             <h3 className="font-semibold">{symbol}</h3>
             <Badge 
               variant={fundInfo ? "default" : "outline"} 
-              className={cn(
-                "text-xs",
-                fundInfo && "bg-emerald-100 text-emerald-800 border-emerald-200"
-              )}
+              className="text-xs"
             >
               {fundInfo ? "INDEX" : "STOCK"}
             </Badge>
@@ -150,7 +147,7 @@ function StockSummary({ symbol, data, isExpanded, onToggle, onRemove }: StockSum
             {fundInfo ? `${fundInfo.provider} • ` : ""}Updated: {new Date(latestData.date).toLocaleDateString()}
           </p>
           {fundInfo && (
-            <p className="text-xs text-emerald-600 mt-1">
+            <p className="text-xs brand-green mt-1">
               {fundInfo.category} • {fundInfo.keyFacts[0]}
             </p>
           )}

@@ -111,9 +111,9 @@ function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
   }
 
   return (
-    <Card className={cn('mt-4 bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200', className)}>
+    <Card className={cn('mt-4 brand-card', className)}>
       <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-emerald-800">
+        <CardTitle className="flex items-center gap-2 brand-green">
           <Building2 className="h-4 w-4" aria-hidden="true" />
           Index Fund Information
         </CardTitle>
@@ -122,7 +122,7 @@ function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm font-medium text-emerald-700">Fund Details</span>
+              <span className="text-sm font-medium brand-green">Fund Details</span>
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
@@ -144,13 +144,13 @@ function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
           
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Info className="h-3 w-3 text-emerald-600" aria-hidden="true" />
-              <span className="text-sm font-medium text-emerald-700">Key Facts</span>
+              <Info className="h-3 w-3 brand-green" aria-hidden="true" />
+              <span className="text-sm font-medium brand-green">Key Facts</span>
             </div>
             <ul className="space-y-1 text-sm text-muted-foreground">
               {fundInfo.keyFacts.slice(0, 3).map((fact, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <span className="text-emerald-500 mt-1">•</span>
+                  <span className="brand-green mt-1">•</span>
                   <span>{fact}</span>
                 </li>
               ))}
@@ -160,13 +160,13 @@ function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
         
         {fundInfo.keyFacts.length > 3 && (
           <details className="text-sm">
-            <summary className="cursor-pointer text-emerald-700 hover:text-emerald-800 font-medium">
+            <summary className="cursor-pointer brand-green hover:opacity-80 font-medium">
               View all key facts ({fundInfo.keyFacts.length})
             </summary>
             <ul className="mt-2 space-y-1 text-muted-foreground pl-4">
               {fundInfo.keyFacts.slice(3).map((fact, index) => (
                 <li key={index + 3} className="flex items-start gap-2">
-                  <span className="text-emerald-500 mt-1">•</span>
+                  <span className="brand-green mt-1">•</span>
                   <span>{fact}</span>
                 </li>
               ))}
@@ -174,8 +174,8 @@ function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
           </details>
         )}
 
-        <div className="pt-2 border-t border-emerald-200">
-          <p className="text-xs text-emerald-600 italic">
+        <div className="pt-2 border-t brand-success-border">
+          <p className="text-xs brand-green italic">
             💡 Index funds offer low-cost, diversified exposure to market segments
           </p>
         </div>
