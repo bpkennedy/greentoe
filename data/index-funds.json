@@ -44,7 +44,7 @@
       "inceptionYear": 2010,
       "minimumInvestment": 0,
       "isEducational": true,
-      "educationalTags": ["sp500", "large-cap", "low-cost", "blue-chip"]
+      "educationalTags": ["sp500", "large-cap", "low-cost", "blue-chip", "beginner-friendly"]
     },
     {
       "symbol": "VXUS",
@@ -90,7 +90,7 @@
       "inceptionYear": 1993,
       "minimumInvestment": 0,
       "isEducational": true,
-      "educationalTags": ["sp500", "liquid", "oldest-etf", "large-cap"]
+      "educationalTags": ["sp500", "liquid", "oldest-etf", "large-cap", "beginner-friendly"]
     },
     {
       "symbol": "QQQ",
@@ -136,7 +136,7 @@
       "inceptionYear": 1988,
       "minimumInvestment": 0,
       "isEducational": true,
-      "educationalTags": ["sp500", "mutual-fund", "ultra-low-cost", "fidelity"]
+      "educationalTags": ["sp500", "mutual-fund", "ultra-low-cost", "low-cost", "fidelity", "beginner-friendly"]
     },
     {
       "symbol": "SWPPX",
@@ -159,7 +159,7 @@
       "inceptionYear": 1997,
       "minimumInvestment": 0,
       "isEducational": true,
-      "educationalTags": ["sp500", "mutual-fund", "low-cost", "schwab"]
+      "educationalTags": ["sp500", "mutual-fund", "low-cost", "schwab", "beginner-friendly"]
     },
     {
       "symbol": "VIGAX",
@@ -251,7 +251,7 @@
       "inceptionYear": 2018,
       "minimumInvestment": 0,
       "isEducational": true,
-      "educationalTags": ["zero-cost", "large-cap", "revolutionary", "fidelity"]
+      "educationalTags": ["zero-cost", "large-cap", "revolutionary", "fidelity", "low-cost"]
     }
   ],
   "categories": [

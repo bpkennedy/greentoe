@@ -1,4 +1,10 @@
 import type { MDXComponents } from 'mdx/types';
+import { 
+  LessonFundSuggestions, 
+  IndexFundBasicsSuggestions, 
+  InvestmentComparisonSuggestions, 
+  DiversificationSuggestions 
+} from './components/LessonFundSuggestions';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -45,6 +51,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <hr className="border-border my-8" />
     ),
     // Custom components for lessons
+    LessonFundSuggestions,
+    IndexFundBasicsSuggestions,
+    InvestmentComparisonSuggestions,
+    DiversificationSuggestions,
     ...components,
   };
 }
