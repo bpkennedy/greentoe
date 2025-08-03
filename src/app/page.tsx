@@ -109,12 +109,12 @@ export default function Home() {
       <Header currentPage="home" />
 
       <main 
-        className="container mx-auto px-4 py-8 space-y-8" 
+        className="container-page space-section" 
         id="main-content"
         role="main"
       >
         {/* Hero Section */}
-        <section className="text-center space-y-6" aria-labelledby="hero-title">
+        <section className="text-center space-component" aria-labelledby="hero-title">
           <h2 id="hero-title" className="heading-hero text-foreground">
             Learn Investing Through Interactive Experience
           </h2>
@@ -142,20 +142,20 @@ export default function Home() {
           <h2 id="interactive-tools-title" className="sr-only">Interactive Financial Tools</h2>
           
           {/* Watch List */}
-          <section className="space-y-4" aria-labelledby="watchlist-section">
+          <section aria-labelledby="watchlist-section">
             <h3 id="watchlist-section" className="sr-only">Stock Watch List</h3>
             <WatchList />
           </section>
 
           {/* Demo Chart */}
-          <section className="space-y-4" aria-labelledby="chart-section">
+          <section aria-labelledby="chart-section">
             <h3 id="chart-section" className="sr-only">Stock Price Chart</h3>
             <DemoChartSection />
           </section>
         </div>
 
         {/* Data Management Section */}
-        <section className="max-w-2xl mx-auto" aria-labelledby="data-management-title">
+        <section className="container-narrow" aria-labelledby="data-management-title">
           <h3 id="data-management-title" className="sr-only">Save and Load Your Progress</h3>
           <DataManager 
             onDataLoaded={(data) => {
@@ -172,9 +172,9 @@ export default function Home() {
         <Separator role="separator" aria-hidden="true" />
 
         {/* Features Section */}
-        <section className="space-y-6" aria-labelledby="features-title">
-          <div className="text-center">
-            <h2 id="features-title" className="heading-section mb-2">Platform Features</h2>
+        <section className="space-component" aria-labelledby="features-title">
+          <div className="text-center space-content">
+            <h2 id="features-title" className="heading-section">Platform Features</h2>
             <p className="text-body text-muted-foreground">Built with modern web technologies and real market data</p>
           </div>
 
@@ -211,7 +211,7 @@ export default function Home() {
         </section>
 
         {/* Technical Stack */}
-        <section className="space-y-4">
+        <section className="space-content">
           <Card>
             <CardHeader>
               <CardTitle className="heading-card">Technical Implementation</CardTitle>

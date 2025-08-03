@@ -192,7 +192,7 @@
     @apply font-medium;
   }
   
-  /* Heading typography hierarchy */
+  /* Heading typography hierarchy with proper spacing */
   .heading-hero {
     font-family: var(--text-heading);
     @apply text-4xl sm:text-5xl font-bold leading-tight tracking-tight;
@@ -218,56 +218,104 @@
     @apply text-lg font-semibold leading-snug;
   }
   
-  /* Body text variations */
+  /* Heading spacing utilities */
+  .heading-with-space {
+    @apply mb-4;
+  }
+  
+  .heading-section-with-space {
+    @apply mb-6;
+  }
+  
+  .heading-hero-with-space {
+    @apply mb-8;
+  }
+  
+  /* Body text variations with optimal readability */
   .text-body-large {
     font-family: var(--text-body);
     @apply text-lg leading-relaxed;
+    line-height: 1.7;
   }
   
   .text-body {
     font-family: var(--text-body);
     @apply text-base leading-relaxed;
+    line-height: 1.6;
   }
   
   .text-body-small {
     font-family: var(--text-body);
     @apply text-sm leading-relaxed;
+    line-height: 1.5;
   }
   
   .text-caption {
     font-family: var(--text-body);
     @apply text-xs leading-normal font-medium;
+    line-height: 1.4;
   }
   
-  /* Educational content typography */
+  /* Content spacing utilities */
+  .prose-spacing p + p {
+    @apply mt-4;
+  }
+  
+  .prose-spacing h2 + p,
+  .prose-spacing h3 + p {
+    @apply mt-3;
+  }
+  
+  .prose-spacing p + h2,
+  .prose-spacing p + h3 {
+    @apply mt-8;
+  }
+  
+  /* Educational content typography with enhanced hierarchy */
   .lesson-content {
     font-family: var(--text-body);
-    @apply leading-relaxed;
+    @apply leading-relaxed prose-spacing;
   }
   
   .lesson-content h1 {
-    @apply heading-section mb-6 text-foreground;
+    @apply heading-section text-foreground;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .lesson-content h1:first-child {
+    margin-top: 0;
   }
   
   .lesson-content h2 {
-    @apply heading-card mb-4 text-foreground;
+    @apply heading-card text-foreground;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
   }
   
   .lesson-content h3 {
-    @apply heading-small mb-3 text-foreground;
+    @apply heading-small text-foreground;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
   }
   
   .lesson-content p {
-    @apply text-body mb-4 text-muted-foreground;
+    @apply text-body text-muted-foreground;
+    margin-bottom: 1rem;
   }
   
   .lesson-content ul,
   .lesson-content ol {
-    @apply text-body mb-4 pl-6 text-muted-foreground;
+    @apply text-body text-muted-foreground pl-6;
+    margin-bottom: 1rem;
   }
   
   .lesson-content li {
-    @apply mb-2;
+    margin-bottom: 0.5rem;
+  }
+  
+  .lesson-content li:last-child {
+    margin-bottom: 0;
   }
   
   .lesson-content code {
@@ -415,6 +463,44 @@
       --secondary: 0 0% 80%;
       --border: 0 0% 20%;
     }
+  }
+
+  /* Spacing system - consistent spacing scale */
+  .space-section {
+    @apply space-y-8;
+  }
+  
+  .space-component {
+    @apply space-y-6;
+  }
+  
+  .space-content {
+    @apply space-y-4;
+  }
+  
+  .space-tight {
+    @apply space-y-3;
+  }
+  
+  .space-compact {
+    @apply space-y-2;
+  }
+
+  /* Layout containers with consistent padding */
+  .container-page {
+    @apply container mx-auto px-4 py-8;
+  }
+  
+  .container-section {
+    @apply container mx-auto px-4 py-6;
+  }
+  
+  .container-content {
+    @apply max-w-4xl mx-auto;
+  }
+  
+  .container-narrow {
+    @apply max-w-2xl mx-auto;
   }
 
   /* Enhanced micro-interactions */

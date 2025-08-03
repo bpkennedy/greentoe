@@ -41,16 +41,18 @@ export default function LessonsPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header currentPage="lessons" />
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
+      <div className="container-page">
+        <div className="container-content">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="heading-page text-foreground mb-4">
-              Financial Education Lessons
-            </h1>
-            <p className="text-body-large text-muted-foreground mb-6">
-              Master investing fundamentals with our comprehensive lesson series designed specifically for young investors.
-            </p>
+          <div className="text-center space-component">
+            <div className="space-content">
+              <h1 className="heading-page text-foreground">
+                Financial Education Lessons
+              </h1>
+              <p className="text-body-large text-muted-foreground">
+                Master investing fundamentals with our comprehensive lesson series designed specifically for young investors.
+              </p>
+            </div>
             
             {/* Overall progress */}
             <Card className="max-w-md mx-auto">
@@ -71,7 +73,7 @@ export default function LessonsPage() {
           </div>
 
           {/* Lessons grid */}
-          <div className="grid gap-6">
+          <div className="grid gap-6 space-y-0">
             {lessons.map((lesson, index) => {
               const IconComponent = LESSON_ICONS[lesson.icon as keyof typeof LESSON_ICONS] || BookOpen;
               const isCompleted = lesson.completed;

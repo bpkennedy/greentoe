@@ -106,8 +106,8 @@ export function ParentAuth({ children }: ParentAuthProps) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4" data-testid="parent-auth-form">
-              <div className="space-y-2">
+            <form onSubmit={handleLogin} className="space-content" data-testid="parent-auth-form">
+              <div className="space-compact">
                 <label htmlFor="username" className="text-sm font-medium">
                   Username
                 </label>
@@ -122,7 +122,7 @@ export function ParentAuth({ children }: ParentAuthProps) {
                 />
               </div>
               
-              <div className="space-y-2">
+              <div className="space-compact">
                 <label htmlFor="password" className="text-sm font-medium">
                   Password
                 </label>

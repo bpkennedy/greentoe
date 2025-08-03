@@ -198,7 +198,7 @@ export function WatchList({ className }: WatchListProps) {
         </CardDescription>
       </CardHeader>
       
-      <CardContent className="space-y-6">
+      <CardContent className="space-component">
         {/* Add Ticker Search */}
         <div role="group" aria-labelledby="add-stock-label">
           <label id="add-stock-label" className="sr-only">
@@ -214,7 +214,7 @@ export function WatchList({ className }: WatchListProps) {
         {watchList.length === 0 ? (
           <EmptyWatchList onAddTicker={handleAddTicker} />
         ) : (
-          <div className="space-y-4">
+          <div className="space-content">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <h3 
@@ -245,7 +245,7 @@ export function WatchList({ className }: WatchListProps) {
             <Separator role="separator" aria-hidden="true" />
             
             <div 
-              className="space-y-3" 
+              className="space-tight" 
               role="list" 
               aria-labelledby="watchlist-count"
               aria-describedby="watchlist-help"
