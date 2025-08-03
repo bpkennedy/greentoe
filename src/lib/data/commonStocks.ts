@@ -48,6 +48,9 @@ export const COMMON_STOCKS: StockSuggestion[] = [
   { symbol: 'PFE', name: 'Pfizer Inc.', type: 'stock', category: 'Healthcare' },
   { symbol: 'ABBV', name: 'AbbVie Inc.', type: 'stock', category: 'Healthcare' },
   
+  // Industrials & Aerospace
+  { symbol: 'BA', name: 'The Boeing Company', type: 'stock', category: 'Industrials' },
+  
   // Popular ETFs for Beginners
   { symbol: 'SPY', name: 'SPDR S&P 500 ETF Trust', type: 'etf', category: 'Large Cap Blend' },
   { symbol: 'QQQ', name: 'Invesco QQQ Trust', type: 'etf', category: 'Large Cap Growth' },

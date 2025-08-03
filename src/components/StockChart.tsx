@@ -98,22 +98,39 @@ interface KeyFactsExpansionProps {
 function KeyFactsExpansion({ keyFacts }: KeyFactsExpansionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const handleToggle = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleToggle = () => {
+    console.log('KeyFactsExpansion clicked!', isExpanded); // Debug log
     setIsExpanded(!isExpanded);
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleToggle();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      e.stopPropagation();
+      handleToggle();
+    }
   };
 
   return (
     <div className="text-sm">
-      <button
-        onClick={handleToggle}
-        className="cursor-pointer brand-green hover:opacity-80 font-medium flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 rounded"
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        className="cursor-pointer brand-green hover:opacity-80 font-medium flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 rounded p-1"
       >
-        <span className={`transform transition-transform ${isExpanded ? 'rotate-90' : ''}`}>
+        <span className={`transform transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}>
           ▶
         </span>
         View all key facts ({keyFacts.length})
-      </button>
+      </div>
       {isExpanded && (
         <ul className="mt-2 space-y-1 text-muted-foreground pl-4">
           {keyFacts.slice(3).map((fact, index) => (
