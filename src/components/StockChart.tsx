@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { 
   LineChart, 
   Line, 
@@ -89,6 +89,46 @@ function formatVolume(volume: number): string {
 }
 
 /**
+ * Key Facts Expansion Component
+ */
+interface KeyFactsExpansionProps {
+  keyFacts: string[];
+}
+
+function KeyFactsExpansion({ keyFacts }: KeyFactsExpansionProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsExpanded(!isExpanded);
+  };
+
+  return (
+    <div className="text-sm">
+      <button
+        onClick={handleToggle}
+        className="cursor-pointer brand-green hover:opacity-80 font-medium flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 rounded"
+      >
+        <span className={`transform transition-transform ${isExpanded ? 'rotate-90' : ''}`}>
+          ▶
+        </span>
+        View all key facts ({keyFacts.length})
+      </button>
+      {isExpanded && (
+        <ul className="mt-2 space-y-1 text-muted-foreground pl-4">
+          {keyFacts.slice(3).map((fact, index) => (
+            <li key={index + 3} className="flex items-start gap-2">
+              <span className="brand-green mt-1">•</span>
+              <span>{fact}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+/**
  * Fund Information Panel Component
  */
 interface FundInfoPanelProps {
@@ -159,23 +199,7 @@ function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
         </div>
         
         {fundInfo.keyFacts.length > 3 && (
-          <details 
-            className="text-sm group" 
-            onClick={(e) => e.stopPropagation()}
-          >
-            <summary className="cursor-pointer brand-green hover:opacity-80 font-medium list-none flex items-center gap-1">
-              <span className="transform transition-transform group-open:rotate-90">▶</span>
-              View all key facts ({fundInfo.keyFacts.length})
-            </summary>
-            <ul className="mt-2 space-y-1 text-muted-foreground pl-4">
-              {fundInfo.keyFacts.slice(3).map((fact, index) => (
-                <li key={index + 3} className="flex items-start gap-2">
-                  <span className="brand-green mt-1">•</span>
-                  <span>{fact}</span>
-                </li>
-              ))}
-            </ul>
-          </details>
+          <KeyFactsExpansion keyFacts={fundInfo.keyFacts} />
         )}
 
         <div className="pt-2 border-t brand-success-border">
