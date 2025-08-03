@@ -11,12 +11,13 @@ import {
   Tooltip,
   ReferenceLine
 } from 'recharts';
-import { TrendingUp, TrendingDown, Minus, Calendar, DollarSign } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, Calendar, DollarSign, Info, Building2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import type { FMPProcessedStockData, FMPStockDataPoint } from '@/lib/types/financialModelingPrep';
+import { getChartFundInfo } from '@/lib/staticData';
 
 /**
  * Props for the StockChart component
@@ -85,6 +86,102 @@ function formatVolume(volume: number): string {
     return `${(volume / 1_000).toFixed(1)}K`;
   }
   return volume.toString();
+}
+
+/**
+ * Fund Information Panel Component
+ */
+interface FundInfoPanelProps {
+  symbol: string;
+  className?: string;
+}
+
+function FundInfoPanel({ symbol, className }: FundInfoPanelProps) {
+  const fundInfo = useMemo(() => {
+    try {
+      return getChartFundInfo(symbol);
+    } catch (error) {
+      console.warn('Error getting fund info for', symbol, error);
+      return undefined;
+    }
+  }, [symbol]);
+
+  if (!fundInfo) {
+    return null;
+  }
+
+  return (
+    <Card className={cn('mt-4 bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200', className)}>
+      <CardHeader className="pb-3">
+        <CardTitle className="flex items-center gap-2 text-emerald-800">
+          <Building2 className="h-4 w-4" aria-hidden="true" />
+          Index Fund Information
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-sm font-medium text-emerald-700">Fund Details</span>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Provider:</span>
+                <span className="font-medium">{fundInfo.provider}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Category:</span>
+                <span className="font-medium">{fundInfo.category}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Expense Ratio:</span>
+                <Badge variant="secondary" className="font-mono">
+                  {fundInfo.expenseRatio}%
+                </Badge>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Info className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+              <span className="text-sm font-medium text-emerald-700">Key Facts</span>
+            </div>
+            <ul className="space-y-1 text-sm text-muted-foreground">
+              {fundInfo.keyFacts.slice(0, 3).map((fact, index) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="text-emerald-500 mt-1">•</span>
+                  <span>{fact}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        
+        {fundInfo.keyFacts.length > 3 && (
+          <details className="text-sm">
+            <summary className="cursor-pointer text-emerald-700 hover:text-emerald-800 font-medium">
+              View all key facts ({fundInfo.keyFacts.length})
+            </summary>
+            <ul className="mt-2 space-y-1 text-muted-foreground pl-4">
+              {fundInfo.keyFacts.slice(3).map((fact, index) => (
+                <li key={index + 3} className="flex items-start gap-2">
+                  <span className="text-emerald-500 mt-1">•</span>
+                  <span>{fact}</span>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+
+        <div className="pt-2 border-t border-emerald-200">
+          <p className="text-xs text-emerald-600 italic">
+            💡 Index funds offer low-cost, diversified exposure to market segments
+          </p>
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
 
 /**
@@ -381,6 +478,9 @@ export function StockChart({
             </div>
           </>
         )}
+        
+        {/* Fund Information Panel */}
+        <FundInfoPanel symbol={data.symbol} />
       </CardContent>
     </Card>
   );

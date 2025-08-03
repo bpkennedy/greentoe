@@ -25,6 +25,7 @@ const StockChart = dynamic(
 import { useStockData } from '@/lib/hooks/useStockDataAxios';
 import { StockDataWrapper } from '@/components/ui';
 import type { FMPProcessedStockData } from '@/lib/types/financialModelingPrep';
+import { getChartFundInfo } from '@/lib/staticData';
 
 /**
  * Props for the StockCard component
@@ -60,6 +61,15 @@ interface StockSummaryProps {
 }
 
 function StockSummary({ symbol, data, isExpanded, onToggle, onRemove }: StockSummaryProps) {
+  // Check if this is an index fund
+  const fundInfo = React.useMemo(() => {
+    try {
+      return getChartFundInfo(symbol);
+    } catch {
+      return undefined;
+    }
+  }, [symbol]);
+
   const latestData = data.historical[0];
   const previousData = data.historical[1];
   
@@ -121,13 +131,29 @@ function StockSummary({ symbol, data, isExpanded, onToggle, onRemove }: StockSum
         <div>
           <div className="flex items-center gap-2">
             <h3 className="font-semibold">{symbol}</h3>
-            <Badge variant="outline" className="text-xs">
-              Stock
+            <Badge 
+              variant={fundInfo ? "default" : "outline"} 
+              className={cn(
+                "text-xs",
+                fundInfo && "bg-emerald-100 text-emerald-800 border-emerald-200"
+              )}
+            >
+              {fundInfo ? "INDEX" : "STOCK"}
             </Badge>
+            {fundInfo && (
+              <Badge variant="secondary" className="text-xs font-mono">
+                {fundInfo.expenseRatio}%
+              </Badge>
+            )}
           </div>
           <p className="text-sm text-muted-foreground">
-            Updated: {new Date(latestData.date).toLocaleDateString()}
+            {fundInfo ? `${fundInfo.provider} • ` : ""}Updated: {new Date(latestData.date).toLocaleDateString()}
           </p>
+          {fundInfo && (
+            <p className="text-xs text-emerald-600 mt-1">
+              {fundInfo.category} • {fundInfo.keyFacts[0]}
+            </p>
+          )}
         </div>
       </div>
 
