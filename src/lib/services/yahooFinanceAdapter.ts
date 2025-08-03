@@ -285,20 +285,26 @@ export async function searchStocks(query: string): Promise<StockSearchSuggestion
     // Transform results to match our StockSuggestion format
     const suggestions = (searchResults?.quotes || [])
       .filter((quote: YahooSearchQuote) => {
-        // Only require symbol and at least one name field
-        const hasValidData = quote.symbol && (quote.shortName || quote.longName);
-        console.log(`🔍 Filtering quote ${quote.symbol}: hasValidData=${hasValidData}`);
+        // Only require a valid symbol (names are often undefined in Yahoo search results)
+        const hasValidData = quote.symbol && quote.symbol.trim().length > 0;
+        console.log(`🔍 Filtering quote ${quote.symbol}: hasValidData=${hasValidData}, shortName=${quote.shortName}, longName=${quote.longName}`);
         return hasValidData;
       })
       .slice(0, 10) // Limit to 10 results
-      .map((quote: YahooSearchQuote): StockSearchSuggestion => ({
-        symbol: quote.symbol,
-        name: quote.shortName || quote.longName || quote.symbol,
-        type: quote.quoteType === 'ETF' ? 'etf' : 'stock',
-        category: quote.sector || 'Unknown',
-        exchange: quote.exchange,
-        reason: `${quote.exchange || 'Unknown'} • ${quote.quoteType || 'Stock'}`
-      }));
+      .map((quote: YahooSearchQuote): StockSearchSuggestion => {
+        // Create meaningful display name from available data
+        const displayName = quote.shortName || quote.longName || 
+          `${quote.symbol} ${quote.quoteType || 'Stock'}`.trim();
+        
+        return {
+          symbol: quote.symbol,
+          name: displayName,
+          type: quote.quoteType === 'ETF' ? 'etf' : 'stock',
+          category: quote.sector || (quote.quoteType || 'Stock'),
+          exchange: quote.exchange,
+          reason: `${quote.exchange || 'Yahoo Finance'} • ${quote.quoteType || 'Stock'}`
+        };
+      });
 
     console.log(`🔍 Final suggestions count: ${suggestions.length}`);
     return suggestions;
