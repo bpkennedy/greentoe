@@ -226,6 +226,75 @@ export async function fetchStockData(symbol: string): Promise<FMPProcessedStockD
 }
 
 /**
+ * Yahoo Finance search result quote interface
+ */
+interface YahooSearchQuote {
+  symbol: string;
+  shortName?: string;
+  longName?: string;
+  quoteType?: string;
+  sector?: string;
+  exchange?: string;
+}
+
+/**
+ * Yahoo Finance search response interface
+ */
+interface YahooSearchResponse {
+  quotes?: YahooSearchQuote[];
+}
+
+/**
+ * Stock suggestion interface for search results
+ */
+interface StockSearchSuggestion {
+  symbol: string;
+  name: string;
+  type: 'stock' | 'etf';
+  category: string;
+  exchange?: string;
+  reason: string;
+}
+
+/**
+ * Search for stocks using Yahoo Finance
+ */
+export async function searchStocks(query: string): Promise<StockSearchSuggestion[]> {
+  try {
+    // Validate input
+    if (!query || typeof query !== 'string' || query.trim().length === 0) {
+      return [];
+    }
+
+    const cleanQuery = query.trim();
+    console.log(`Searching Yahoo Finance for: ${cleanQuery}`);
+    
+    // Use yahoo-finance2 search functionality
+    const searchResults = await yahooFinance.search(cleanQuery) as YahooSearchResponse;
+    
+    console.log(`Yahoo Finance search returned ${searchResults?.quotes?.length || 0} results`);
+    
+    // Transform results to match our StockSuggestion format
+    const suggestions = (searchResults?.quotes || [])
+      .filter((quote: YahooSearchQuote) => quote.symbol && quote.shortName) // Only include valid quotes
+      .slice(0, 10) // Limit to 10 results
+      .map((quote: YahooSearchQuote): StockSearchSuggestion => ({
+        symbol: quote.symbol,
+        name: quote.shortName || quote.longName || quote.symbol,
+        type: quote.quoteType === 'ETF' ? 'etf' : 'stock',
+        category: quote.sector || 'Unknown',
+        exchange: quote.exchange,
+        reason: `${quote.exchange || 'Unknown'} • ${quote.quoteType || 'Stock'}`
+      }));
+
+    return suggestions;
+  } catch (error) {
+    console.error('Error searching Yahoo Finance:', error);
+    return [];
+  }
+}
+
+/**
  * Health check for Yahoo Finance API
  */
 export async function healthCheck(): Promise<boolean> {

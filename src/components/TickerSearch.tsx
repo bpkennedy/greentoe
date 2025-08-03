@@ -134,7 +134,7 @@ export function TickerSearch({
   const containerRef = useRef<HTMLDivElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
-  // Update suggestions when query changes
+  // Update suggestions when query changes - now using live Yahoo Finance search
   useEffect(() => {
     if (query.length === 0) {
       setSuggestions([]);
@@ -142,7 +142,33 @@ export function TickerSearch({
       return;
     }
 
-    if (query.length >= 1) {
+    if (query.length >= 2) { // Require at least 2 characters for live search
+      setIsLoading(true);
+      const searchTimeout = setTimeout(async () => {
+        try {
+          console.log(`🔍 TickerSearch: Searching for "${query}"`);
+          const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+          const data = await response.json();
+          
+          console.log(`🔍 TickerSearch: Got ${data.results?.length || 0} results`);
+          setSuggestions(data.results || []);
+          setIsOpen((data.results || []).length > 0);
+          setSelectedIndex(-1);
+        } catch (error) {
+          console.error('TickerSearch: Live search failed, falling back to static search:', error);
+          // Fallback to static search
+          const results = searchStocks(query, 8);
+          setSuggestions(results);
+          setIsOpen(results.length > 0);
+          setSelectedIndex(-1);
+        } finally {
+          setIsLoading(false);
+        }
+      }, 300); // Debounce search requests
+
+      return () => clearTimeout(searchTimeout);
+    } else if (query.length === 1) {
+      // For single character, use static search for instant feedback
       const results = searchStocks(query, 8);
       setSuggestions(results);
       setIsOpen(results.length > 0);

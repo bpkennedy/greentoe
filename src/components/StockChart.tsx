@@ -97,19 +97,27 @@ interface KeyFactsExpansionProps {
 
 function KeyFactsExpansion({ keyFacts }: KeyFactsExpansionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  
+  console.log('🔥 KeyFactsExpansion rendered with:', { 
+    keyFactsLength: keyFacts.length, 
+    hasMoreThan3: keyFacts.length > 3,
+    isExpanded 
+  });
 
   const handleToggle = () => {
-    console.log('KeyFactsExpansion clicked!', isExpanded); // Debug log
+    console.log('🔥 KeyFactsExpansion handleToggle called! Current state:', isExpanded, 'Will change to:', !isExpanded);
     setIsExpanded(!isExpanded);
   };
 
   const handleClick = (e: React.MouseEvent) => {
+    console.log('🔥 KeyFactsExpansion handleClick called!', e.type, e.target);
     e.preventDefault();
     e.stopPropagation();
     handleToggle();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    console.log('🔥 KeyFactsExpansion handleKeyDown called!', e.key);
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       e.stopPropagation();
