@@ -59,11 +59,10 @@ export function DataManagementModal({
       </DialogTrigger>
       
       <DialogContent 
-        className={`max-w-2xl ${className}`} 
-        aria-labelledby="data-management-title"
+        className={`max-w-2xl ${className}`}
       >
         <DialogHeader>
-          <DialogTitle id="data-management-title" className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2">
             <Download className="h-5 w-5 text-primary" />
             Save & Load Your Data
           </DialogTitle>

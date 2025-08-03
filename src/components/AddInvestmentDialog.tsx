@@ -184,9 +184,9 @@ export function AddInvestmentDialog({
         {trigger || defaultTrigger}
       </DialogTrigger>
       
-      <DialogContent className={cn('max-w-md', className)}>
+      <DialogContent className={cn('max-w-md', className)} aria-labelledby="add-investment-title">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle id="add-investment-title" className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-primary" />
             Add Investment to Track
           </DialogTitle>
