@@ -1,6 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import type { ProcessedStockData, StockDataError, UseStockDataReturn } from '@/lib/types/alphaVantage';
+import type { FMPProcessedStockData, FMPStockDataError } from '@/lib/types/financialModelingPrep';
+
+// Compatibility types for the hook interface
+export type ProcessedStockData = FMPProcessedStockData;
+export type StockDataError = FMPStockDataError;
+
+export interface UseStockDataReturn {
+  data: ProcessedStockData | undefined;
+  error: StockDataError | undefined;
+  isLoading: boolean;
+  isValidating: boolean;
+  mutate: () => Promise<void>;
+}
 
 /**
  * Custom hook for fetching stock data using axios

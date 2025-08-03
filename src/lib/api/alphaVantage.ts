@@ -7,6 +7,7 @@ import type {
   AlphaVantageApiResponse,
   AlphaVantageSuccessResponse,
   AlphaVantageRateLimitError,
+  AlphaVantageInformationResponse,
   AlphaVantageErrorResponse,
   ProcessedStockData,
   StockDataError,
@@ -36,6 +37,13 @@ function getApiKey(): string {
  */
 function isRateLimitError(response: AlphaVantageApiResponse): response is AlphaVantageRateLimitError {
   return 'Note' in response && typeof response.Note === 'string';
+}
+
+/**
+ * Check if response indicates an information message (often rate limit related)
+ */
+function isInformationResponse(response: AlphaVantageApiResponse): response is AlphaVantageInformationResponse {
+  return 'Information' in response && typeof response.Information === 'string';
 }
 
 /**
@@ -84,11 +92,11 @@ function processStockData(response: AlphaVantageSuccessResponse): ProcessedStock
  * Create a StockDataError from various error conditions
  */
 function createStockError(type: StockDataError['type'], message: string, canRetry: boolean = false): StockDataError {
-  return {
-    type,
-    message,
-    canRetry,
-  };
+  const error = new Error(message) as Error & StockDataError;
+  error.type = type;
+  error.message = message;
+  error.canRetry = canRetry;
+  return error;
 }
 
 /**
@@ -163,6 +171,15 @@ export async function fetchStockData(symbol: string): Promise<ProcessedStockData
       );
     }
 
+    if (isInformationResponse(data)) {
+      // Information responses are typically rate limit messages
+      throw createStockError(
+        'RATE_LIMIT',
+        data.Information,
+        true
+      );
+    }
+
     if (isApiError(data)) {
       throw createStockError(
         'INVALID_SYMBOL',
@@ -171,7 +188,8 @@ export async function fetchStockData(symbol: string): Promise<ProcessedStockData
     }
 
     if (!isSuccessResponse(data)) {
-      throw createStockError('API_ERROR', 'Unexpected API response format');
+      console.error('Unexpected API response:', JSON.stringify(data, null, 2));
+      throw createStockError('API_ERROR', 'Unexpected API response format. Check console for details.');
     }
 
     // Process and return successful data
@@ -189,11 +207,21 @@ export async function fetchStockData(symbol: string): Promise<ProcessedStockData
       }
       
       // Re-throw StockDataError as-is
-      if ('type' in error && 'message' in error && 'canRetry' in error) {
+      if ('type' in error && 'canRetry' in error && 
+          typeof (error as StockDataError).type === 'string' && 
+          typeof (error as StockDataError).canRetry === 'boolean') {
         throw error;
+      }
+      
+      // Handle other fetch-related errors
+      if (error.message.includes('fetch')) {
+        throw createStockError('NETWORK_ERROR', `Network error: ${error.message}`, true);
       }
     }
 
+    // Log the actual error for debugging
+    console.error('Unexpected error in fetchStockData:', error);
+    
     // Generic network error
     throw createStockError('NETWORK_ERROR', 'Failed to fetch stock data. Please check your connection.', true);
   }

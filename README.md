@@ -1,8 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GreenToe Stock Education App
+
+An interactive educational platform designed to teach young adults about stock market investing through hands-on experience with real stock data visualization and analysis.
+
+## Features
+
+- **Real Stock Data**: Live stock data powered by Financial Modeling Prep API
+- **Interactive Charts**: Dynamic price charts with technical analysis
+- **Educational Lessons**: Step-by-step lessons on investing fundamentals
+- **Stock Watchlist**: Track and compare multiple stocks
+- **Parent Dashboard**: Secure monitoring for guardians
+- **Data Persistence**: Encrypted local storage of user data
+
+## API Migration Notice
+
+**🔄 Recently Updated**: We've migrated from Alpha Vantage to Financial Modeling Prep for stock data, providing:
+- **Higher Rate Limits**: 250 calls/day vs Alpha Vantage's 25/day
+- **Better Data Quality**: More reliable and comprehensive stock data
+- **Improved Performance**: Faster response times and better uptime
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+1. Get a free API key from [Financial Modeling Prep](https://financialmodelingprep.com/developer/docs)
+2. Copy `env.example` to `.env.local` and add your API key:
+   ```
+   FMP_API_KEY=your_fmp_api_key_here
+   ```
+
+### Installation
+
+First, install dependencies and run the development server:
 
 ```bash
 npm run dev

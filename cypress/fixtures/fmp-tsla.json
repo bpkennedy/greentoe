@@ -1,0 +1,81 @@
+{
+  "symbol": "TSLA",
+  "historical": [
+    {
+      "date": "2024-01-15",
+      "open": 238.45,
+      "high": 242.67,
+      "low": 236.78,
+      "close": 240.12,
+      "adjClose": 240.12,
+      "volume": 67890123,
+      "unadjustedVolume": 67890123,
+      "change": 1.67,
+      "changePercent": 0.70,
+      "vwap": 239.98,
+      "label": "January 15, 24",
+      "changeOverTime": 0.0070
+    },
+    {
+      "date": "2024-01-12",
+      "open": 242.89,
+      "high": 245.34,
+      "low": 237.56,
+      "close": 238.45,
+      "adjClose": 238.45,
+      "volume": 71234567,
+      "unadjustedVolume": 71234567,
+      "change": -4.44,
+      "changePercent": -1.83,
+      "vwap": 241.44,
+      "label": "January 12, 24",
+      "changeOverTime": -0.0183
+    },
+    {
+      "date": "2024-01-11",
+      "open": 245.67,
+      "high": 248.12,
+      "low": 241.78,
+      "close": 242.89,
+      "adjClose": 242.89,
+      "volume": 68901234,
+      "unadjustedVolume": 68901234,
+      "change": -2.78,
+      "changePercent": -1.13,
+      "vwap": 245.14,
+      "label": "January 11, 24",
+      "changeOverTime": -0.0113
+    },
+    {
+      "date": "2024-01-10",
+      "open": 248.23,
+      "high": 250.45,
+      "low": 244.56,
+      "close": 245.67,
+      "adjClose": 245.67,
+      "volume": 74567890,
+      "unadjustedVolume": 74567890,
+      "change": -2.56,
+      "changePercent": -1.03,
+      "vwap": 247.98,
+      "label": "January 10, 24",
+      "changeOverTime": -0.0103
+    },
+    {
+      "date": "2024-01-09",
+      "open": 250.12,
+      "high": 252.34,
+      "low": 246.78,
+      "close": 248.23,
+      "adjClose": 248.23,
+      "volume": 69876543,
+      "unadjustedVolume": 69876543,
+      "change": -1.89,
+      "changePercent": -0.75,
+      "vwap": 249.57,
+      "label": "January 09, 24",
+      "changeOverTime": -0.0075
+    }
+  ],
+  "dataPoints": 5
+}

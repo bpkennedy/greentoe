@@ -24,7 +24,7 @@ const StockChart = dynamic(
 );
 import { useStockData } from '@/lib/hooks/useStockDataAxios';
 import { StockDataWrapper } from '@/components/ui';
-import type { ProcessedStockData } from '@/lib/types/alphaVantage';
+import type { FMPProcessedStockData } from '@/lib/types/financialModelingPrep';
 
 /**
  * Props for the StockCard component
@@ -53,15 +53,15 @@ function calculatePercentageChange(current: number, previous: number): number {
  */
 interface StockSummaryProps {
   symbol: string;
-  data: ProcessedStockData;
+  data: FMPProcessedStockData;
   isExpanded: boolean;
   onToggle: () => void;
   onRemove?: () => void;
 }
 
 function StockSummary({ symbol, data, isExpanded, onToggle, onRemove }: StockSummaryProps) {
-  const latestData = data.timeSeries[0];
-  const previousData = data.timeSeries[1];
+  const latestData = data.historical[0];
+  const previousData = data.historical[1];
   
   if (!latestData) {
     return (
@@ -243,7 +243,7 @@ export function StockCard({
                 {/* Quick Actions */}
                 <div className="mt-4 flex items-center justify-between">
                   <div className="text-sm text-muted-foreground">
-                    {data.timeSeries.length} data points available
+                    {data.historical.length} data points available
                   </div>
                   <div className="flex items-center gap-2">
                     <Button

@@ -2,10 +2,10 @@
 
 describe('Data Save/Load Flow', () => {
   beforeEach(() => {
-    // Mock Alpha Vantage API responses (same as chart tests)
-    cy.intercept('GET', '/api/stock/AAPL', { fixture: 'alpha-vantage-mock.json' }).as('getAAPL');
-    cy.intercept('GET', '/api/stock/GOOGL', { fixture: 'alpha-vantage-googl.json' }).as('getGOOGL');
-    cy.intercept('GET', '/api/stock/TSLA', { fixture: 'alpha-vantage-tsla.json' }).as('getTSLA');
+    // Mock Financial Modeling Prep API responses (same as chart tests)
+    cy.intercept('GET', '/api/stock/AAPL', { fixture: 'fmp-aapl.json' }).as('getAAPL');
+    cy.intercept('GET', '/api/stock/GOOGL', { fixture: 'fmp-googl.json' }).as('getGOOGL');
+    cy.intercept('GET', '/api/stock/TSLA', { fixture: 'fmp-tsla.json' }).as('getTSLA');
     
     // Mock encryption/decryption API endpoints
     cy.intercept('POST', '/api/encrypt', {

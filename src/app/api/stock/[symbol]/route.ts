@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { fetchStockData } from '@/lib/api/alphaVantage';
+import { fetchStockData } from '@/lib/api/financialModelingPrep';
+import type { FMPStockDataError } from '@/lib/types/financialModelingPrep';
 
 /**
  * GET /api/stock/[symbol]
@@ -27,11 +28,12 @@ export async function GET(
     return NextResponse.json(stockData);
 
   } catch (error: unknown) {
+    console.error('Stock API Error:', JSON.stringify(error, null, 2));
     // Return the error in the same format as our StockError type
-    const stockError = error as { type?: string; message?: string; details?: string };
-    const statusCode = stockError.type === 'RATE_LIMITED' ? 429 :
+    const stockError = error as FMPStockDataError;
+    const statusCode = stockError.type === 'RATE_LIMIT' ? 429 :
                       stockError.type === 'INVALID_SYMBOL' ? 400 :
-                      stockError.type === 'API_KEY_ERROR' ? 401 : 500;
+                      stockError.type === 'API_ERROR' ? 401 : 500;
 
     return NextResponse.json(stockError, { status: statusCode });
   }

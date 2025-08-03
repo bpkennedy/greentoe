@@ -5,7 +5,8 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import type { UseStockDataReturn } from '@/lib/types/alphaVantage';
+// Import from the hook which now provides compatibility types
+import type { UseStockDataReturn } from '@/lib/hooks/useStockDataAxios';
 import { StockCardSkeleton, InlineLoading, LoadingOverlay } from './StockDataLoading';
 import { StockErrorDisplay, InlineError, StockCardError } from './StockDataError';
 

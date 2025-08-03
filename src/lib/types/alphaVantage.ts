@@ -34,6 +34,10 @@ export interface AlphaVantageRateLimitError {
   Note: string;
 }
 
+export interface AlphaVantageInformationResponse {
+  Information: string;
+}
+
 export interface AlphaVantageErrorResponse {
   'Error Message': string;
 }
@@ -42,6 +46,7 @@ export interface AlphaVantageErrorResponse {
 export type AlphaVantageApiResponse = 
   | AlphaVantageSuccessResponse 
   | AlphaVantageRateLimitError 
+  | AlphaVantageInformationResponse
   | AlphaVantageErrorResponse;
 
 // Processed/normalized data structures for use in the app

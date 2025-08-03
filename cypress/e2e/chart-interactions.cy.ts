@@ -2,11 +2,11 @@
 
 describe('Chart Interactions', () => {
   beforeEach(() => {
-    // Mock Alpha Vantage API responses
-    cy.intercept('GET', '/api/stock/AAPL', { fixture: 'alpha-vantage-mock.json' }).as('getAAPL');
-    cy.intercept('GET', '/api/stock/GOOGL', { fixture: 'alpha-vantage-googl.json' }).as('getGOOGL');
-    cy.intercept('GET', '/api/stock/TSLA', { fixture: 'alpha-vantage-tsla.json' }).as('getTSLA');
-    cy.intercept('GET', '/api/stock/INVALID', { statusCode: 500, fixture: 'alpha-vantage-error.json' }).as('getINVALID');
+    // Mock Financial Modeling Prep API responses
+    cy.intercept('GET', '/api/stock/AAPL', { fixture: 'fmp-aapl.json' }).as('getAAPL');
+    cy.intercept('GET', '/api/stock/GOOGL', { fixture: 'fmp-googl.json' }).as('getGOOGL');
+    cy.intercept('GET', '/api/stock/TSLA', { fixture: 'fmp-tsla.json' }).as('getTSLA');
+    cy.intercept('GET', '/api/stock/INVALID', { statusCode: 400, fixture: 'fmp-error.json' }).as('getINVALID');
     
     // Visit home page and wait for app to be ready
     cy.visit('/');
@@ -42,8 +42,8 @@ describe('Chart Interactions', () => {
       
       // Check metric values are displayed with expected mocked data ranges
       cy.get('[data-testid="chart-metrics-AAPL"]').within(() => {
-        // Should show price values from our mocked data (around $185-$210 range)
-        cy.contains(/\$2\d{2}\.\d{2}/).should('be.visible'); // Price format $2xx.xx
+        // Should show price values from our mocked data (around $183-$188 range)
+        cy.contains(/\$1\d{2}\.\d{2}/).should('be.visible'); // Price format $1xx.xx
         cy.contains(/\d+\.?\d*[KMB]?/).should('be.visible'); // Volume format (could be 1.2M, 500K, etc.)
       });
     });
@@ -67,7 +67,7 @@ describe('Chart Interactions', () => {
 
     it('should handle chart loading states', () => {
       // Reload page to catch loading state (need to setup mocks again)
-      cy.intercept('GET', '/api/stock/AAPL', { fixture: 'alpha-vantage-mock.json', delay: 1000 }).as('getAAPLSlow');
+      cy.intercept('GET', '/api/stock/AAPL', { fixture: 'fmp-aapl.json', delay: 1000 }).as('getAAPLSlow');
       cy.reload();
       cy.get('[data-testid="app-ready"]').should('exist');
       

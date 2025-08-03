@@ -6,7 +6,7 @@
 import React from 'react';
 import { AlertCircle, RefreshCw, WifiOff, AlertTriangle, Ban } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { StockDataError as StockDataErrorType } from '@/lib/types/alphaVantage';
+import type { FMPStockDataError as StockDataErrorType } from '@/lib/types/financialModelingPrep';
 
 // Error icon mapping
 const ERROR_ICONS = {

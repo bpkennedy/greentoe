@@ -1,0 +1,81 @@
+{
+  "symbol": "GOOGL",
+  "historical": [
+    {
+      "date": "2024-01-15",
+      "open": 142.56,
+      "high": 144.23,
+      "low": 141.78,
+      "close": 143.12,
+      "adjClose": 143.12,
+      "volume": 28901234,
+      "unadjustedVolume": 28901234,
+      "change": 0.56,
+      "changePercent": 0.39,
+      "vwap": 142.92,
+      "label": "January 15, 24",
+      "changeOverTime": 0.0039
+    },
+    {
+      "date": "2024-01-12",
+      "open": 141.89,
+      "high": 143.45,
+      "low": 140.67,
+      "close": 142.56,
+      "adjClose": 142.56,
+      "volume": 31234567,
+      "unadjustedVolume": 31234567,
+      "change": 0.67,
+      "changePercent": 0.47,
+      "vwap": 142.00,
+      "label": "January 12, 24",
+      "changeOverTime": 0.0047
+    },
+    {
+      "date": "2024-01-11",
+      "open": 140.23,
+      "high": 142.34,
+      "low": 139.56,
+      "close": 141.89,
+      "adjClose": 141.89,
+      "volume": 29876543,
+      "unadjustedVolume": 29876543,
+      "change": 1.66,
+      "changePercent": 1.18,
+      "vwap": 140.98,
+      "label": "January 11, 24",
+      "changeOverTime": 0.0118
+    },
+    {
+      "date": "2024-01-10",
+      "open": 139.78,
+      "high": 141.12,
+      "low": 138.45,
+      "close": 140.23,
+      "adjClose": 140.23,
+      "volume": 32567890,
+      "unadjustedVolume": 32567890,
+      "change": 0.45,
+      "changePercent": 0.32,
+      "vwap": 139.90,
+      "label": "January 10, 24",
+      "changeOverTime": 0.0032
+    },
+    {
+      "date": "2024-01-09",
+      "open": 138.56,
+      "high": 140.67,
+      "low": 137.89,
+      "close": 139.78,
+      "adjClose": 139.78,
+      "volume": 30123456,
+      "unadjustedVolume": 30123456,
+      "change": 1.22,
+      "changePercent": 0.88,
+      "vwap": 139.23,
+      "label": "January 09, 24",
+      "changeOverTime": 0.0088
+    }
+  ],
+  "dataPoints": 5
+}

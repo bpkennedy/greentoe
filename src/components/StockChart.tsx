@@ -16,14 +16,14 @@ import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import type { ProcessedStockData, StockDataPoint } from '@/lib/types/alphaVantage';
+import type { FMPProcessedStockData, FMPStockDataPoint } from '@/lib/types/financialModelingPrep';
 
 /**
  * Props for the StockChart component
  */
 interface StockChartProps {
   /** Stock data to display */
-  data: ProcessedStockData;
+  data: FMPProcessedStockData;
   /** Height of the chart in pixels */
   height?: number;
   /** Whether to show the detailed metrics panel */
@@ -98,18 +98,21 @@ export function StockChart({
 }: StockChartProps) {
   // Prepare chart data (reverse to show oldest to newest)
   const chartData = useMemo(() => {
-    return [...data.timeSeries]
+    if (!data.historical || data.historical.length === 0) {
+      return [];
+    }
+    return [...data.historical]
       .reverse()
-      .map((point: StockDataPoint) => ({
+      .map((point: FMPStockDataPoint) => ({
         date: point.date,
         price: point.close,
         volume: point.volume
       }));
-  }, [data.timeSeries]);
+  }, [data.historical]);
 
   // Calculate key metrics
   const metrics = useMemo(() => {
-    if (data.timeSeries.length === 0) {
+    if (!data.historical || data.historical.length === 0) {
       return {
         currentPrice: 0,
         previousPrice: 0,
@@ -123,8 +126,8 @@ export function StockChart({
       };
     }
 
-    const latest = data.timeSeries[0];
-    const previous = data.timeSeries[1];
+    const latest = data.historical[0];
+    const previous = data.historical[1];
     const currentPrice = latest.close;
     const previousPrice = previous?.close || currentPrice;
     
@@ -133,12 +136,12 @@ export function StockChart({
     const isPositive = change >= 0;
 
     // Calculate 52-week high/low
-    const prices = data.timeSeries.map(d => d.close);
+    const prices = data.historical.map(d => d.close);
     const high52Week = Math.max(...prices);
     const low52Week = Math.min(...prices);
 
     // Calculate average volume
-    const volumes = data.timeSeries.map(d => d.volume);
+    const volumes = data.historical.map(d => d.volume);
     const avgVolume = volumes.reduce((sum, vol) => sum + vol, 0) / volumes.length;
 
     // Determine trend
@@ -158,7 +161,7 @@ export function StockChart({
       isPositive,
       trend
     };
-  }, [data.timeSeries]);
+  }, [data.historical]);
 
   // Calculate min/max for chart domain with padding
   const priceRange = useMemo(() => {
@@ -172,7 +175,7 @@ export function StockChart({
     };
   }, [chartData]);
 
-  if (data.timeSeries.length === 0) {
+  if (!data.historical || data.historical.length === 0) {
     return (
       <Card className={className}>
         <CardContent className="p-6">
@@ -192,16 +195,16 @@ export function StockChart({
     <Card 
       className={className}
       role="region"
-      aria-labelledby={`chart-title-${data.metadata.symbol}`}
-      aria-describedby={`chart-description-${data.metadata.symbol}`}
-      data-testid={`stock-chart-${data.metadata.symbol}`}
+      aria-labelledby={`chart-title-${data.symbol}`}
+      aria-describedby={`chart-description-${data.symbol}`}
+      data-testid={`stock-chart-${data.symbol}`}
     >
       {showMetrics && (
         <CardHeader className="pb-4">
           <div className="flex items-start justify-between">
             <div>
               <CardTitle 
-                id={`chart-title-${data.metadata.symbol}`}
+                id={`chart-title-${data.symbol}`}
                 className="flex items-center gap-2"
               >
                 <TrendIcon 
@@ -212,10 +215,10 @@ export function StockChart({
                   )}
                   aria-hidden="true"
                 />
-                {data.metadata.symbol} Stock Chart
+                {data.symbol} Stock Chart
               </CardTitle>
               <p className="text-sm text-muted-foreground mt-1">
-                Last updated: {data.metadata.lastRefreshed}
+                {data.dataPoints} data points available
               </p>
             </div>
             <div className="text-right">
@@ -241,8 +244,8 @@ export function StockChart({
 
       <CardContent className="pb-6">
         {/* Chart Description for Screen Readers */}
-        <div id={`chart-description-${data.metadata.symbol}`} className="sr-only">
-          Line chart showing {data.metadata.symbol} stock price over the past 30 days. 
+        <div id={`chart-description-${data.symbol}`} className="sr-only">
+          Line chart showing {data.symbol} stock price over the past 30 days. 
           Current price is ${metrics.currentPrice.toFixed(2)}, 
           {metrics.isPositive ? 'up' : 'down'} {Math.abs(metrics.changePercent).toFixed(2)}% 
           from previous close. Chart shows price range from ${priceRange.min.toFixed(2)} to ${priceRange.max.toFixed(2)} dollars.
@@ -253,10 +256,10 @@ export function StockChart({
           className="mb-6" 
           style={{ height }}
           role="img"
-          aria-labelledby={`chart-title-${data.metadata.symbol}`}
-          aria-describedby={`chart-description-${data.metadata.symbol}`}
+          aria-labelledby={`chart-title-${data.symbol}`}
+          aria-describedby={`chart-description-${data.symbol}`}
           tabIndex={0}
-          data-testid={`chart-container-${data.metadata.symbol}`}
+          data-testid={`chart-container-${data.symbol}`}
           onKeyDown={(e) => {
             // Allow keyboard navigation hint
             if (e.key === 'Enter' || e.key === ' ') {
@@ -318,16 +321,16 @@ export function StockChart({
               className="grid grid-cols-2 md:grid-cols-4 gap-4"
               role="list"
               aria-label="Key stock metrics"
-              data-testid={`chart-metrics-${data.metadata.symbol}`}
+              data-testid={`chart-metrics-${data.symbol}`}
             >
               <div className="text-center" role="listitem">
                 <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
                   <TrendingUp className="h-3 w-3" aria-hidden="true" />
-                  <span id={`${data.metadata.symbol}-52w-high-label`}>52W High</span>
+                  <span id={`${data.symbol}-52w-high-label`}>52W High</span>
                 </div>
                 <div 
                   className="font-mono font-semibold"
-                  aria-labelledby={`${data.metadata.symbol}-52w-high-label`}
+                  aria-labelledby={`${data.symbol}-52w-high-label`}
                   aria-label={`52 week high: ${metrics.high52Week.toFixed(2)} dollars`}
                 >
                   ${metrics.high52Week.toFixed(2)}
@@ -337,11 +340,11 @@ export function StockChart({
               <div className="text-center" role="listitem">
                 <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
                   <TrendingDown className="h-3 w-3" aria-hidden="true" />
-                  <span id={`${data.metadata.symbol}-52w-low-label`}>52W Low</span>
+                  <span id={`${data.symbol}-52w-low-label`}>52W Low</span>
                 </div>
                 <div 
                   className="font-mono font-semibold"
-                  aria-labelledby={`${data.metadata.symbol}-52w-low-label`}
+                  aria-labelledby={`${data.symbol}-52w-low-label`}
                   aria-label={`52 week low: ${metrics.low52Week.toFixed(2)} dollars`}
                 >
                   ${metrics.low52Week.toFixed(2)}
@@ -351,11 +354,11 @@ export function StockChart({
               <div className="text-center" role="listitem">
                 <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
                   <Calendar className="h-3 w-3" aria-hidden="true" />
-                  <span id={`${data.metadata.symbol}-avg-volume-label`}>Avg Volume</span>
+                  <span id={`${data.symbol}-avg-volume-label`}>Avg Volume</span>
                 </div>
                 <div 
                   className="font-mono font-semibold"
-                  aria-labelledby={`${data.metadata.symbol}-avg-volume-label`}
+                  aria-labelledby={`${data.symbol}-avg-volume-label`}
                   aria-label={`Average volume: ${formatVolume(metrics.avgVolume)}`}
                 >
                   {formatVolume(metrics.avgVolume)}
@@ -365,11 +368,11 @@ export function StockChart({
               <div className="text-center" role="listitem">
                 <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-1">
                   <DollarSign className="h-3 w-3" aria-hidden="true" />
-                  <span id={`${data.metadata.symbol}-prev-close-label`}>Previous Close</span>
+                  <span id={`${data.symbol}-prev-close-label`}>Previous Close</span>
                 </div>
                 <div 
                   className="font-mono font-semibold"
-                  aria-labelledby={`${data.metadata.symbol}-prev-close-label`}
+                  aria-labelledby={`${data.symbol}-prev-close-label`}
                   aria-label={`Previous close: ${metrics.previousPrice.toFixed(2)} dollars`}
                 >
                   ${metrics.previousPrice.toFixed(2)}
