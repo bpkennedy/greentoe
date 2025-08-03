@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+    </linearGradient>
+    <!-- Subtle background gradient for better iOS integration -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dcfce7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background for iOS -->
+  <rect width="180" height="180" fill="url(#bgGradient)" rx="20"/>
+  
+  <!-- Growth leaf icon representing financial growth and learning -->
+  <g id="icon" transform="translate(30, 30)">
+    <!-- Main leaf shape -->
+    <path d="M20 140C20 80 50 20 110 20C140 20 160 50 160 80C160 110 140 140 110 140C80 140 50 110 20 80V140Z" fill="url(#leafGradient)" stroke="#16a34a" stroke-width="4"/>
+    <!-- Leaf vein/stem detail -->
+    <path d="M50 110L110 50" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+    <path d="M65 95L95 65" stroke="#16a34a" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+    <path d="M80 80L90 70" stroke="#16a34a" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+    <!-- Small growth indicator dots -->
+    <circle cx="125" cy="40" r="8" fill="#22c55e" opacity="0.8"/>
+    <circle cx="145" cy="65" r="6" fill="#22c55e" opacity="0.6"/>
+    <circle cx="135" cy="95" r="5" fill="#22c55e" opacity="0.5"/>
+  </g>
+</svg>

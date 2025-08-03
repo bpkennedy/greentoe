@@ -92,7 +92,7 @@ Cypress.Commands.add('accessParentDashboard', (password: string = 'admin') => {
   cy.contains('button', 'Sign In').click();
   
   // Check for dashboard content using visible text
-  cy.contains('Monitor your teen\'s progress').should('be.visible');
+  cy.contains('Monitor your teen\'s learning progress and activity').should('be.visible');
 });
 
 // Custom command to save user data

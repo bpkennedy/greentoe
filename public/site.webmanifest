@@ -1,0 +1,47 @@
+{
+  "name": "GreenToe - Financial Education for Young Investors",
+  "short_name": "GreenToe",
+  "description": "Learn about investing, manage your watch-list, and explore index funds with interactive lessons designed for young investors. Build financial literacy through hands-on experience.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#22c55e",
+  "orientation": "portrait-primary",
+  "categories": [
+    "education",
+    "finance",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/logo-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/logo-horizontal.svg",
+      "sizes": "160x40",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "GreenToe Financial Education Platform"
+    }
+  ],
+  "lang": "en-US",
+  "scope": "/",
+  "id": "greentoe-financial-education"
+}

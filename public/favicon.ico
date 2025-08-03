@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Growth leaf icon representing financial growth and learning -->
+  <g id="icon">
+    <!-- Main leaf shape -->
+    <path d="M4 28C4 16 10 4 22 4C28 4 32 10 32 16C32 22 28 28 22 28C16 28 10 22 4 16V28Z" fill="url(#leafGradient)" stroke="#16a34a" stroke-width="1"/>
+    <!-- Leaf vein/stem detail -->
+    <path d="M10 22L22 10" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M13 19L19 13" stroke="#16a34a" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+    <path d="M16 16L18 14" stroke="#16a34a" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+    <!-- Small growth indicator dots -->
+    <circle cx="25" cy="8" r="2" fill="#22c55e" opacity="0.8"/>
+    <circle cx="29" cy="13" r="1.5" fill="#22c55e" opacity="0.6"/>
+    <circle cx="27" cy="19" r="1.2" fill="#22c55e" opacity="0.5"/>
+  </g>
+</svg>

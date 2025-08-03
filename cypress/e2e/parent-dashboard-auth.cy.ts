@@ -59,7 +59,7 @@ describe('Parent Dashboard Authentication Flow', () => {
     cy.contains('button', 'Sign In').click();
     
     // Should access dashboard by checking visible content
-    cy.contains('Monitor your teen\'s progress').should('be.visible');
+    cy.contains('Monitor your teen\'s learning progress and activity').should('be.visible');
     cy.contains('button', 'Logout').should('be.visible');
     
     // Should show activity summary content using visible text (handle HTML entities)
@@ -97,7 +97,7 @@ describe('Parent Dashboard Authentication Flow', () => {
     cy.contains('button', 'Sign In').click();
     
     // Should be in dashboard
-    cy.contains('Monitor your teen\'s progress').should('be.visible');
+    cy.contains('Monitor your teen\'s learning progress and activity').should('be.visible');
     
     // Click logout using visible text
     cy.contains('button', 'Logout').click();
@@ -116,7 +116,7 @@ describe('Parent Dashboard Authentication Flow', () => {
     cy.contains('button', 'Sign In').click();
     
     // Verify dashboard is accessible
-    cy.contains('Monitor your teen\'s progress').should('be.visible');
+    cy.contains('Monitor your teen\'s learning progress and activity').should('be.visible');
     
     // Refresh page (which should require re-authentication)
     cy.reload();
@@ -133,6 +133,6 @@ describe('Parent Dashboard Authentication Flow', () => {
     cy.contains('label', 'Password').parent().find('input').focus().type('admin{enter}');
     
     // Should authenticate and show dashboard content
-    cy.contains('Monitor your teen\'s progress').should('be.visible');
+    cy.contains('Monitor your teen\'s learning progress and activity').should('be.visible');
   });
 });

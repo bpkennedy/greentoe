@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+
+# Allow indexing of main content
+Allow: /lessons/
+Allow: /api/
+
+# Disallow parent dashboard for privacy
+Disallow: /parent/
+
+# Sitemap location
+Sitemap: https://greentoe.app/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Additional guidance for search engines
+User-agent: Googlebot
+Allow: /
+Disallow: /parent/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /parent/
+
+User-agent: facebookexternalhit
+Allow: /
+Disallow: /parent/
+
+User-agent: Twitterbot
+Allow: /
+Disallow: /parent/
